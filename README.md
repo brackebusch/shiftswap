@@ -49,15 +49,27 @@ Frontend: REact/JavaScript
 #### Kyle Brackebusch, Dylan McCapes, Arpan NLN
 
 #### Day 1
-* Do Work
+* complete auth tutorial **Dylan, Arpan**
+* complete node tutorial **Kyle, Dylan, Arpan**
+* set up user auth **Arpan, Dylan**
+* research Full Calendar API **Kyle**
 #### Day 2
-* Do Work
+* set up database with MySQL **Kyle**
+* users can make basic requests to each other on backend **Arpan**
+* set up basic frontend: nav bar, login, home page **Dylan**
 #### Day 3
-* Do Work
+* connect backend to frontend **TBD**
+* implement functionality for user to enter shifts **TBD**
+* implement functionality for user to see shifts for workplace **TBD**
 #### Day 4
-* Do Work
+* users can send requests on frontend **TBD**
+* requests are sent via text message **TBD**
+* users can accept requests updating the database **TBD**
 #### Day 5
-* Do Work
+* add manager admin functionality
+* improve UI/UX
+* host site on heroku
+* make production README
 
 
 ## Datbase Scheme
