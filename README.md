@@ -35,8 +35,9 @@ There are multiple layers of functionality which will build on one another depen
 * Users can work at multiple locations
 
 ### Technologies & Technical Challenges
-Backend: Node.js
-Frontend: REact/JavaScript
+* Backend: Node.js
+* Frontend: React/JavaScript
+* FullCalendar.io, Moment.js
 
 
 ## Accomplished over the Weekend
