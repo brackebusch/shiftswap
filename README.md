@@ -7,6 +7,7 @@ Shift swap is designed to fill a need in the ever changing retail and service in
 
 There are multiple layers of functionality which will build on one another depending on time available to work. These will occur in phases as outlined below.
 
+
 #### Phase 1
 * Users can be created and/or login
 * Workplace can be created/added by users
@@ -37,10 +38,12 @@ There are multiple layers of functionality which will build on one another depen
 Backend: Node.js
 Frontend: REact/JavaScript
 
+
 ## Accomplished over the Weekend
 * Complete a Node.js tutorial
 * Create database according to scheme
 * Implement user athentication
+
 
 ## Group Members & Work Breakdown
 #### Kyle Brackebusch, Dylan McCapes, Arpan NLN
@@ -56,6 +59,7 @@ Frontend: REact/JavaScript
 #### Day 5
 * Do Work
 
+
 ## Datbase Scheme
 
 ### Users
@@ -64,6 +68,7 @@ Frontend: REact/JavaScript
 | id  | integer  |
 | name  | string  |
 | email | string |
+| phone_number | integer |
 | password_digest | string |
 | session_token | string |
 
