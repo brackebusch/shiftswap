@@ -35,15 +35,18 @@ There are multiple layers of functionality which will build on one another depen
 * Users can work at multiple locations
 
 ### Technologies & Technical Challenges
-* Backend: Node.js
-* Frontend: React/JavaScript
-* FullCalendar.io, Moment.js
+Backend: Node.js
+Frontend: REact/JavaScript
 
 
 ## Accomplished over the Weekend
 * Complete a Node.js tutorial
 * Create database according to scheme
 * Implement user athentication
+
+## Wireframes
+
+![shift_swap](https://user-images.githubusercontent.com/32603834/36323342-71234592-1305-11e8-9823-abb4ed1b199c.jpg)
 
 
 ## Group Members & Work Breakdown
