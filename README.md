@@ -46,7 +46,8 @@ Frontend: REact/JavaScript
 
 ## Wireframes
 
-![shift_swap](https://user-images.githubusercontent.com/32603834/36323342-71234592-1305-11e8-9823-abb4ed1b199c.jpg)
+![shift_swap](https://user-images.githubusercontent.com/32603834/36323949-9dbcb00a-1307-11e8-9300-bae4dbcc2c23.jpg)
+
 
 
 ## Group Members & Work Breakdown
