@@ -54,14 +54,15 @@ Frontend: REact/JavaScript
 #### Kyle Brackebusch, Dylan McCapes, Arpan NLN
 
 #### Day 1
-* complete auth tutorial **Dylan, Arpan**
+* complete auth tutorial **Arpan**
 * complete node tutorial **Kyle, Dylan, Arpan**
-* set up user auth **Arpan, Dylan**
+* set up user auth **Arpan**
+* set up frontend 
 * research Full Calendar API **Kyle**
 #### Day 2
 * set up database with MySQL **Kyle**
 * users can make basic requests to each other on backend **Arpan**
-* set up basic frontend: nav bar, login, home page **Dylan**
+* set up basic home page frontend **Dylan**
 #### Day 3
 * connect backend to frontend **TBD**
 * implement functionality for user to enter shifts **TBD**
