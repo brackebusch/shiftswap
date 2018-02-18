@@ -1,24 +1,13 @@
 /* Mongo Database
 * - this is where we set up our connection to the mongo database
 */
-const mongoose = require('mongoose')
-mongoose.Promise = global.Promise
-let MONGO_URL
-const MONGO_LOCAL_URL = 'mongodb://localhost/mern-passport'
-
-if (process.env.MONGODB_URI) {
-	mongoose.connect(process.env.MONGODB_URI)
-	MONGO_URL = process.env.MONGODB_URI
-} else {
-	mongoose.connect(MONGO_LOCAL_URL) // local mongo url
-	MONGO_URL = MONGO_LOCAL_URL
-}
-
-// should mongoose.connection be put in the call back of mongoose.connect???
-const db = mongoose.connection
-db.on('error', err => {
-	console.log(`There was an error connecting to the database: ${err}`)
-})
+var mongoose = require('mongoose');
+var dev_db_url = 'mongodb://brackebusch:christmas@ds239648.mlab.com:39648/shift-swap'
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB);
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', () => {
 	console.log(
 		`You have successfully connected to your mongo database: ${MONGO_URL}`
