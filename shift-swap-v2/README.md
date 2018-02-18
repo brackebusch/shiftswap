@@ -107,15 +107,6 @@ Frontend: REact/JavaScript
 | start_time | time (ISO 8601)|
 | end_time | time (ISO 8601)|
 
-
-
-
-* Mongo, Express, React, Node (MERN) + Passport.js for managing authentication
-* This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-
-View the live version of this app here:
-[https://mern-passport.herokuapp.com/](https://mern-passport.herokuapp.com/)
-
 ## Project Structure
 ```
 |-- server/
