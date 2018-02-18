@@ -1,0 +1,14 @@
+.anon-greeting {
+  display: flex;
+  margin-top: 400px;
+  margin-left: 400px;
+  font-size: 40px;
+  width: 300px;
+}
+
+.SignupForm, .LoginForm {
+  position: absolute;
+  display: flex;
+  margin-top: 300px;
+  margin-right: 400px;
+}
