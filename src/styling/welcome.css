@@ -1,0 +1,65 @@
+.anon-greeting {
+  display: flex;
+  margin-top: 400px;
+  margin-left: 100px;
+  font-size: 40px;
+  width: 300px;
+}
+
+.SignupForm, .LoginForm {
+  display: flex;
+  width: 291px;
+  height: 360px;
+  border-radius: 25px;
+  background-color: rgba(255, 255, 255, 0.7);
+  flex-direction: column;
+  z-index: 3;
+}
+
+.session-form {
+  position: fixed;
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 110%;
+  height: 100%;
+  top: 0px;
+
+
+
+
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  z-index: 2;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.SignupForm > h1, .LoginForm > h1{
+  margin-top: 20px;
+  font-size: 25px;
+}
+input, button {
+  display: flex;
+  width: 191px;
+  height: 30px;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 15px;
+}
+
+button {
+  display: flex;
+  text-align: center;
+  color: white;
+  border-radius: 25px;
+  background-color: #0275d8;
+  justify-content: center;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: blue;
+}
