@@ -44,10 +44,13 @@ class SignupForm extends Component {
 	}
 
 	closeModal(event) {
-		this.setState({
-			redirectTo: '/'
-		})
+		if (event.target.className === "session-form") {
+			this.setState({
+				redirectTo: '/'
+			})
+		}
 	}
+
 	render() {
 		if (this.state.redirectTo) {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
@@ -55,7 +58,7 @@ class SignupForm extends Component {
 		return (
 			<div className="session-form" onClick={this.closeModal}>
 				<div className="SignupForm">
-					<h1>Signup form</h1>
+					<h1>Sign Up</h1>
 					<label htmlFor="username">Username: </label>
 					<input
 						type="text"
@@ -77,7 +80,7 @@ class SignupForm extends Component {
 						value={this.state.confirmPassword}
 						onChange={this.handleChange}
 					/>
-					<button onClick={this.handleSubmit}>Sign up</button>
+					<button onClick={this.handleSubmit}>Sign Up</button>
 				</div>
 			</div>
 		)
