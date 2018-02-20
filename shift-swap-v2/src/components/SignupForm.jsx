@@ -13,12 +13,15 @@ class SignupForm extends Component {
 		}
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
+		this.closeModal = this.closeModal.bind(this)
 	}
 	handleChange(event) {
 		this.setState({
 			[event.target.name]: event.target.value
 		})
 	}
+
+
 	handleSubmit(event) {
 		event.preventDefault()
 		// TODO - validate!
@@ -39,12 +42,18 @@ class SignupForm extends Component {
 				}
 			})
 	}
+
+	closeModal(event) {
+		this.setState({
+			redirectTo: '/'
+		})
+	}
 	render() {
 		if (this.state.redirectTo) {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 		}
 		return (
-			<div className="session-form">
+			<div className="session-form" onClick={this.closeModal}>
 				<div className="SignupForm">
 					<h1>Signup form</h1>
 					<label htmlFor="username">Username: </label>

@@ -14,6 +14,8 @@ class LoginForm extends Component {
 		// this.googleSignin = this.googleSignin.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 		this.handleChange = this.handleChange.bind(this)
+		this.closeModal = this.closeModal.bind(this)
+		console.log(this.state);
 	}
 
 	handleChange(event) {
@@ -31,12 +33,19 @@ class LoginForm extends Component {
 		})
 	}
 
+	closeModal(event) {
+		this.setState({
+			redirectTo: '/'
+		})
+	}
+
+
 	render() {
 		if (this.state.redirectTo) {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 		} else {
 			return (
-				<div className="session-form">
+				<div className="session-form" onClick={this.closeModal}>
 					<div className="LoginForm">
 						<h1>Login form</h1>
 						<form>
