@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Route, Link } from 'react-router-dom'
-import './App.css'
+import './styling/App.css'
+import './styling/welcome.css'
 import LoginForm from './components/Login/LoginForm'
 import SignupForm from './components/SignupForm'
 import Header from './components/Header'
@@ -12,16 +13,25 @@ const DisplayLinks = props => {
 		return (
 			<nav className="navbar">
 				<ul className="nav">
-					<li className="nav-item">
-						<Link to="/" className="nav-link">
-							Home
-						</Link>
-					</li>
-					<li>
-						<Link to="#" className="nav-link" onClick={props._logout}>
-							Logout
-						</Link>
-					</li>
+					<div className="left-nav">
+						<li className="nav-item">
+							<h1>
+								ShiftSwap
+							</h1>
+						</li>
+						<li className="nav-item">
+							<Link to="/" className="nav-link">
+								Home
+							</Link>
+						</li>
+					</div>
+					<div className="right-nav">
+						<li>
+							<Link to="#" className="nav-link" onClick={props._logout}>
+								Logout
+							</Link>
+						</li>
+					</div>
 				</ul>
 			</nav>
 		)
@@ -29,21 +39,30 @@ const DisplayLinks = props => {
 		return (
 			<nav className="navbar">
 				<ul className="nav">
-					<li className="nav-item">
-						<Link to="/" className="nav-link">
-							Home
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/login" className="nav-link">
-							login
-						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/signup" className="nav-link">
-							sign up
-						</Link>
-					</li>
+					<div className="left-nav">
+						<li className="nav-item">
+							<h1>
+								ShiftSwap
+							</h1>
+						</li>
+						<li className="nav-item">
+							<Link to="/" className="nav-link">
+								Home
+							</Link>
+						</li>
+					</div>
+					<div className="right-nav">
+						<li className="nav-item">
+							<Link to="/login" className="nav-link">
+								login
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link to="/signup" className="nav-link">
+								sign up
+							</Link>
+						</li>
+					</div>
 				</ul>
 			</nav>
 		)
@@ -113,7 +132,6 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				<h1>This is the main App component</h1>
 				<Header user={this.state.user} />
 				{/* LINKS to our different 'pages' */}
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
