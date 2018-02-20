@@ -44,30 +44,32 @@ class SignupForm extends Component {
 			return <Redirect to={{ pathname: this.state.redirectTo }} />
 		}
 		return (
-			<div className="SignupForm">
-				<h1>Signup form</h1>
-				<label htmlFor="username">Username: </label>
-				<input
-					type="text"
-					name="username"
-					value={this.state.username}
-					onChange={this.handleChange}
-				/>
-				<label htmlFor="password">Password: </label>
-				<input
-					type="password"
-					name="password"
-					value={this.state.password}
-					onChange={this.handleChange}
-				/>
-				<label htmlFor="confirmPassword">Confirm Password: </label>
-				<input
-					type="password"
-					name="confirmPassword"
-					value={this.state.confirmPassword}
-					onChange={this.handleChange}
-				/>
-				<button onClick={this.handleSubmit}>Sign up</button>
+			<div className="session-form">
+				<div className="SignupForm">
+					<h1>Signup form</h1>
+					<label htmlFor="username">Username: </label>
+					<input
+						type="text"
+						name="username"
+						value={this.state.username}
+						onChange={this.handleChange}
+					/>
+					<label htmlFor="password">Password: </label>
+					<input
+						type="password"
+						name="password"
+						value={this.state.password}
+						onChange={this.handleChange}
+					/>
+					<label htmlFor="confirmPassword">Confirm Password: </label>
+					<input
+						type="password"
+						name="confirmPassword"
+						value={this.state.confirmPassword}
+						onChange={this.handleChange}
+					/>
+					<button onClick={this.handleSubmit}>Sign up</button>
+				</div>
 			</div>
 		)
 	}
