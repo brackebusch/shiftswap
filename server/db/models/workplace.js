@@ -6,7 +6,7 @@ const workplaceSchema = new Schema({
 	workplaceName: { type: String, unique: false },
   placeId: { type: String, unique: true },
   shifts: { type : Array , "default" : [] },
-	employees: [{ type : ObjectId, ref: 'User' }]
+	employees: [{ type : Schema.ObjectId, ref: 'User' }]
 })
 
 // Define schema methods
