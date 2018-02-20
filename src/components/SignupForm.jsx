@@ -44,9 +44,11 @@ class SignupForm extends Component {
 	}
 
 	closeModal(event) {
-		this.setState({
-			redirectTo: '/'
-		})
+		if (event.target.className === "session-form") {
+			this.setState({
+				redirectTo: '/'
+			})
+		}
 	}
 	render() {
 		if (this.state.redirectTo) {
