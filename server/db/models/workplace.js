@@ -3,8 +3,9 @@ const Schema = mongoose.Schema
 
 // Define workplaceSchema
 const workplaceSchema = new Schema({
-	workplaceName: { type: String, unique: false },
-  placeId: { type: String, unique: true },
+	name: { type: String, unique: false },
+	formatted_address: { type: String, unique: false },
+  place_id: { type: String, unique: true },
   shifts: { type : Array , "default" : [] },
 	employees: [{ type : Schema.ObjectId, ref: 'User' }]
 })
@@ -18,18 +19,5 @@ workplaceSchema.methods = {
 
 // Create reference to Workpalce & export
 const Workplace = mongoose.model('Workpalce', workplaceSchema)
-
-var RedRobin = new Workplace({
-	workplaceName: "Red Robin",
-	placeId: "randomIDgoesHere",
-	shifts: [1,2,3,4]
-})
-
-// RedRobin.save(function(error) {
-//      console.log("Your bee has been saved!");
-//  if (error) {
-//      console.error(error);
-//   }
-//  });
 
 module.exports = Workplace
