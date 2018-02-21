@@ -11,3 +11,7 @@
   border-right: 1px solid gray;
   padding-left: 20px;
 }
+
+.user-content input {
+  width: 100%;
+}

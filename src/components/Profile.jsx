@@ -4,16 +4,18 @@ import { Route, Link } from 'react-router-dom'
 
 
 class Profile extends React.Component {
-  // componentWillMount() {
-  //   const ac = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
-  //   google.maps.event.addListener(ac, 'place_changed', function() {
-  //     var place = ac.getPlace();
-  //     console.log(place.formatted_address);
-  //     console.log(place.url);
-  //     console.log(place.place_id);
-  //     console.log(place.name);    
-  //   })
-  // }
+
+  componentDidMount() {
+    const google = window.google;
+    const ac = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
+    google.maps.event.addListener(ac, 'place_changed', function() {
+      var place = ac.getPlace();
+      console.log(place.formatted_address);
+      console.log(place.url);
+      console.log(place.place_id);
+      console.log(place.name);    
+    })
+  }
 
   render() {
     return (
