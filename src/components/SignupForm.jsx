@@ -57,29 +57,32 @@ class SignupForm extends Component {
 		return (
 			<div className="session-form" onClick={this.closeModal}>
 				<div className="SignupForm">
-					<h1>Signup form</h1>
-					<label htmlFor="username">Username: </label>
+					<h1 className="SignupHeader">SignUp</h1>
+					<label className="form-label" htmlFor="username">Username: </label>
 					<input
+						className="form-input"
 						type="text"
 						name="username"
 						value={this.state.username}
 						onChange={this.handleChange}
 					/>
-					<label htmlFor="password">Password: </label>
+				<label className="form-label" htmlFor="password">Password: </label>
 					<input
+						className="form-input"
 						type="password"
 						name="password"
 						value={this.state.password}
 						onChange={this.handleChange}
 					/>
-					<label htmlFor="confirmPassword">Confirm Password: </label>
+				<label className="form-label-confirm" htmlFor="confirmPassword">Confirm Password: </label>
 					<input
+						className="form-input"
 						type="password"
 						name="confirmPassword"
 						value={this.state.confirmPassword}
 						onChange={this.handleChange}
 					/>
-					<button onClick={this.handleSubmit}>Sign up</button>
+				<button className="form-button" onClick={this.handleSubmit}>Sign up</button>
 				</div>
 			</div>
 		)
