@@ -9,36 +9,50 @@ class Profile extends React.Component {
     super(props);
     this.showSearch = this.showSearch.bind(this);
     this.recordWorkplace = this.recordWorkplace.bind(this);
+    this.closeModal = this.closeModal.bind(this)
   }
 
   componentDidMount() {
     const google = window.google;
     const ac = new google.maps.places.Autocomplete(document.getElementById('autocomplete'));
     var that = this;
+    var place = null;
     google.maps.event.addListener(ac, 'place_changed', function() {
-      var place = ac.getPlace();
+      place = ac.getPlace();
       that.setState({
         formatted_address: place.formatted_address,
         url: place.url,
         place_id: place.place_id,
         name: place.name
-      })
+      });
       // console.log(place.formatted_address);
       // console.log(place.url);
       // console.log(place.place_id);
       // console.log(place.name);
-    })
+      var info = document.getElementById("confirm-modal-info");
+      info.innerText = `${place.name} \n
+                        ${place.formatted_address}
+      `;
+      document.getElementById('confirm-modal-back').style.display = "flex";
+      document.getElementById('confirm-modal').style.display = "flex";
+    });
+
+
   }
 
   recordWorkplace() {
     //send state to backend
-    console.log(this.state);
   }
+
+  closeModal(event) {
+		if (event.target.id === "confirm-modal-back") {
+			document.getElementById('confirm-modal-back').style.display = "none";
+		}
+	}
 
 
 
   showSearch() {
-    console.log("hi");
     document.getElementById('find-workplace').style.display = "flex";
     document.getElementById('add-workplace-button').style.display = "none";
   }
@@ -65,9 +79,14 @@ class Profile extends React.Component {
             Where Do You Work?
             <input id="autocomplete" type="text" />
           </label>
-          <br/>
-          <button id="confirm-workplace-button" onClick={() => this.recordWorkplace()}> Confirm Workplace</button>
-          <br/>
+        </div>
+        <div id="confirm-modal-back" onClick={this.closeModal}>
+          <div id="confirm-modal">
+            <div id="confirm-modal-info">
+
+            </div>
+            <button id="confirm-workplace-button" onClick={() => this.recordWorkplace()}> Confirm Workplace</button>
+          </div>
         </div>
       </div>
     );
