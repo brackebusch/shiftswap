@@ -15,3 +15,7 @@
 .user-content input {
   width: 100%;
 }
+
+#find-workplace {
+  display: none;
+}
