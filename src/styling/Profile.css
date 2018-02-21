@@ -9,7 +9,7 @@
   width: 30%;
   height: 50vh;
   border-right: 1px solid gray;
-  padding-left: 20px;
+  margin-left: 20px;
 }
 
 .user-content input {
@@ -18,4 +18,55 @@
 
 #find-workplace {
   display: none;
+}
+
+#confirm-modal-back {
+  margin-top: -300px;
+  margin-left: -20px;
+  position: absolute;
+  display: none;
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 100%;
+  height: 100vh;
+
+
+
+
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  z-index: 10;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#confirm-modal {
+margin-top: 0px;
+display: none;
+width: 291px;
+height: 360px;
+border-radius: 25px;
+background-color: rgba(255, 255, 255, 0.7);
+flex-direction: column;
+z-index: 11;
+text-align: center;
+justify-content: space-between;
+
+}
+
+#confirm-modal-info {
+ margin-top: 20px;
+ width: 191px;
+ margin-left: 50px;
+ margin-right: 50px;
+}
+
+#confirm-workplace-button {
+  margin-bottom: 20px;
+  width: 191px;
+  border-radius: 25px;
+  margin-left: 50px;
+  margin-right: 50px;
 }
