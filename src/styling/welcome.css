@@ -1,3 +1,7 @@
+body {
+  background: #ced6e0;
+}
+
 .anon-greeting {
   display: flex;
   margin-top: 400px;
@@ -22,7 +26,6 @@
   background-color: rgba(255, 255, 255, 0.3);
   width: 110%;
   height: 100%;
-  top: 0px;
 
 
 
@@ -37,11 +40,31 @@
   align-items: center;
 }
 
-.SignupForm > h1, .LoginForm > h1{
+.SignupHeader {
   margin-top: 20px;
   font-size: 25px;
+  margin-left: 35%;
+  margin-right: 35%;
 }
-input, button {
+
+.LoginHeader {
+  margin-top: 20px;
+  font-size: 25px;
+  margin-left: 38%;
+  margin-right: 38%;
+}
+
+.form-label {
+  margin-left: 35%;
+  margin-right: 35%;
+}
+
+.form-label-confirm {
+  margin-left: 25%;
+  margin-right: 25%;
+}
+
+.form-input, .form-button {
   display: flex;
   width: 191px;
   height: 30px;
@@ -50,7 +73,7 @@ input, button {
   margin-bottom: 15px;
 }
 
-button {
+.form-button {
   display: flex;
   text-align: center;
   color: white;
@@ -59,7 +82,13 @@ button {
   justify-content: center;
 }
 
-button:hover {
+
+.form-google {
+  margin-left: 17%;
+  margin-right: 17%;
+}
+
+.form-button:hover {
   cursor: pointer;
   background-color: blue;
 }

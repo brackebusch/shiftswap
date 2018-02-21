@@ -1,0 +1,17 @@
+.profile {
+  /* height: 100%; */
+  /* width: 250px; */
+  background: white;
+  /* margin-top: 150px; */
+}
+
+.user-content {
+  width: 30%;
+  height: 50vh;
+  border-right: 1px solid gray;
+  padding-left: 20px;
+}
+
+.user-content input {
+  width: 100%;
+}

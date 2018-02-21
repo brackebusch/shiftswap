@@ -3,33 +3,25 @@ import axios from 'axios'
 import { Route, Link } from 'react-router-dom'
 import LoginForm from './Login/LoginForm'
 import SignupForm from './SignupForm'
-import Header from './Header'
-import Home from './Home'
+
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
 		return (
 			<nav className="navbar">
+				<div className="left-nav">
+					<h1>
+						ShiftSwap
+					</h1>
+				</div>
 				<ul className="nav">
-					<div className="left-nav">
-						<li className="nav-item">
-							<h1>
-								ShiftSwap
-							</h1>
-						</li>
-						<li className="nav-item">
-							<Link to="/" className="nav-link">
-								Home
-							</Link>
-						</li>
-					</div>
-					<div className="right-nav">
-						<li>
-							<Link to="#" className="nav-link" onClick={props._logout}>
-								Logout
-							</Link>
-						</li>
-					</div>
+					<li className="nav-item">
+					</li>
+					<li>
+						<Link to="#" className="nav-link" onClick={props._logout}>
+							Logout
+						</Link>
+					</li>
 				</ul>
 			</nav>
 		)
@@ -42,11 +34,6 @@ const DisplayLinks = props => {
 							<h1>
 								ShiftSwap
 							</h1>
-						</li>
-						<li className="nav-item">
-							<Link to="/" className="nav-link">
-								Home
-							</Link>
 						</li>
 					</div>
 					<div className="right-nav">
@@ -135,7 +122,7 @@ class NavBar extends Component {
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
 				{/*  ROUTES */}
 				{/* <Route exact path="/" component={Home} /> */}
-				
+
 				<Route
 					exact
 					path="/login"

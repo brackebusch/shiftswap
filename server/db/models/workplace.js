@@ -3,8 +3,9 @@ const Schema = mongoose.Schema
 
 // Define workplaceSchema
 const workplaceSchema = new Schema({
-	workplaceName: { type: String, unique: false },
-  placeId: { type: String, unique: true },
+	name: { type: String, unique: false },
+	formatted_address: { type: String, unique: false },
+  place_id: { type: String, unique: true },
   shifts: { type : Array , "default" : [] },
 	employees: [{ type : Schema.ObjectId, ref: 'User' }]
 })
@@ -18,4 +19,5 @@ workplaceSchema.methods = {
 
 // Create reference to Workpalce & export
 const Workplace = mongoose.model('Workpalce', workplaceSchema)
+
 module.exports = Workplace
