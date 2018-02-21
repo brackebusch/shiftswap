@@ -14,9 +14,6 @@ const DisplayLinks = props => {
 					<h1>
 						ShiftSwap
 					</h1>
-					<Link to="/" className="nav-link">
-						Home
-					</Link>
 				</div>
 				<ul className="nav">
 					<li className="nav-item">
@@ -38,11 +35,6 @@ const DisplayLinks = props => {
 							<h1>
 								ShiftSwap
 							</h1>
-						</li>
-						<li className="nav-item">
-							<Link to="/" className="nav-link">
-								Home
-							</Link>
 						</li>
 					</div>
 					<div className="right-nav">

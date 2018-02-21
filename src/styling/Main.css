@@ -1,4 +1,4 @@
-.main-content {
+/* .main-content {
   width: 100vw;
   height: 100%;
   background: url(https://res.cloudinary.com/arpannln/image/upload/v1518989062/shaking.jpg) no-repeat center center fixed;
@@ -6,4 +6,10 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+} */
+
+.userAndCalendar {
+  padding-top: 50px;
+  display: flex;
+  justify-content: space-between;
 }

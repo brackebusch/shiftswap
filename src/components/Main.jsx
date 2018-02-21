@@ -1,12 +1,43 @@
 import React, { Component } from 'react';
 import Profile from './Profile.jsx';
 import Calendar from './Calendar.jsx';
+import UserInfo from './UserInfo.jsx';
+
+import axios from 'axios'
+import { Route, Link } from 'react-router-dom'
+import Header from './Header'
+
+
+//this needs to be set up to render gif unless user is signed in
+//and if they are signed in to render the calendar + user info
+const DisplayMain = props => {
+
+    return (
+      <div className="userAndCalendar">
+        <UserInfo />
+        <Calendar />
+      </div>  
+    )
+
+    //if else statement should wrap around these two return statements
+    //checking to see if someone is logged in or not
+    // return (
+    //   <div className="gif">
+    //     <h2>**Jif of a Gif showing the Dif**</h2>
+    //     <h4>Not logged in</h4>
+    //   </div>
+		// )
+}
 
 class Main extends Component {
+  constructor() {
+    super()
+  }
+
   render() {
     return (
       <div className="main-content">
-        <Calendar />
+        <DisplayMain />
       </div>
     );
   }

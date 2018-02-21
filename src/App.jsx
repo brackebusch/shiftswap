@@ -4,6 +4,7 @@ import './styling/welcome.css';
 import './styling/Main.css';
 // import './styling/Profile.css';
 import './styling/Calendar.css';
+import './styling/UserInfo.css';
 import NavBar from './components/NavBar.jsx';
 import Main from './components/Main.jsx';
 
