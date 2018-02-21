@@ -9,9 +9,10 @@ router.get('/workplace', (req, res, next) => {
 	console.log('===== workplace!!======')
   console.log(req)
 
-  Workplace.findOne({ 'place_id': place_id }, (err, workplaceMatch) => {
+  Workplace.findOne({ 'place_id': place_id }).populate(employees).
+    exec( function(err, workplaceMatch) {
     if(workplaceMatch)
-    return res.json({ workplace: workplaceMatch})
+      return res.json(workplaceMatch)
     })
 
   const newWorkpalce = new Workplace({
