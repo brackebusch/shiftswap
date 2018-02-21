@@ -14,6 +14,9 @@ const userSchema = new Schema({
 	google: {
 		googleId: { type: String, required: false }
 	},
+	phone: Number,
+	email: String,
+	workpace: { type : Schema.ObjectId, ref: 'Workplace' },
 	photos: []
 	// local: {
 	// 	email: { type: String, unique: true },

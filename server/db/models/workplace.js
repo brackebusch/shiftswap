@@ -1,13 +1,12 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-mongoose.promise = Promise
 
 // Define workplaceSchema
 const workplaceSchema = new Schema({
 	workplaceName: { type: String, unique: false },
   placeId: { type: String, unique: true },
   shifts: { type : Array , "default" : [] },
-	employees: { type : Array , "default" : [] }
+	employees: [{ type : Schema.ObjectId, ref: 'User' }]
 })
 
 // Define schema methods

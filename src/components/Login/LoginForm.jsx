@@ -34,9 +34,11 @@ class LoginForm extends Component {
 	}
 
 	closeModal(event) {
-		this.setState({
-			redirectTo: '/'
-		})
+		if (event.target.className === "session-form") {
+			this.setState({
+				redirectTo: '/'
+			})
+		}
 	}
 
 
