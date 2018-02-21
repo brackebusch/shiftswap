@@ -4,31 +4,67 @@ const Workplace = require('../db/models/workplace')
 
 // this route is used to return a workplace if none is found it is added
 // then a new workplace is added
-router.get('/workplace', (req, res, next) => {
-  const { name, place_id, formatted_address } = req.body
+router.get('/find', (req, res, next) => {
+  const { place_id} = req.body
 	console.log('===== workplace!!======')
   console.log(req)
 
-  Workplace.findOne({ 'place_id': place_id }).populate(employees).
-    exec( function(err, workplaceMatch) {
-    if(workplaceMatch)
+  Workplace.findOne({ 'place_id': place_id }).exec( function(err, workplaceMatch) {
+    if (err) {
+      return res.json(err)
+    } else if(workplaceMatch)
+      workplaceMatch.populate("employees")
       return res.json(workplaceMatch)
     })
+})
 
-  const newWorkpalce = new Workplace({
+
+router.post('/new', (req, res, next) => {
+  const { name, place_id, formatted_address, employee_id  } = req.body  
+  const newWorkplace = new Workplace({
     name: name,
     formatted_address: formatted_address,
     place_id: place_id,
   })
-  newWorkpalce.save((err, savedWorkplace) => {
+
+  newWorkplace.employees.push(employee_id)
+  newWorkplace.save((err, savedWorkplace) => {
+    debugger
     if (err) return res.json(err)
     return res.json(savedWorkplace)
   })
-    
+
 })
 
-router.patch('/workplace/update', (req, res) => {
-	const { username, shift, place_id } = req.body
+router.post('/addemployee', (req, res, next) => {
+  const { place_id, employee_id  } = req.body 
+  Workplace.findOne({ 'place_id': place_id }).exec( function(err, workplaceMatch) {
+    if (err) {
+      return res.json(err)
+    } else if(workplaceMatch)
+      workplaceMatch.employees.push(employee_id)
+      workplaceMatch.populate("employees")
+      return res.json(workplaceMatch)
+    })
+})
+
+router.patch('/removeemployee', (req, res, next) => {
+  const { place_id, employee_id  } = req.body 
+  Workplace.findOne({ 'place_id': place_id }).exec( function(err, workplaceMatch) {
+    if (err) {
+      return res.json(err)
+    } else if(workplaceMatch)
+      index = workplaceMatch.employees.indexOf(employee_id);
+      if (index > -1) {
+        workplaceMatch.splice(index, 1);
+      } 
+      workplaceMatch.populate("employees")
+      return res.json(workplaceMatch)
+    })
+})
+
+router.patch('/addshift', (req, res) => {
+	const { shift, place_id } = req.body
   Workplace.findOneAndUpdate( { 'place_id': place_id }, 
     { "$push": { "shifts": shift } }
   ).exec( function(err, workplaceMatch) {
