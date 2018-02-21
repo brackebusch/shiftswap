@@ -18,16 +18,18 @@ class Calendar extends Component {
       events : [
       {
         title  : 'Joe',
-        start  : '2018-02-21T12:90:00',
+        start  : '2018-02-22T12:30:00',
         allDay : false // will make the time show
       },
       {
         title  : 'Jake',
-        start  : '2018-02-22T12:90:00',
+        start  : '2018-02-23T12:30:00',
         allDay : false // will make the time show
       },
       ],
       defaultView: "basicWeek",
+      height: 650,
+      
       // defaultView: "agendaWeek",
       
       eventMouseover: function (calEvent, jsEvent, view) { 

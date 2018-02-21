@@ -1,3 +1,7 @@
+body {
+  background: #ced6e0;
+}
+
 .anon-greeting {
   display: flex;
   margin-top: 400px;

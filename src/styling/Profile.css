@@ -4,3 +4,10 @@
   background: white;
   /* margin-top: 150px; */
 }
+
+.user-content {
+  width: 30%;
+  height: 50vh;
+  border-right: 1px solid gray;
+  padding-left: 20px;
+}

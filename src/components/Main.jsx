@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Profile from './Profile.jsx';
 import Calendar from './Calendar.jsx';
-import UserInfo from './UserInfo.jsx';
 
 import axios from 'axios'
 import { Route, Link } from 'react-router-dom'
-import Header from './Header'
 
 
 //this needs to be set up to render gif unless user is signed in
@@ -14,7 +12,7 @@ const DisplayMain = props => {
 
     return (
       <div className="userAndCalendar">
-        <UserInfo />
+        <Profile />
         <Calendar />
       </div>  
     )

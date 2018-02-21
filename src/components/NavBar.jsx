@@ -3,8 +3,7 @@ import axios from 'axios'
 import { Route, Link } from 'react-router-dom'
 import LoginForm from './Login/LoginForm'
 import SignupForm from './SignupForm'
-import Header from './Header'
-import Home from './Home'
+
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
