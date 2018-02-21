@@ -27,4 +27,13 @@ router.get('/workplace', (req, res, next) => {
     
 })
 
+router.patch('/workplace/update', (req, res) => {
+	const { username, shift, place_id } = req.body
+  Workplace.findOneAndUpdate( { 'place_id': place_id }, 
+    { "$push": { "shifts": shift } }
+  ).exec( function(err, workplaceMatch) {
+  return res.json(workplaceMatch)
+  })
+})
+
 module.exports = router
