@@ -49,26 +49,28 @@ class LoginForm extends Component {
 			return (
 				<div className="session-form" onClick={this.closeModal}>
 					<div className="LoginForm">
-						<h1>Login form</h1>
-						<form>
-							<label htmlFor="username">Username: </label>
-							<input
-								type="text"
-								name="username"
-								value={this.state.username}
-								onChange={this.handleChange}
-							/>
-							<label htmlFor="password">Password: </label>
-							<input
-								type="password"
-								name="password"
-								value={this.state.password}
-								onChange={this.handleChange}
-							/>
-							<button onClick={this.handleSubmit}>Login</button>
-						</form>
-						<a href="/auth/google">
+						<h1 className="LoginHeader">Login</h1>
+						<label className="form-label" htmlFor="username">Username: </label>
+						<input
+							className="form-input"
+							type="text"
+							name="username"
+							value={this.state.username}
+							onChange={this.handleChange}
+						/>
+					<label className="form-label" htmlFor="password">Password: </label>
+						<input
+							className="form-input"
+							type="password"
+							name="password"
+							value={this.state.password}
+							onChange={this.handleChange}
+						/>
+					<button className="form-button" onClick={this.handleSubmit}>Login</button>
+
+						<a className="form-google" href="/auth/google">
 							{/* <GoogleButton /> */}
+
 							<img src={googleButton} alt="sign into Google Button" />
 						</a>
 					</div>
