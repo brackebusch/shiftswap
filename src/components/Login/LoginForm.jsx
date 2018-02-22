@@ -7,7 +7,7 @@ class LoginForm extends Component {
 	constructor() {
 		super()
 		this.state = {
-			username: '',
+			email: '',
 			password: '',
 			redirectTo: null
 		}
@@ -27,7 +27,8 @@ class LoginForm extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		console.log('handleSubmit')
-		this.props._login(this.state.username, this.state.password)
+		
+		this.props._login(this.state.email, this.state.password)
 		this.setState({
 			redirectTo: '/'
 		})
@@ -50,12 +51,12 @@ class LoginForm extends Component {
 				<div className="session-form" onClick={this.closeModal}>
 					<div className="LoginForm">
 						<h1 className="LoginHeader">Login</h1>
-						<label className="form-label" htmlFor="username">Username: </label>
+						<label className="form-label" htmlFor="email">Email: </label>
 						<input
 							className="form-input"
 							type="text"
-							name="username"
-							value={this.state.username}
+							name="email"
+							value={this.state.email}
 							onChange={this.handleChange}
 						/>
 					<label className="form-label" htmlFor="password">Password: </label>

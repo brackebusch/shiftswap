@@ -6,7 +6,9 @@ const workplaceSchema = new Schema({
 	name: { type: String, unique: false },
 	formatted_address: { type: String, unique: false },
   place_id: { type: String, unique: true },
-  shifts: { type : Array , "default" : [] },
+	shifts: [{ employee: {type : Schema.ObjectId, ref: 'User'}
+							
+					 }],
 	employees: [{ type : Schema.ObjectId, ref: 'User' }]
 })
 

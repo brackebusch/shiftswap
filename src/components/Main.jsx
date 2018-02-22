@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import Profile from './Profile.jsx';
 import Calendar from './Calendar.jsx';
 
-import axios from 'axios'
-import { Route, Link } from 'react-router-dom'
-
-
 //this needs to be set up to render gif unless user is signed in
 //and if they are signed in to render the calendar + user info
 const DisplayMain = props => {
