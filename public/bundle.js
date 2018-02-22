@@ -40598,7 +40598,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		null,
 		_react2.default.createElement(_App2.default, null)
 	), document.getElementById('root'));
-	// console.log('working')
 });
 
 /***/ }),

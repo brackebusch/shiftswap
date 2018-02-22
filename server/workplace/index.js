@@ -21,7 +21,6 @@ router.post('/addemployee', (req,res,next) => {
   console.log(req.body);
   const { name, place_id, formatted_address, employee_id  } = req.body  
   
-  // Workplace.findByIdAndUpdate(place_id,  {upsert: true, new: true, setDefaultsOnInsert: true}
   Workplace.findById(place_id).exec(function (err, result) {
     if (result) {
       console.log("**WORKPLACE EXISTS**");
