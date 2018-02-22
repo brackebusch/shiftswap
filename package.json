@@ -35,8 +35,8 @@
 		"react-scripts": "1.0.7"
 	},
 	"scripts": {
-		"start": "export NODE_ENV=\"production\" && webpack --watch && node server/server.js",
-		"build": "webpack",
+		"start": "node server/server.js",
+		"build": "webpack -w",
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
 		"dev": "concurrently \"webpack\" \"nodemon server/server.js\"",
