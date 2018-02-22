@@ -15,10 +15,7 @@ router.get(
 // this route is just used to get the user basic info
 router.get('/user', (req, res, next) => {
 	console.log('===== user!!======')
-	console.log(req)
 	if (req.user) {
-		console.log(req.user)
-		console.log(res)		
 		return res.json({ user: req.user })
 	} else {
 		return res.json({ user: null })
@@ -28,8 +25,6 @@ router.get('/user', (req, res, next) => {
 router.post(
 	'/login',
 	function(req, res, next) {
-		console.log(req.body)
-		console.log("THIS IS THE BREAKING POINT *******");
 		next()
 	},
 	passport.authenticate('local'),
