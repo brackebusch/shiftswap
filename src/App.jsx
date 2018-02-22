@@ -8,9 +8,6 @@ import NavBar from './components/NavBar.jsx';
 import Main from './components/Main.jsx';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-	}
 
 	render() {
 		return (

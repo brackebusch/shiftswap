@@ -6,7 +6,7 @@ class SignupForm extends Component {
 	constructor() {
 		super()
 		this.state = {
-			username: '',
+			email: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -27,7 +27,7 @@ class SignupForm extends Component {
 		// TODO - validate!
 		axios
 			.post('/auth/signup', {
-				username: this.state.username,
+				email: this.state.email,
 				password: this.state.password
 			})
 			.then(response => {
@@ -58,12 +58,12 @@ class SignupForm extends Component {
 			<div className="session-form" onClick={this.closeModal}>
 				<div className="SignupForm">
 					<h1 className="SignupHeader">SignUp</h1>
-					<label className="form-label" htmlFor="username">Username: </label>
+					<label className="form-label" htmlFor="email">Email: </label>
 					<input
 						className="form-input"
 						type="text"
-						name="username"
-						value={this.state.username}
+						name="email"
+						value={this.state.email}
 						onChange={this.handleChange}
 					/>
 				<label className="form-label" htmlFor="password">Password: </label>

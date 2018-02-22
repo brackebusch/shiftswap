@@ -46,7 +46,7 @@ router.post('/new', (req, res, next) => {
   newWorkplace.save((err, savedWorkplace) => {
     debugger
     if (err) return res.json(err)
-    return res.json(savedWorkplace)
+    return res.json(savedWorkplace.populate('employees'))
   })
 
 })
@@ -62,7 +62,7 @@ router.post('/addemployee', (req, res, next) => {
 
       workplaceMatch.save(function (err, response) {
         if (err) return handleError(err);
-        res.send(response.opopulate("employees"));
+        res.send(response.populate("employees"));
       });
 
       // workplaceMatch.save
