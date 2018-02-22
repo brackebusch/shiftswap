@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
-// import '../styling/fullcalendar.min.css';
-// import '../styling/fullcalendar.print.min.css';
 
 
 class Calendar extends Component {

@@ -96,10 +96,10 @@ class NavBar extends Component {
 		})
 	}
 
-	_login(username, password) {
+	_login(email, password) {		
 		axios
-			.post('/auth/login', {
-				username,
+		.post('/auth/login', {
+				email,
 				password
 			})
 			.then(response => {

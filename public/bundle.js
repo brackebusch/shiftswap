@@ -38858,12 +38858,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import 'css-loader!./styling/App.css';
-// import 'css-loader!./styling/welcome.css';
-// import 'css-loader!./styling/Main.css';
-// import 'css-loader!./styling/Calendar.css';
-// import 'css-loader!./styling/Profile.css';
-
 
 var App = function (_Component) {
 	_inherits(App, _Component);
@@ -39775,10 +39769,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import '../styling/fullcalendar.min.css';
-// import '../styling/fullcalendar.print.min.css';
-
-
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
 
@@ -39876,7 +39866,7 @@ var LoginForm = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (LoginForm.__proto__ || Object.getPrototypeOf(LoginForm)).call(this));
 
 		_this.state = {
-			username: '',
+			email: '',
 			password: '',
 			redirectTo: null
 			// this.googleSignin = this.googleSignin.bind(this)
@@ -39897,7 +39887,8 @@ var LoginForm = function (_Component) {
 		value: function handleSubmit(event) {
 			event.preventDefault();
 			console.log('handleSubmit');
-			this.props._login(this.state.username, this.state.password);
+
+			this.props._login(this.state.email, this.state.password);
 			this.setState({
 				redirectTo: '/'
 			});
@@ -39930,14 +39921,14 @@ var LoginForm = function (_Component) {
 						),
 						_react2.default.createElement(
 							'label',
-							{ className: 'form-label', htmlFor: 'username' },
-							'Username: '
+							{ className: 'form-label', htmlFor: 'email' },
+							'Email: '
 						),
 						_react2.default.createElement('input', {
 							className: 'form-input',
 							type: 'text',
-							name: 'username',
-							value: this.state.username,
+							name: 'email',
+							value: this.state.email,
 							onChange: this.handleChange
 						}),
 						_react2.default.createElement(
@@ -39997,12 +39988,6 @@ var _Profile2 = _interopRequireDefault(_Profile);
 var _Calendar = __webpack_require__(251);
 
 var _Calendar2 = _interopRequireDefault(_Calendar);
-
-var _axios = __webpack_require__(33);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _reactRouterDom = __webpack_require__(22);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40230,11 +40215,11 @@ var NavBar = function (_Component) {
 		}
 	}, {
 		key: '_login',
-		value: function _login(username, password) {
+		value: function _login(email, password) {
 			var _this4 = this;
 
 			_axios2.default.post('/auth/login', {
-				username: username,
+				email: email,
 				password: password
 			}).then(function (response) {
 				console.log(response);
@@ -40469,7 +40454,7 @@ var SignupForm = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (SignupForm.__proto__ || Object.getPrototypeOf(SignupForm)).call(this));
 
 		_this.state = {
-			username: '',
+			email: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -40493,7 +40478,7 @@ var SignupForm = function (_Component) {
 			event.preventDefault();
 			// TODO - validate!
 			_axios2.default.post('/auth/signup', {
-				username: this.state.username,
+				email: this.state.email,
 				password: this.state.password
 			}).then(function (response) {
 				console.log(response);
@@ -40535,14 +40520,14 @@ var SignupForm = function (_Component) {
 					),
 					_react2.default.createElement(
 						'label',
-						{ className: 'form-label', htmlFor: 'username' },
-						'Username: '
+						{ className: 'form-label', htmlFor: 'email' },
+						'Email: '
 					),
 					_react2.default.createElement('input', {
 						className: 'form-input',
 						type: 'text',
-						name: 'username',
-						value: this.state.username,
+						name: 'email',
+						value: this.state.email,
 						onChange: this.handleChange
 					}),
 					_react2.default.createElement(
