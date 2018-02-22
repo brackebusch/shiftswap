@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Route, Link } from 'react-router-dom'
-import LoginForm from './Login/LoginForm'
-import SignupForm from './SignupForm'
+import LoginForm from './Login/LoginForm.jsx'
+import SignupForm from './SignupForm.jsx'
 
 
 const DisplayLinks = props => {
