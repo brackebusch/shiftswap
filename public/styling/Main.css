@@ -4,44 +4,25 @@
   justify-content: space-between;
 }
 
-body {
+.app-container {
   padding: 0px;
   margin: 0px;
+  position: absolute;
+  display: flex;
+  background-color: rgba(1, 50, 67, 1.0);
+  /* background-color: rgba(126, 192, 238, 1.0); */
+
+
+
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+
 }
 
 .app-container {
   display: flex;
   flex-direction: column;
-}
-
-.navbar {
-  background-color: rgba(255,255,255,0.8);
-  width: 100%;
-  height: 65px;
-  text-align: center;
-  display: flex;
-  justify-content: space-between;
-}
-
-.nav {
-  justify-content: space-between;
-}
-
-.left-nav, .right-nav{
-  display: flex;
-  flex-direction: row;
-}
-
-.nav-item {
-  display: flex;
-}
-.NavBar {
-
-  display: flex;
-
-  width: 100%;
-  height: 50px;
-  z-index: 0;
 }
 
 .app-container {

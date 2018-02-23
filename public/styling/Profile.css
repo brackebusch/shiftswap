@@ -8,24 +8,47 @@
 .user-content {
   width: 30%;
   height: 50vh;
-  border-right: 1px solid gray;
   margin-left: 20px;
+  background-color: rgba(126, 192, 238, 1.0);
+  border-radius: 25px;
+  justify-content: center;
+  text-align: left;
 }
 
 .user-content input {
   width: 100%;
 }
 
+
+.user-info {
+  margin-left: 40px;
+  margin-top: 40px;
+}
+
+#add-workplace-button {
+  margin-left: 40px;
+  border-radius: 25px;
+  background-color: #0275d8;
+  border: none;
+  color: white;
+}
+
+#add-workplace-button:hover {
+  cursor: pointer;
+  background-color: rgba(1, 50, 67, 1.0);
+
+}
 #find-workplace {
   display: none;
+  margin-left: 40px;
 }
 
 #confirm-modal-back {
-  margin-top: -300px;
+  margin-top: -347px;
   margin-left: -20px;
   position: absolute;
   display: none;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.15);
   width: 100%;
   height: 100vh;
 
@@ -40,12 +63,12 @@
 }
 
 #confirm-modal {
-margin-top: 0px;
+margin-top: 100px;
 display: none;
 width: 291px;
 height: 360px;
 border-radius: 25px;
-background-color: rgba(255, 255, 255, 0.7);
+background-color: rgba(1, 50, 67, 0.8);
 flex-direction: column;
 z-index: 11;
 text-align: center;
@@ -58,6 +81,7 @@ justify-content: space-between;
  width: 191px;
  margin-left: 50px;
  margin-right: 50px;
+ color: white;
 }
 
 #confirm-workplace-button {
@@ -66,4 +90,12 @@ justify-content: space-between;
   border-radius: 25px;
   margin-left: 50px;
   margin-right: 50px;
+  background-color: #0275d8;
+  border: none;
+  color: white;
+}
+
+#confirm-workplace-button:hover {
+  cursor: pointer;
+  background-color: rgba(75, 119, 190, 1.0);
 }
