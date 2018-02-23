@@ -5,14 +5,18 @@ import Calendar from './Calendar.jsx';
 //this needs to be set up to render gif unless user is signed in
 //and if they are signed in to render the calendar + user info
 const DisplayMain = props => {
-    console.log(props);
+      var display = null
+      props.loggedIn ? display = (
+                                  <div className="userAndCalendar">
+                                    <Profile user={props.user}/>
+                                    <Calendar />
+                                  </div> ) :
+                       display = (
+                                  <div className="gif">
+                                  </div> )
 
-    return (
-      <div className="userAndCalendar">
-        <Profile />
-        <Calendar />
-      </div>  
-    )
+      return display
+                    //probs can enter gif here
 
     //if else statement should wrap around these two return statements
     //checking to see if someone is logged in or not
@@ -25,14 +29,15 @@ const DisplayMain = props => {
 }
 
 class Main extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
+    console.log(props);
   }
 
   render() {
     return (
       <div className="main-content">
-        <DisplayMain />
+        <DisplayMain loggedIn={this.props.loggedIn} user={this.props.user}/>
       </div>
     );
   }

@@ -38874,8 +38874,7 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'app-container' },
-				_react2.default.createElement(_NavBar2.default, null),
-				_react2.default.createElement(_Main2.default, null)
+				_react2.default.createElement(_NavBar2.default, null)
 			);
 		}
 	}]);
@@ -40000,14 +39999,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //this needs to be set up to render gif unless user is signed in
 //and if they are signed in to render the calendar + user info
 var DisplayMain = function DisplayMain(props) {
-  console.log(props);
-
-  return _react2.default.createElement(
+  var display = null;
+  props.loggedIn ? display = _react2.default.createElement(
     'div',
     { className: 'userAndCalendar' },
-    _react2.default.createElement(_Profile2.default, null),
+    _react2.default.createElement(_Profile2.default, { user: props.user }),
     _react2.default.createElement(_Calendar2.default, null)
-  );
+  ) : display = _react2.default.createElement('div', { className: 'gif' });
+
+  return display;
+  //probs can enter gif here
 
   //if else statement should wrap around these two return statements
   //checking to see if someone is logged in or not
@@ -40022,10 +40023,13 @@ var DisplayMain = function DisplayMain(props) {
 var Main = function (_Component) {
   _inherits(Main, _Component);
 
-  function Main() {
+  function Main(props) {
     _classCallCheck(this, Main);
 
-    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
+    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+
+    console.log(props);
+    return _this;
   }
 
   _createClass(Main, [{
@@ -40034,7 +40038,7 @@ var Main = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'main-content' },
-        _react2.default.createElement(DisplayMain, null)
+        _react2.default.createElement(DisplayMain, { loggedIn: this.props.loggedIn, user: this.props.user })
       );
     }
   }]);
@@ -40075,6 +40079,10 @@ var _SignupForm = __webpack_require__(256);
 
 var _SignupForm2 = _interopRequireDefault(_SignupForm);
 
+var _Main = __webpack_require__(253);
+
+var _Main2 = _interopRequireDefault(_Main);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40089,25 +40097,32 @@ var DisplayLinks = function DisplayLinks(props) {
 			'nav',
 			{ className: 'navbar' },
 			_react2.default.createElement(
-				'div',
-				{ className: 'left-nav' },
-				_react2.default.createElement(
-					'h1',
-					null,
-					'ShiftSwap'
-				)
-			),
-			_react2.default.createElement(
 				'ul',
 				{ className: 'nav' },
-				_react2.default.createElement('li', { className: 'nav-item' }),
 				_react2.default.createElement(
-					'li',
-					null,
+					'div',
+					{ className: 'left-nav' },
 					_react2.default.createElement(
-						_reactRouterDom.Link,
-						{ to: '#', className: 'nav-link', onClick: props._logout },
-						'Logout'
+						'li',
+						{ className: 'nav-item' },
+						_react2.default.createElement(
+							'h1',
+							null,
+							'ShiftSwap'
+						)
+					)
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'right-nav' },
+					_react2.default.createElement(
+						'li',
+						{ className: 'nav-item' },
+						_react2.default.createElement(
+							_reactRouterDom.Link,
+							{ to: '#', onClick: props._logout },
+							'Logout'
+						)
 					)
 				)
 			)
@@ -40240,20 +40255,25 @@ var NavBar = function (_Component) {
 
 			return _react2.default.createElement(
 				'div',
-				{ className: 'NavBar' },
-				_react2.default.createElement(DisplayLinks, { _logout: this._logout, loggedIn: this.state.loggedIn }),
-				_react2.default.createElement(DisplayLinks, { _logout: this._logout, loggedIn: this.state.loggedIn }),
-				_react2.default.createElement(_reactRouterDom.Route, {
-					exact: true,
-					path: '/login',
-					render: function render() {
-						return _react2.default.createElement(_LoginForm2.default, {
-							_login: _this5._login,
-							_googleSignin: _this5._googleSignin
-						});
-					}
-				}),
-				_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', component: _SignupForm2.default })
+				{ className: 'Full-Page' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'NavBar' },
+					_react2.default.createElement(DisplayLinks, { _logout: this._logout, loggedIn: this.state.loggedIn }),
+					_react2.default.createElement(DisplayLinks, { _logout: this._logout, loggedIn: this.state.loggedIn }),
+					_react2.default.createElement(_reactRouterDom.Route, {
+						exact: true,
+						path: '/login',
+						render: function render() {
+							return _react2.default.createElement(_LoginForm2.default, {
+								_login: _this5._login,
+								_googleSignin: _this5._googleSignin
+							});
+						}
+					}),
+					_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', component: _SignupForm2.default })
+				),
+				_react2.default.createElement(_Main2.default, { loggedIn: this.state.loggedIn, user: this.state.user })
 			);
 		}
 	}]);
@@ -40356,13 +40376,15 @@ var Profile = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      console.log(this.props);
+
       return _react2.default.createElement(
         'div',
         { className: 'user-content' },
         _react2.default.createElement(
           'div',
           { className: 'user-info' },
-          'Person Name',
+          this.props.user.local.email,
           _react2.default.createElement('br', null),
           'Work Name',
           _react2.default.createElement('br', null),
