@@ -1,4 +1,10 @@
 #calendar {
-  width: 60%;
+  width: 66%;
+  padding-top: 20px;
   padding-right: 20px;
+  padding-left: 20px;
+  background-color: rgba(126, 192, 238, 1.0);
+  border-radius: 25px;
+  margin-right: 25px;
+  margin-left: 25px;
 }

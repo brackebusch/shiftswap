@@ -19,9 +19,11 @@ const DisplayLinks = props => {
 					</li>
 				</div>
 				<div className="right-nav">
-					<li className="nav-item">
+					<li className="nav-item-logout">
 						<Link to="#" onClick={props._logout}>
-							Logout
+							<h1 className="link">
+								logout
+							</h1>
 						</Link>
 					</li>
 				 </div>
@@ -42,12 +44,16 @@ const DisplayLinks = props => {
 					<div className="right-nav">
 						<li className="nav-item">
 							<Link to="/login" className="nav-link">
-								login
+								<h1 className="link">
+									login
+								</h1>
 							</Link>
 						</li>
 						<li className="nav-item">
 							<Link to="/signup" className="nav-link">
-								sign up
+								<h1 className="link">
+									signup
+								</h1>
 							</Link>
 						</li>
 					</div>
