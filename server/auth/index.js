@@ -52,7 +52,7 @@ router.post('/logout', (req, res) => {
 
 router.post('/signup', (req, res) => {
 	console.log(req.body)	
-	const { email, password } = req.body
+	const { firstName, lastName, phone, email, password } = req.body
 	// ADD VALIDATION
 	User.findOne({ 'local.email': email }, (err, userMatch) => {
 		if (userMatch) {
@@ -61,8 +61,11 @@ router.post('/signup', (req, res) => {
 			})
 		}
 		const newUser = new User({
+			'firstName': firstName,
+			'lastName': lastName,
 			'local.email': email,
-			'local.password': password
+			'local.password': password,
+			'phone': phone
 		})
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err)

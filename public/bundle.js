@@ -40454,7 +40454,10 @@ var SignupForm = function (_Component) {
 		var _this = _possibleConstructorReturn(this, (SignupForm.__proto__ || Object.getPrototypeOf(SignupForm)).call(this));
 
 		_this.state = {
+			firstName: '',
+			lastName: '',
 			email: '',
+			phone: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -40478,7 +40481,10 @@ var SignupForm = function (_Component) {
 			event.preventDefault();
 			// TODO - validate!
 			_axios2.default.post('/auth/signup', {
+				firstName: this.state.firstName,
+				lastName: this.state.lastName,
 				email: this.state.email,
+				phone: this.state.phone,
 				password: this.state.password
 			}).then(function (response) {
 				console.log(response);
@@ -40520,6 +40526,32 @@ var SignupForm = function (_Component) {
 					),
 					_react2.default.createElement(
 						'label',
+						{ className: 'form-label', htmlFor: 'firstName' },
+						'First Name: '
+					),
+					_react2.default.createElement('input', {
+						className: 'form-input',
+						type: 'text',
+						name: 'firstName',
+						placeholder: 'As Listed On Schedule',
+						value: this.state.firstName,
+						onChange: this.handleChange
+					}),
+					_react2.default.createElement(
+						'label',
+						{ className: 'form-label', htmlFor: 'lastName' },
+						'Last Name: '
+					),
+					_react2.default.createElement('input', {
+						className: 'form-input',
+						type: 'text',
+						name: 'lastName',
+						placeholder: 'As Listed On Schedule',
+						value: this.state.lastName,
+						onChange: this.handleChange
+					}),
+					_react2.default.createElement(
+						'label',
 						{ className: 'form-label', htmlFor: 'email' },
 						'Email: '
 					),
@@ -40528,6 +40560,21 @@ var SignupForm = function (_Component) {
 						type: 'text',
 						name: 'email',
 						value: this.state.email,
+						onChange: this.handleChange
+					}),
+					_react2.default.createElement(
+						'label',
+						{ className: 'form-label', htmlFor: 'phone' },
+						'Phone Number: '
+					),
+					_react2.default.createElement('input', {
+						className: 'form-input',
+						type: 'tel',
+						name: 'phone',
+						placeholder: '123-456-7890',
+						minLength: '9',
+						maxLength: '14',
+						value: this.state.phone,
 						onChange: this.handleChange
 					}),
 					_react2.default.createElement(
