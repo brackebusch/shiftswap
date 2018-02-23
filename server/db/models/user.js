@@ -8,25 +8,14 @@ const userSchema = new Schema({
 	firstName: { type: String, unique: false },
 	lastName: { type: String, unique: false },
 	local: {
-		email: { type: String, unique: false, required: false },
-		password: { type: String, unique: false, required: false }
+		email: { type: String, unique: false, required: false, required: true },
+		password: { type: String, unique: false, required: false, required: true }
 	},
 	google: {
 		googleId: { type: String, required: false }
 	},
 	phone: Number,
 	workplace: { type : Schema.ObjectId, ref: 'Workplace' },
-	photos: []
-	// local: {
-	// 	email: { type: String, unique: true },
-	// 	password: { type: String }
-	// },
-	// google: {
-	// 	id: { type: String },
-	// 	photos: []
-	// },
-	// firstName: { type: String },
-	// lastName: { type: String }
 })
 
 // Define schema methods

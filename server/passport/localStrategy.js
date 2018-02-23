@@ -5,8 +5,6 @@ const strategy = new LocalStrategy({
 		usernameField: 'email',
 	},
 	function(email, password, done) {
-		console.log("THIS IS WHERE IT ALL BREAKS *******")
-		console.log(email, password);
 		User.findOne({ 'local.email': email }, (err, userMatch) => {
 			if (err) {
 				return done(err)

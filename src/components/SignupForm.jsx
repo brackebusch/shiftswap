@@ -6,7 +6,10 @@ class SignupForm extends Component {
 	constructor() {
 		super()
 		this.state = {
+			firstName: '',
+			lastName: '',
 			email: '',
+			phone: '',
 			password: '',
 			confirmPassword: '',
 			redirectTo: null
@@ -27,7 +30,10 @@ class SignupForm extends Component {
 		// TODO - validate!
 		axios
 			.post('/auth/signup', {
+				firstName: this.state.firstName,
+				lastName: this.state.lastName,
 				email: this.state.email,
+				phone: this.state.phone,
 				password: this.state.password
 			})
 			.then(response => {
@@ -58,12 +64,41 @@ class SignupForm extends Component {
 			<div className="session-form" onClick={this.closeModal}>
 				<div className="SignupForm">
 					<h1 className="SignupHeader">SignUp</h1>
-					<label className="form-label" htmlFor="email">Email: </label>
+				<label className="form-label" htmlFor="firstName">First Name: </label>
+					<input
+						className="form-input"
+						type="text"
+						name="firstName"
+						placeholder="As Listed On Schedule"
+						value={this.state.firstName}
+						onChange={this.handleChange}
+					/>
+				<label className="form-label" htmlFor="lastName">Last Name: </label>
+					<input
+						className="form-input"
+						type="text"
+						name="lastName"
+						placeholder="As Listed On Schedule"
+						value={this.state.lastName}
+						onChange={this.handleChange}
+					/>
+				<label className="form-label" htmlFor="email">Email: </label>
 					<input
 						className="form-input"
 						type="text"
 						name="email"
 						value={this.state.email}
+						onChange={this.handleChange}
+					/>
+				<label className="form-label" htmlFor="phone">Phone Number: </label>
+					<input
+						className="form-input"
+						type="tel"
+						name="phone"
+						placeholder="123-456-7890"
+						minLength="9" 
+						maxLength="14"
+						value={this.state.phone}
 						onChange={this.handleChange}
 					/>
 				<label className="form-label" htmlFor="password">Password: </label>

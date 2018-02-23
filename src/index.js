@@ -11,5 +11,4 @@ document.addEventListener('DOMContentLoaded',()=> {
 		</BrowserRouter>,
 		document.getElementById('root')
 	)
-	// console.log('working')
 });
