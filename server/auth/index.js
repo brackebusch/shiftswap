@@ -15,10 +15,7 @@ router.get(
 // this route is just used to get the user basic info
 router.get('/user', (req, res, next) => {
 	console.log('===== user!!======')
-	console.log(req)
 	if (req.user) {
-		console.log(req.user)
-		console.log(res)		
 		return res.json({ user: req.user })
 	} else {
 		return res.json({ user: null })
@@ -28,8 +25,6 @@ router.get('/user', (req, res, next) => {
 router.post(
 	'/login',
 	function(req, res, next) {
-		console.log(req.body)
-		console.log("THIS IS THE BREAKING POINT *******");
 		next()
 	},
 	passport.authenticate('local'),
@@ -57,7 +52,7 @@ router.post('/logout', (req, res) => {
 
 router.post('/signup', (req, res) => {
 	console.log(req.body)	
-	const { email, password } = req.body
+	const { firstName, lastName, phone, email, password } = req.body
 	// ADD VALIDATION
 	User.findOne({ 'local.email': email }, (err, userMatch) => {
 		if (userMatch) {
@@ -66,8 +61,11 @@ router.post('/signup', (req, res) => {
 			})
 		}
 		const newUser = new User({
+			'firstName': firstName,
+			'lastName': lastName,
 			'local.email': email,
-			'local.password': password
+			'local.password': password,
+			'phone': phone
 		})
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err)
