@@ -3,25 +3,28 @@ import axios from 'axios'
 import { Route, Link } from 'react-router-dom'
 import LoginForm from './Login/LoginForm.jsx'
 import SignupForm from './SignupForm.jsx'
+import Main from './Main.jsx';
 
 
 const DisplayLinks = props => {
 	if (props.loggedIn) {
 		return (
 			<nav className="navbar">
+			 <ul className="nav">
 				<div className="left-nav">
-					<h1>
-						ShiftSwap
-					</h1>
-				</div>
-				<ul className="nav">
 					<li className="nav-item">
+						<h1>
+							ShiftSwap
+						</h1>
 					</li>
-					<li>
-						<Link to="#" className="nav-link" onClick={props._logout}>
+				</div>
+				<div className="right-nav">
+					<li className="nav-item">
+						<Link to="#" onClick={props._logout}>
 							Logout
 						</Link>
 					</li>
+				 </div>
 				</ul>
 			</nav>
 		)
@@ -96,7 +99,7 @@ class NavBar extends Component {
 		})
 	}
 
-	_login(email, password) {		
+	_login(email, password) {
 		axios
 		.post('/auth/login', {
 				email,
@@ -116,13 +119,13 @@ class NavBar extends Component {
 
 	render() {
 		return (
+		<div className="Full-Page">
 			<div className="NavBar">
 
 				{/* LINKS to our different 'pages' */}
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
 				{/*  ROUTES */}
 				{/* <Route exact path="/" component={Home} /> */}
-
 				<Route
 					exact
 					path="/login"
@@ -135,6 +138,8 @@ class NavBar extends Component {
 				<Route exact path="/signup" component={SignupForm} />
 				{/* <LoginForm _login={this._login} /> */}
 			</div>
+			<Main loggedIn={this.state.loggedIn} user={this.state.user} />
+		</div>
 		)
 	}
 }
