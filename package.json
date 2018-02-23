@@ -20,6 +20,7 @@
 		"jquery": "^3.3.1",
 		"mongoose": "^5.0.1",
 		"morgan": "~1.9.0",
+		"nodemailer": "^4.6.0",
 		"passport": "^0.3.2",
 		"passport-google-oauth": "^1.0.0",
 		"passport-google-oauth20": "^1.0.0",
@@ -38,7 +39,7 @@
 	},
 	"scripts": {
 		"start": "node server/server.js",
-		"build": "webpack -w",
+		"build": "export NODE_ENV=\"production\" && webpack -w",
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
 		"dev": "concurrently \"webpack\" \"nodemon server/server.js\"",

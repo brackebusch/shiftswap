@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
+// import sendEmail from '../notification/sendEmail.jsx';
 
 
 class Calendar extends Component {
@@ -34,7 +35,7 @@ class Calendar extends Component {
         $(this).css('background-color', 'red');
       },
       eventClick: function (calEvent, jsEvent, view) {
-        alert('Would you like to request shift trade for {person name and shift date here} ?')
+        alert('Would you like to request shift trade for {person name and shift date here} ?');
       },
       dayClick: function(date, jsEvent, view) {
         alert('Clicked on: ' + date.format());

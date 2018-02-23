@@ -8,31 +8,31 @@ const User = require('../db/models/user')
 router.get("/find", (req, res, next) => {
   let place_id = req.query.place_id;
   console.log("=====REQUEST SENT====");
-  
+
   console.log(req.query.place_id);
   console.log(place_id);
-  
+
   Workplace.
     findOne({ 'place_id': place_id }).
     populate("employees").
     exec( function (err, workplaceMatch) {
       if (err) {
-        console.log("====ERR====");      
+        console.log("====ERR====");
         return res.json(err)
       } else if (workplaceMatch) {
         console.log("====FINDING WORKPLACE====");
         return res.json(workplaceMatch)
       } else {
-        console.log("====NOTHING FOUND====");        
+        console.log("====NOTHING FOUND====");
         return res.json(null);
       }
   })
 })
 
-router.post('/addemployee', (req,res,next) => { 
+router.post('/addemployee', (req,res,next) => {
   console.log(req.body);
-  const { name, place_id, formatted_address, employee_id  } = req.body  
-  
+  const { name, place_id, formatted_address, employee_id  } = req.body
+
   Workplace.
     findById(place_id).
     populate("employees").
@@ -58,12 +58,12 @@ router.post('/addemployee', (req,res,next) => {
           return res.json(savedWorkplace.populate('employees'))
         })
       }
- 
+
   })
-}) 
+})
 
 router.patch('/removeemployee', (req, res, next) => {
-  const { place_id, employee_id  } = req.body 
+  const { place_id, employee_id  } = req.body
   Workplace.findOne({ 'place_id': place_id }).exec( function(err, workplaceMatch) {
     if (err) {
       return res.json(err)
@@ -76,7 +76,7 @@ router.patch('/removeemployee', (req, res, next) => {
       index = workplaceMatch.employees.indexOf(employee_id);
       if (index > -1) {
         workplaceMatch.splice(index, 1);
-      } 
+      }
       workplaceMatch.populate("employees")
       return res.json(workplaceMatch)
     })
@@ -84,17 +84,24 @@ router.patch('/removeemployee', (req, res, next) => {
 
 router.patch('/addshift', (req, res) => {
 	const { shift, place_id } = req.body
-  Workplace.findOneAndUpdate( { 'place_id': place_id }, 
+  Workplace.findOneAndUpdate( { 'place_id': place_id },
     { "$push": { "shifts": shift } }
   ).exec( function(err, workplaceMatch) {
   return res.json(workplaceMatch)
   })
 })
 
+// This is where we'll send emails to request shift swaps
+
+router.post('/shift-swap', (req, res) => {
+  const { place_id, shift1, shift2, email } = req.body;
+
+});
+
 module.exports = router
 
 
-// else {      
+// else {
 //   const newWorkplace = new Workplace({
 //     name: name,
 //     formatted_address: formatted_address,
@@ -104,12 +111,12 @@ module.exports = router
 //   newWorkplace.save((err, savedWorkplace) => {
 //     if (err) return res.json(err)
 //     return res.json(savedWorkplace.populate("employees"))
-//   })    
-// } 
+//   })
+// }
 
 
 // router.post('/new', (req, res, next) => {
-//   const { name, place_id, formatted_address, employee_id  } = req.body  
+//   const { name, place_id, formatted_address, employee_id  } = req.body
 //   const newWorkplace = new Workplace({
 //     name: name,
 //     formatted_address: formatted_address,
@@ -127,7 +134,7 @@ module.exports = router
 
 
 // router.post('/addemployee', (req, res, next) => {
-//   const { place_id, employee_id  } = req.body 
+//   const { place_id, employee_id  } = req.body
 //   Workplace.findOne({ 'place_id': place_id }).exec( function(err, workplaceMatch) {
 //     if (err) {
 //       return res.json(err)

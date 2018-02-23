@@ -38851,6 +38851,10 @@ var _Main = __webpack_require__(253);
 
 var _Main2 = _interopRequireDefault(_Main);
 
+var _emailHTML = __webpack_require__(393);
+
+var _emailHTML2 = _interopRequireDefault(_emailHTML);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38875,7 +38879,12 @@ var App = function (_Component) {
 				'div',
 				{ className: 'app-container' },
 				_react2.default.createElement(_NavBar2.default, null),
-				_react2.default.createElement(_Main2.default, null)
+				_react2.default.createElement(_Main2.default, null),
+				_react2.default.createElement(
+					'div',
+					null,
+					_emailHTML2.default
+				)
 			);
 		}
 	}]);
@@ -39768,6 +39777,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import sendEmail from '../notification/sendEmail.jsx';
+
 
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
@@ -70984,6 +70996,1011 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.styleValidator = undefined;
+exports.configStyleValidator = configStyleValidator;
+
+var _propTypes = __webpack_require__(13);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _StyleValidator = __webpack_require__(398);
+
+var _StyleValidator2 = _interopRequireDefault(_StyleValidator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styleValidator = exports.styleValidator = new _StyleValidator2.default();
+
+function configStyleValidator(config) {
+  styleValidator.setConfig(config);
+}
+
+exports.default = {
+  style(props, propName, componentName) {
+    if (props[propName] == null) {
+      return undefined;
+    }
+
+    for (var _len = arguments.length, rest = Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+      rest[_key - 3] = arguments[_key];
+    }
+
+    var objErr = _propTypes2.default.object.apply(_propTypes2.default, [props, propName, componentName].concat(rest));
+    if (objErr) {
+      return objErr;
+    }
+    return styleValidator.validate(props[propName], componentName);
+  }
+};
+
+/***/ }),
+/* 390 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (props) {
+  var dataProps = {};
+
+  Object.keys(props).forEach(function (key) {
+    if (/^data-/.test(key)) {
+      dataProps[key] = props[key];
+    }
+  });
+
+  return dataProps;
+};
+
+/***/ }),
+/* 391 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Box;
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(13);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PropTypes = __webpack_require__(389);
+
+var _PropTypes2 = _interopRequireDefault(_PropTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function Box(_ref) {
+  var children = _ref.children,
+      props = _objectWithoutProperties(_ref, ['children']);
+
+  return _react2.default.createElement(
+    'table',
+    props,
+    _react2.default.createElement(
+      'tbody',
+      null,
+      children
+    )
+  );
+}
+
+Box.propTypes = {
+  cellPadding: _propTypes2.default.number,
+  cellSpacing: _propTypes2.default.number,
+  border: _propTypes2.default.string,
+  bgcolor: _propTypes2.default.string,
+  width: _propTypes2.default.string,
+  height: _propTypes2.default.string,
+  align: _propTypes2.default.oneOf(['left', 'center', 'right']),
+  valign: _propTypes2.default.oneOf(['top', 'middle', 'bottom']),
+  style: _PropTypes2.default.style,
+  children: _propTypes2.default.node
+};
+
+Box.defaultProps = {
+  cellPadding: 0,
+  cellSpacing: 0,
+  border: '0',
+  align: 'left',
+  valign: 'top',
+  bgcolor: undefined,
+  width: undefined,
+  height: undefined,
+  style: undefined,
+  children: undefined
+};
+
+/***/ }),
+/* 392 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = Item;
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(13);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PropTypes = __webpack_require__(389);
+
+var _PropTypes2 = _interopRequireDefault(_PropTypes);
+
+var _includeDataProps = __webpack_require__(390);
+
+var _includeDataProps2 = _interopRequireDefault(_includeDataProps);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Item(props) {
+  return _react2.default.createElement(
+    'tr',
+    null,
+    _react2.default.createElement(
+      'td',
+      _extends({}, (0, _includeDataProps2.default)(props), {
+        className: props.className,
+        align: props.align,
+        valign: props.valign,
+        bgcolor: props.bgcolor,
+        style: props.style
+      }),
+      props.children
+    )
+  );
+}
+
+Item.propTypes = {
+  className: _propTypes2.default.string,
+  bgcolor: _propTypes2.default.string,
+  align: _propTypes2.default.oneOf(['left', 'center', 'right']),
+  valign: _propTypes2.default.oneOf(['top', 'middle', 'bottom']),
+  style: _PropTypes2.default.style,
+  children: _propTypes2.default.node
+};
+
+Item.defaultProps = {
+  className: undefined,
+  bgcolor: undefined,
+  align: undefined,
+  valign: undefined,
+  style: undefined,
+  children: undefined
+};
+
+/***/ }),
+/* 393 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHtmlEmail = __webpack_require__(403);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var textStyles = {
+  fontFamily: 'helvetica',
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: 'black'
+};
+
+var emailHTML = (0, _reactHtmlEmail.renderEmail)(_react2.default.createElement(
+  _reactHtmlEmail.Email,
+  { title: 'link' },
+  _react2.default.createElement(
+    _reactHtmlEmail.Box,
+    null,
+    _react2.default.createElement(
+      _reactHtmlEmail.Item,
+      null,
+      _react2.default.createElement(
+        'ul',
+        null,
+        _react2.default.createElement(
+          _reactHtmlEmail.Span,
+          textStyles,
+          'Dylan has requested swap shifts:'
+        ),
+        _react2.default.createElement(
+          _reactHtmlEmail.Span,
+          textStyles,
+          ' 05/10/2018 5:00-7:00 - Dylan'
+        ),
+        _react2.default.createElement(
+          _reactHtmlEmail.Span,
+          textStyles,
+          ' 05/11/2018 7:00-9:00 - You'
+        ),
+        _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            'div',
+            null,
+            'Accept'
+          ),
+          _react2.default.createElement(
+            'div',
+            null,
+            'Decline'
+          )
+        )
+      )
+    )
+  )
+));
+
+exports.default = emailHTML;
+
+/***/ }),
+/* 394 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var ReactDefaultInjection = __webpack_require__(316);
+var ReactServerRendering = __webpack_require__(396);
+var ReactVersion = __webpack_require__(331);
+
+ReactDefaultInjection.inject();
+
+var ReactDOMServer = {
+  renderToString: ReactServerRendering.renderToString,
+  renderToStaticMarkup: ReactServerRendering.renderToStaticMarkup,
+  version: ReactVersion
+};
+
+module.exports = ReactDOMServer;
+
+/***/ }),
+/* 395 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+var ReactServerBatchingStrategy = {
+  isBatchingUpdates: false,
+  batchedUpdates: function (callback) {
+    // Don't do anything here. During the server rendering we don't want to
+    // schedule any updates. We will simply ignore them.
+  }
+};
+
+module.exports = ReactServerBatchingStrategy;
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright (c) 2013-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+var _prodInvariant = __webpack_require__(4);
+
+var React = __webpack_require__(24);
+var ReactDOMContainerInfo = __webpack_require__(301);
+var ReactDefaultBatchingStrategy = __webpack_require__(315);
+var ReactInstrumentation = __webpack_require__(14);
+var ReactMarkupChecksum = __webpack_require__(323);
+var ReactReconciler = __webpack_require__(23);
+var ReactServerBatchingStrategy = __webpack_require__(395);
+var ReactServerRenderingTransaction = __webpack_require__(329);
+var ReactUpdates = __webpack_require__(16);
+
+var emptyObject = __webpack_require__(33);
+var instantiateReactComponent = __webpack_require__(218);
+var invariant = __webpack_require__(2);
+
+var pendingTransactions = 0;
+
+/**
+ * @param {ReactElement} element
+ * @return {string} the HTML markup
+ */
+function renderToStringImpl(element, makeStaticMarkup) {
+  var transaction;
+  try {
+    ReactUpdates.injection.injectBatchingStrategy(ReactServerBatchingStrategy);
+
+    transaction = ReactServerRenderingTransaction.getPooled(makeStaticMarkup);
+
+    pendingTransactions++;
+
+    return transaction.perform(function () {
+      var componentInstance = instantiateReactComponent(element, true);
+      var markup = ReactReconciler.mountComponent(componentInstance, transaction, null, ReactDOMContainerInfo(), emptyObject, 0 /* parentDebugID */
+      );
+      if (process.env.NODE_ENV !== 'production') {
+        ReactInstrumentation.debugTool.onUnmountComponent(componentInstance._debugID);
+      }
+      if (!makeStaticMarkup) {
+        markup = ReactMarkupChecksum.addChecksumToMarkup(markup);
+      }
+      return markup;
+    }, null);
+  } finally {
+    pendingTransactions--;
+    ReactServerRenderingTransaction.release(transaction);
+    // Revert to the DOM batching strategy since these two renderers
+    // currently share these stateful modules.
+    if (!pendingTransactions) {
+      ReactUpdates.injection.injectBatchingStrategy(ReactDefaultBatchingStrategy);
+    }
+  }
+}
+
+/**
+ * Render a ReactElement to its initial HTML. This should only be used on the
+ * server.
+ * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostring
+ */
+function renderToString(element) {
+  !React.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToString(): You must pass a valid ReactElement.') : _prodInvariant('46') : void 0;
+  return renderToStringImpl(element, false);
+}
+
+/**
+ * Similar to renderToString, except this doesn't create extra DOM attributes
+ * such as data-react-id that React uses internally.
+ * See https://facebook.github.io/react/docs/top-level-api.html#reactdomserver.rendertostaticmarkup
+ */
+function renderToStaticMarkup(element) {
+  !React.isValidElement(element) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'renderToStaticMarkup(): You must pass a valid ReactElement.') : _prodInvariant('47') : void 0;
+  return renderToStringImpl(element, true);
+}
+
+module.exports = {
+  renderToString: renderToString,
+  renderToStaticMarkup: renderToStaticMarkup
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(394);
+
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _supportMatrix = __webpack_require__(405);
+
+var _supportMatrix2 = _interopRequireDefault(_supportMatrix);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var capsRe = /[A-Z]/g;
+
+var StyleValidator = function () {
+  function StyleValidator(config) {
+    _classCallCheck(this, StyleValidator);
+
+    this.setConfig(config);
+  }
+
+  _createClass(StyleValidator, [{
+    key: 'setConfig',
+    value: function setConfig(config) {
+      this.config = _extends({
+        strict: true,
+        warn: true,
+        platforms: ['gmail', 'gmail-android', 'apple-mail', 'apple-ios', 'yahoo-mail', 'outlook', 'outlook-legacy', 'outlook-web']
+      }, config);
+    }
+  }, {
+    key: 'validate',
+    value: function validate(style, componentName) {
+      var _this = this;
+
+      var _loop = function _loop(propNameCamelCase) {
+        var propName = propNameCamelCase.replace(capsRe, function (match) {
+          return `-${match[0].toLowerCase()}`;
+        });
+
+        var supportInfo = _supportMatrix2.default[propName];
+
+        if (!supportInfo) {
+          if (_this.config.strict) {
+            return {
+              v: new Error(`Unknown style property \`${propName}\` supplied to \`${componentName}\`.`)
+            };
+          }
+        } else {
+          var unsupported = [];
+          var messages = new Map();
+          _this.config.platforms.forEach(function (platform) {
+            if (typeof supportInfo[platform] === 'string') {
+              var msg = supportInfo[platform];
+              if (!messages.has(msg)) {
+                messages.set(msg, []);
+              }
+              messages.get(msg).push(platform);
+            } else if (supportInfo[platform] === false) {
+              unsupported.push(platform);
+            }
+          });
+
+          if (_this.config.warn) {
+            // eslint-disable-next-line no-restricted-syntax
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+              for (var _iterator2 = messages[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var _ref = _step2.value;
+
+                var _ref2 = _slicedToArray(_ref, 2);
+
+                var msg = _ref2[0];
+                var platforms = _ref2[1];
+
+                console.warn(`Warning: Style property \`${propName}\` supplied to \`${componentName}\`, in ${platforms.join(', ')}: ${msg.toLowerCase()}`); // eslint-disable-line no-console
+              }
+            } catch (err) {
+              _didIteratorError2 = true;
+              _iteratorError2 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                  _iterator2.return();
+                }
+              } finally {
+                if (_didIteratorError2) {
+                  throw _iteratorError2;
+                }
+              }
+            }
+          }
+
+          if (unsupported.length && _this.config.strict) {
+            return {
+              v: new Error(`Style property \`${propName}\` supplied to \`${componentName}\` unsupported in: ${unsupported.join(', ')}.`)
+            };
+          }
+        }
+      };
+
+      // eslint-disable-next-line no-restricted-syntax
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = Object.keys(style)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var propNameCamelCase = _step.value;
+
+          var _ret = _loop(propNameCamelCase);
+
+          if (typeof _ret === "object") return _ret.v;
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return undefined;
+    }
+  }]);
+
+  return StyleValidator;
+}();
+
+exports.default = StyleValidator;
+
+/***/ }),
+/* 399 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = A;
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(13);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PropTypes = __webpack_require__(389);
+
+var _PropTypes2 = _interopRequireDefault(_PropTypes);
+
+var _includeDataProps = __webpack_require__(390);
+
+var _includeDataProps2 = _interopRequireDefault(_includeDataProps);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function A(props) {
+  return _react2.default.createElement(
+    'a',
+    _extends({}, (0, _includeDataProps2.default)(props), {
+      download: props.download,
+      href: props.href,
+      target: '_blank',
+      style: _extends({
+        color: props.color,
+        textDecoration: props.textDecoration
+      }, props.style)
+    }),
+    props.children
+  );
+}
+
+A.propTypes = {
+  href: _propTypes2.default.string.isRequired,
+  download: _propTypes2.default.string,
+  color: _propTypes2.default.string,
+  textDecoration: _propTypes2.default.string,
+  style: _PropTypes2.default.style,
+  children: _propTypes2.default.node
+};
+
+A.defaultProps = {
+  textDecoration: 'underline',
+  href: undefined,
+  download: undefined,
+  color: undefined,
+  style: undefined,
+  children: undefined
+};
+
+/***/ }),
+/* 400 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = Email;
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(13);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PropTypes = __webpack_require__(389);
+
+var _PropTypes2 = _interopRequireDefault(_PropTypes);
+
+var _Box = __webpack_require__(391);
+
+var _Box2 = _interopRequireDefault(_Box);
+
+var _Item = __webpack_require__(392);
+
+var _Item2 = _interopRequireDefault(_Item);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// inspired by http://htmlemailboilerplate.com
+function Email(props) {
+  // default nested 600px wide outer table container (see http://templates.mailchimp.com/development/html/)
+  return _react2.default.createElement(
+    'html',
+    { lang: props.lang, xmlns: 'http://www.w3.org/1999/xhtml' },
+    _react2.default.createElement(
+      'head',
+      null,
+      _react2.default.createElement('meta', { httpEquiv: 'Content-Type', content: 'text/html; charset=utf-8' }),
+      _react2.default.createElement('meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }),
+      _react2.default.createElement(
+        'title',
+        null,
+        props.title
+      ),
+      props.headCSS && _react2.default.createElement(
+        'style',
+        { type: 'text/css' },
+        props.headCSS
+      )
+    ),
+    _react2.default.createElement(
+      'body',
+      {
+        style: _extends({
+          width: '100%',
+          margin: 0,
+          padding: 0,
+          WebkitTextSizeAdjust: '100%',
+          MsTextSizeAdjust: '100%'
+        }, props.bodyStyle)
+      },
+      _react2.default.createElement(
+        _Box2.default,
+        { width: '100%', height: '100%', bgcolor: props.bgcolor },
+        _react2.default.createElement(
+          _Item2.default,
+          { align: props.align, valign: props.valign },
+          _react2.default.createElement(
+            _Box2.default,
+            { width: props.width, align: 'center', cellPadding: props.cellPadding, cellSpacing: props.cellSpacing, style: props.style },
+            props.children
+          )
+        )
+      )
+    )
+  );
+}
+
+Email.propTypes = {
+  lang: _propTypes2.default.string,
+  title: _propTypes2.default.string.isRequired,
+  bgcolor: _propTypes2.default.string,
+  cellPadding: _propTypes2.default.number,
+  cellSpacing: _propTypes2.default.number,
+  style: _PropTypes2.default.style,
+  headCSS: _propTypes2.default.string,
+  width: _propTypes2.default.string,
+  align: _propTypes2.default.oneOf(['left', 'center', 'right']),
+  valign: _propTypes2.default.oneOf(['top', 'middle', 'bottom']),
+  bodyStyle: _PropTypes2.default.style,
+  children: _propTypes2.default.node
+};
+
+Email.defaultProps = {
+  lang: 'en',
+  width: '600',
+  align: 'center',
+  valign: 'top',
+  bgcolor: undefined,
+  cellPadding: undefined,
+  cellSpacing: undefined,
+  style: undefined,
+  headCSS: undefined,
+  bodyStyle: undefined,
+  children: undefined
+};
+
+/***/ }),
+/* 401 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = Image;
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(13);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PropTypes = __webpack_require__(389);
+
+var _PropTypes2 = _interopRequireDefault(_PropTypes);
+
+var _includeDataProps = __webpack_require__(390);
+
+var _includeDataProps2 = _interopRequireDefault(_includeDataProps);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Image(props) {
+  return _react2.default.createElement('img', _extends({}, (0, _includeDataProps2.default)(props), {
+    alt: props.alt,
+    src: props.src,
+    width: props.width,
+    height: props.height,
+    style: _extends({
+      display: 'block',
+      outline: 'none',
+      border: 'none',
+      textDecoration: 'none'
+    }, props.style)
+  }));
+}
+
+Image.propTypes = {
+  alt: _propTypes2.default.string.isRequired,
+  src: _propTypes2.default.string.isRequired,
+  width: _propTypes2.default.number.isRequired,
+  height: _propTypes2.default.number.isRequired,
+  style: _PropTypes2.default.style
+};
+
+Image.defaultProps = {
+  style: undefined
+};
+
+/***/ }),
+/* 402 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = Span;
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(13);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _PropTypes = __webpack_require__(389);
+
+var _PropTypes2 = _interopRequireDefault(_PropTypes);
+
+var _includeDataProps = __webpack_require__(390);
+
+var _includeDataProps2 = _interopRequireDefault(_includeDataProps);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Span(props) {
+  var lineHeight = props.lineHeight !== undefined ? props.lineHeight : props.fontSize;
+  return _react2.default.createElement(
+    'span',
+    _extends({}, (0, _includeDataProps2.default)(props), {
+      style: _extends({
+        fontFamily: props.fontFamily,
+        fontSize: props.fontSize,
+        fontWeight: props.fontWeight,
+        lineHeight: `${lineHeight}px`,
+        color: props.color
+      }, props.style)
+    }),
+    props.children
+  );
+}
+
+Span.propTypes = {
+  fontFamily: _propTypes2.default.string,
+  fontSize: _propTypes2.default.number,
+  fontWeight: _propTypes2.default.string,
+  lineHeight: _propTypes2.default.number,
+  color: _propTypes2.default.string,
+  style: _PropTypes2.default.style,
+  children: _propTypes2.default.node
+};
+
+Span.defaultProps = {
+  fontFamily: 'sans-serif',
+  fontSize: 14,
+  fontWeight: undefined,
+  lineHeight: undefined,
+  color: '#000',
+  style: undefined,
+  children: undefined
+};
+
+/***/ }),
+/* 403 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.renderEmail = exports.configStyleValidator = exports.A = exports.Span = exports.Item = exports.Image = exports.Email = exports.Box = exports.PropTypes = undefined;
+
+var _PropTypes = __webpack_require__(389);
+
+var _PropTypes2 = _interopRequireDefault(_PropTypes);
+
+var _Box = __webpack_require__(391);
+
+var _Box2 = _interopRequireDefault(_Box);
+
+var _Email = __webpack_require__(400);
+
+var _Email2 = _interopRequireDefault(_Email);
+
+var _Image = __webpack_require__(401);
+
+var _Image2 = _interopRequireDefault(_Image);
+
+var _Item = __webpack_require__(392);
+
+var _Item2 = _interopRequireDefault(_Item);
+
+var _Span = __webpack_require__(402);
+
+var _Span2 = _interopRequireDefault(_Span);
+
+var _A = __webpack_require__(399);
+
+var _A2 = _interopRequireDefault(_A);
+
+var _renderEmail = __webpack_require__(404);
+
+var _renderEmail2 = _interopRequireDefault(_renderEmail);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var DEV = typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production';
+
+(0, _PropTypes.configStyleValidator)({
+  warn: DEV
+});
+
+exports.PropTypes = _PropTypes2.default;
+exports.Box = _Box2.default;
+exports.Email = _Email2.default;
+exports.Image = _Image2.default;
+exports.Item = _Item2.default;
+exports.Span = _Span2.default;
+exports.A = _A2.default;
+exports.configStyleValidator = _PropTypes.configStyleValidator;
+exports.renderEmail = _renderEmail2.default;
+exports.default = {
+  PropTypes: _PropTypes2.default,
+  configStyleValidator: _PropTypes.configStyleValidator,
+  renderEmail: _renderEmail2.default,
+  styleValidator: _PropTypes.styleValidator
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 404 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = renderEmail;
+
+var _server = __webpack_require__(397);
+
+var _server2 = _interopRequireDefault(_server);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function renderEmail(emailComponent) {
+  var doctype = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">';
+  return doctype + _server2.default.renderToStaticMarkup(emailComponent);
+}
+
+/***/ }),
+/* 405 */
+/***/ (function(module, exports) {
+
+module.exports = {"direction":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"font":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"font-family":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"font-style":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"font-variant":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"font-size":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"font-weight":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"letter-spacing":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"line-height":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":"line-height on td is ignored, use on p instead.","apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"text-align":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"text-decoration":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"text-indent":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"text-overflow":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":"text-overflow: ellipsis; does not work","apple-mail":true,"yahoo-mail":"text-overflow: ellipsis; does not work","gmail":"text-overflow: ellipsis; does not work in Firefox","gmail-android":true},"text-shadow":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":false,"gmail-android":true},"text-transform":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"white-space":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"word-spacing":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"word-wrap":{"outlook":false,"outlook-legacy":"word-wrap: normal; not supported","apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":false,"gmail-android":false},"vertical-align":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"text-fill-color":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"text-fill-stroke":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"color":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"background":{"outlook":"Background images not supported","outlook-legacy":true,"apple-ios":true,"outlook-web":"Background images not supported","apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"background-color":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"background-image":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"background-position":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":false,"gmail-android":true},"background-repeat":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"background-size":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":"Image not stretched","gmail":false,"gmail-android":"Image not stretched"},"border-left":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"border-right":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"border-top":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"border-bottom":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"border":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"border-color":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":false},"border-image":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":false},"border-radius":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":false,"gmail":true,"gmail-android":false},"box-shadow":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":false},"height":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"margin-left":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"margin-right":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"margin-top":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"margin-bottom":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"margin":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"padding-left":{"outlook":"Padding for p, div and a tags is not supported","outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"padding-right":{"outlook":"Padding for p, div and a tags is not supported","outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"padding-top":{"outlook":"Padding for p, div and a tags is not supported","outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"padding-bottom":{"outlook":"Padding for p, div and a tags is not supported","outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"padding":{"outlook":"Padding for p, div and a tags is not supported","outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"width":{"outlook":"Width for p and div tags is not supported","outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"max-width":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"min-width":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"bottom":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"clear":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"clip":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"cursor":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":false,"gmail-android":false},"display":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":false,"gmail-android":true},"float":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"left":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"opacity":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"outline":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":"Inner and outer border are collapsed","apple-mail":true,"yahoo-mail":"Inner and outer border are collapsed","gmail":"Inner and outer border are collapsed","gmail-android":true},"overflow":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":"overflow: hidden; does not work","apple-mail":true,"yahoo-mail":"overflow: hidden; does not work","gmail":"overflow: hidden; does not work","gmail-android":"overflow: scroll; does not work"},"position":{"outlook":false,"outlook-legacy":true,"apple-ios":"position: fixed; does not result in elements being positioned relative to the reading pane","outlook-web":true,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"resize":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":"IE: Yes. Otherwise, inline text field with scrollbar displays, but no resize tab","apple-mail":true,"yahoo-mail":"IE: Yes. Otherwise, inline text field with scrollbar displays, but no resize tab","gmail":false,"gmail-android":false},"right":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"top":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":false,"gmail":false,"gmail-android":true},"visibility":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":false,"gmail-android":true},"z-index":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":false,"gmail-android":true},"list-style-image":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":false,"gmail-android":true},"list-style-position":{"outlook":false,"outlook-legacy":true,"apple-ios":true,"outlook-web":false,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"list-style-type":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"border-collapse":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"border-spacing":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"caption-side":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"empty-cells":{"outlook":false,"outlook-legacy":false,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true},"table-layout":{"outlook":true,"outlook-legacy":true,"apple-ios":true,"outlook-web":true,"apple-mail":true,"yahoo-mail":true,"gmail":true,"gmail-android":true}}
 
 /***/ })
 /******/ ]);
