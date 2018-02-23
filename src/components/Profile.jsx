@@ -58,10 +58,12 @@ class Profile extends React.Component {
   }
 
   render() {
+    console.log(this.props);
+
     return (
       <div className="user-content">
         <div className="user-info">
-            Person Name
+            {this.props.user.local.email}
             <br/>
             Work Name
             <br/>
