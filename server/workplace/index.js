@@ -5,30 +5,54 @@ const User = require('../db/models/user')
 
 // this route is used to return a workplace if none is found it is added
 // then a new workplace is added
-router.get('/find', (req, res, next) => {
-  const { place_id } = req.body  
-
-  Workplace.findOne({ 'place_id': place_id }).exec( function(err, workplaceMatch) {
-    if (err) {
-      return res.json(err)
-    } else if (workplaceMatch) {
-      return res.json(workplaceMatch.populate("employees"))
-    } 
+router.get("/find", (req, res, next) => {
+  let place_id = req.query.place_id;
+  console.log("=====REQUEST SENT====");
+  
+  console.log(req.query.place_id);
+  console.log(place_id);
+  
+  Workplace.
+    findOne({ 'place_id': place_id }).
+    populate("employees").
+    exec( function (err, workplaceMatch) {
+      console.log("====START OF IF STATEMENT====");    
+      if (err) {
+        console.log("====ERR====");      
+        return res.json(err)
+      } else if (workplaceMatch) {
+        console.log("====FINDING WORKPLACE====");
+        return res.json(workplaceMatch)
+      } else {
+        console.log("====FINAL ELSE====");        
+        return null;
+      }
   })
 })
+
+// Story.
+//   findOne({ title: 'Casino Royale' }).
+//   populate('author').
+//   exec(function (err, story) {
+//     if (err) return handleError(err);
+//     console.log('The author is %s', story.author.name);
+//     // prints "The author is Ian Fleming"
+//   });
+
+
 
 router.post('/addemployee', (req,res,next) => { 
   console.log(req.body);
   const { name, place_id, formatted_address, employee_id  } = req.body  
   
-  Workplace.findById(place_id).exec(function (err, result) {
+  Workplace.findById(place_id).populate('employees').exec(function (err, result) {
     if (result) {
       console.log("**WORKPLACE EXISTS**");
       console.log(result);
       result.employees.push(employee_id)
       result.save((err, savedWorkplace) => {
         if (err) return res.json(err)
-        return res.json(savedWorkplace.populate('employees'))
+        return res.json(savedWorkplace)
       })
     } else {
       const newWorkplace = new Workplace({
@@ -46,14 +70,6 @@ router.post('/addemployee', (req,res,next) => {
  
   })
 }) 
-
-
-
-
-
-
-
-
 
 router.patch('/removeemployee', (req, res, next) => {
   const { place_id, employee_id  } = req.body 
@@ -99,7 +115,6 @@ module.exports = router
 //     return res.json(savedWorkplace.populate("employees"))
 //   })    
 // } 
-
 
 
 // router.post('/new', (req, res, next) => {
