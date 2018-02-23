@@ -39817,6 +39817,9 @@ var Calendar = function (_Component) {
           (0, _jquery2.default)(this).css('background-color', 'red');
         },
         eventClick: function eventClick(calEvent, jsEvent, view) {
+          (0, _jquery2.default)(this).setState({
+            redirectTo: '/'
+          });
           alert('Would you like to request shift trade for {person name and shift date here} ?');
         },
         dayClick: function dayClick(date, jsEvent, view) {
@@ -71231,6 +71234,25 @@ var textStyles = {
   color: 'black'
 };
 
+var itemStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center'
+};
+
+// const listStyles = {
+//   listStyle: 'none'
+// };
+
+// const buttonStyles = {
+//   width: 120,
+//   height: 50,
+//   margin: 20,
+//   backgroundColor: 'lightred',
+//   color: 'white'
+// };
+
 var emailHTML = (0, _reactHtmlEmail.renderEmail)(_react2.default.createElement(
   _reactHtmlEmail.Email,
   { title: 'link' },
@@ -71239,38 +71261,46 @@ var emailHTML = (0, _reactHtmlEmail.renderEmail)(_react2.default.createElement(
     null,
     _react2.default.createElement(
       _reactHtmlEmail.Item,
-      null,
+      itemStyles,
       _react2.default.createElement(
-        'ul',
+        'div',
         null,
         _react2.default.createElement(
           _reactHtmlEmail.Span,
           textStyles,
           'Dylan has requested swap shifts:'
-        ),
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
         _react2.default.createElement(
           _reactHtmlEmail.Span,
           textStyles,
           ' 05/10/2018 5:00-7:00 - Dylan'
-        ),
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
         _react2.default.createElement(
           _reactHtmlEmail.Span,
           textStyles,
           ' 05/11/2018 7:00-9:00 - You'
+        )
+      ),
+      _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          'button',
+          null,
+          'Accept'
         ),
         _react2.default.createElement(
-          'li',
+          'button',
           null,
-          _react2.default.createElement(
-            'div',
-            null,
-            'Accept'
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            'Decline'
-          )
+          'Decline'
         )
       )
     )
