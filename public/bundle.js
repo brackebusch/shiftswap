@@ -40000,6 +40000,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //this needs to be set up to render gif unless user is signed in
 //and if they are signed in to render the calendar + user info
 var DisplayMain = function DisplayMain(props) {
+  console.log(props);
 
   return _react2.default.createElement(
     'div',
@@ -40240,6 +40241,7 @@ var NavBar = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'NavBar' },
+				_react2.default.createElement(DisplayLinks, { _logout: this._logout, loggedIn: this.state.loggedIn }),
 				_react2.default.createElement(DisplayLinks, { _logout: this._logout, loggedIn: this.state.loggedIn }),
 				_react2.default.createElement(_reactRouterDom.Route, {
 					exact: true,

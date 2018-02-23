@@ -120,6 +120,8 @@ class NavBar extends Component {
 
 				{/* LINKS to our different 'pages' */}
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+				
 				{/*  ROUTES */}
 				{/* <Route exact path="/" component={Home} /> */}
 

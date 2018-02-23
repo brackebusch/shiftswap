@@ -3,7 +3,7 @@ const router = express.Router()
 const User = require('../db/models/user')
 const passport = require('../passport')
 
-router.get('/google', passport.authenticate('google', { scope: ['profile'] }))
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
 router.get(
 	'/google/callback',
 	passport.authenticate('google', {
@@ -67,6 +67,7 @@ router.post('/signup', (req, res) => {
 			'local.password': password,
 			'phone': phone
 		})
+		console.log(newUser);
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err)
 			return res.json(savedUser)
