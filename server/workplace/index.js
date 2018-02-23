@@ -8,10 +8,6 @@ const User = require('../db/models/user')
 router.get("/find", (req, res, next) => {
   let place_id = req.query.place_id;
   console.log("=====REQUEST SENT====");
-  
-  console.log(req.query.place_id);
-  console.log(place_id);
-  
   Workplace.
     findOne({ 'place_id': place_id }).
     populate("employees").
@@ -30,7 +26,6 @@ router.get("/find", (req, res, next) => {
 })
 
 router.post('/addemployee', (req,res,next) => { 
-  console.log(req.body);
   const { name, place_id, formatted_address, employee_id  } = req.body  
   
   Workplace.
@@ -39,7 +34,6 @@ router.post('/addemployee', (req,res,next) => {
     exec(function (err, result) {
       if (result) {
         console.log("===WORKPLACE EXISTS==");
-        console.log(result);
         result.employees.push(employee_id)
         result.save((err, savedWorkplace) => {
           if (err) return res.json(err)
@@ -55,6 +49,7 @@ router.post('/addemployee', (req,res,next) => {
         })
         newWorkplace.save((err, savedWorkplace) => {
           if (err) return res.json(err)
+          User.findByIdAndUpdate(employee_id, {$push: {workplaces: savedWorkplace._id}})
           return res.json(savedWorkplace.populate('employees'))
         })
       }

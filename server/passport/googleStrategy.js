@@ -31,7 +31,8 @@ const strategy = new GoogleStrategy(
 					'google.googleId': id,
 					firstName: name.givenName,
 					lastName: name.familyName,
-					'local.email': emails.value 
+					'local.email': emails.value,
+					workplaces: [] 
 				})
 				// save this user
 				newGoogleUser.save((err, savedUser) => {

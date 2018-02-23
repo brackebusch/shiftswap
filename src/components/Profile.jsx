@@ -25,14 +25,9 @@ class Profile extends React.Component {
         place_id: place.place_id,
         name: place.name
       });
-      // console.log(place.formatted_address);
-      // console.log(place.url);
-      // console.log(place.place_id);
-      // console.log(place.name);
       var info = document.getElementById("confirm-modal-info");
       info.innerText = `${place.name} \n
-                        ${place.formatted_address}
-      `;
+                        ${place.formatted_address}`;
       document.getElementById('confirm-modal-back').style.display = "flex";
       document.getElementById('confirm-modal').style.display = "flex";
     });
@@ -50,8 +45,6 @@ class Profile extends React.Component {
 		}
 	}
 
-
-
   showSearch() {
     document.getElementById('find-workplace').style.display = "flex";
     document.getElementById('add-workplace-button').style.display = "none";
@@ -63,7 +56,7 @@ class Profile extends React.Component {
     return (
       <div className="user-content">
         <div className="user-info">
-            {this.props.user.local.email}
+            {this.props.user.firstName}
             <br/>
             Work Name
             <br/>

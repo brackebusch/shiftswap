@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
 
-
 class Calendar extends Component {
   render() {
     return (

@@ -83,6 +83,25 @@ class NavBar extends Component {
 				})
 			}
 		})
+	
+		// if(use.)
+
+		// axios.get('/auth/user').then(response => {
+		// 	console.log(response.data)
+		// 	if (!!response.data.user) {
+		// 		console.log('THERE IS A USER')
+		// 		this.setState({
+		// 			loggedIn: true,
+		// 			user: response.data.user
+		// 		})
+		// 	} else {
+		// 		this.setState({
+		// 			loggedIn: false,
+		// 			user: null
+		// 		})
+		// 	}
+		// })
+
 	}
 
 	_logout(event) {
@@ -123,7 +142,6 @@ class NavBar extends Component {
 			<div className="NavBar">
 
 				{/* LINKS to our different 'pages' */}
-				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
 				
 				{/*  ROUTES */}
