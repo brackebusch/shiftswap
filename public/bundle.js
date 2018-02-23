@@ -39914,19 +39914,15 @@ var LoginForm = function (_Component) {
 						'div',
 						{ className: 'LoginForm' },
 						_react2.default.createElement(
-							'h1',
-							{ className: 'LoginHeader' },
-							'Login'
-						),
-						_react2.default.createElement(
 							'label',
-							{ className: 'form-label', htmlFor: 'email' },
+							{ className: 'form-label top', htmlFor: 'email' },
 							'Email: '
 						),
 						_react2.default.createElement('input', {
 							className: 'form-input',
 							type: 'text',
 							name: 'email',
+							placeholder: 'coolname@gmail.com',
 							value: this.state.email,
 							onChange: this.handleChange
 						}),
@@ -39936,9 +39932,10 @@ var LoginForm = function (_Component) {
 							'Password: '
 						),
 						_react2.default.createElement('input', {
-							className: 'form-input',
+							className: 'form-input password',
 							type: 'password',
 							name: 'password',
+							placeholder: '******',
 							value: this.state.password,
 							onChange: this.handleChange
 						}),
@@ -40115,11 +40112,15 @@ var DisplayLinks = function DisplayLinks(props) {
 					{ className: 'right-nav' },
 					_react2.default.createElement(
 						'li',
-						{ className: 'nav-item' },
+						{ className: 'nav-item-logout' },
 						_react2.default.createElement(
 							_reactRouterDom.Link,
 							{ to: '#', onClick: props._logout },
-							'Logout'
+							_react2.default.createElement(
+								'h1',
+								{ className: 'link' },
+								'logout'
+							)
 						)
 					)
 				)
@@ -40154,7 +40155,11 @@ var DisplayLinks = function DisplayLinks(props) {
 						_react2.default.createElement(
 							_reactRouterDom.Link,
 							{ to: '/login', className: 'nav-link' },
-							'login'
+							_react2.default.createElement(
+								'h1',
+								{ className: 'link' },
+								'login'
+							)
 						)
 					),
 					_react2.default.createElement(
@@ -40163,7 +40168,11 @@ var DisplayLinks = function DisplayLinks(props) {
 						_react2.default.createElement(
 							_reactRouterDom.Link,
 							{ to: '/signup', className: 'nav-link' },
-							'sign up'
+							_react2.default.createElement(
+								'h1',
+								{ className: 'link' },
+								'signup'
+							)
 						)
 					)
 				)
@@ -40515,9 +40524,12 @@ var SignupForm = function (_Component) {
 
 			event.preventDefault();
 			// TODO - validate!
+			var name = this.state.name.split(" ");
+			var first = name[0];
+			var last = name[1];
 			_axios2.default.post('/auth/signup', {
-				firstName: this.state.firstName,
-				lastName: this.state.lastName,
+				firstName: first,
+				lastName: last,
 				email: this.state.email,
 				phone: this.state.phone,
 				password: this.state.password
@@ -40555,34 +40567,16 @@ var SignupForm = function (_Component) {
 					'div',
 					{ className: 'SignupForm' },
 					_react2.default.createElement(
-						'h1',
-						{ className: 'SignupHeader' },
-						'SignUp'
-					),
-					_react2.default.createElement(
 						'label',
-						{ className: 'form-label', htmlFor: 'firstName' },
-						'First Name: '
+						{ className: 'form-label top', htmlFor: 'name' },
+						'Name: '
 					),
 					_react2.default.createElement('input', {
 						className: 'form-input',
 						type: 'text',
-						name: 'firstName',
-						placeholder: 'As Listed On Schedule',
-						value: this.state.firstName,
-						onChange: this.handleChange
-					}),
-					_react2.default.createElement(
-						'label',
-						{ className: 'form-label', htmlFor: 'lastName' },
-						'Last Name: '
-					),
-					_react2.default.createElement('input', {
-						className: 'form-input',
-						type: 'text',
-						name: 'lastName',
-						placeholder: 'As Listed On Schedule',
-						value: this.state.lastName,
+						name: 'name',
+						placeholder: 'first last',
+						value: this.state.name,
 						onChange: this.handleChange
 					}),
 					_react2.default.createElement(
@@ -40594,22 +40588,8 @@ var SignupForm = function (_Component) {
 						className: 'form-input',
 						type: 'text',
 						name: 'email',
+						placeholder: 'coolname@gmail.com',
 						value: this.state.email,
-						onChange: this.handleChange
-					}),
-					_react2.default.createElement(
-						'label',
-						{ className: 'form-label', htmlFor: 'phone' },
-						'Phone Number: '
-					),
-					_react2.default.createElement('input', {
-						className: 'form-input',
-						type: 'tel',
-						name: 'phone',
-						placeholder: '123-456-7890',
-						minLength: '9',
-						maxLength: '14',
-						value: this.state.phone,
 						onChange: this.handleChange
 					}),
 					_react2.default.createElement(
@@ -40621,18 +40601,20 @@ var SignupForm = function (_Component) {
 						className: 'form-input',
 						type: 'password',
 						name: 'password',
+						placeholder: '******',
 						value: this.state.password,
 						onChange: this.handleChange
 					}),
 					_react2.default.createElement(
 						'label',
-						{ className: 'form-label-confirm', htmlFor: 'confirmPassword' },
+						{ className: 'form-label', htmlFor: 'confirmPassword' },
 						'Confirm Password: '
 					),
 					_react2.default.createElement('input', {
-						className: 'form-input',
+						className: 'form-input password',
 						type: 'password',
 						name: 'confirmPassword',
+						placeholder: '******',
 						value: this.state.confirmPassword,
 						onChange: this.handleChange
 					}),
@@ -40650,6 +40632,27 @@ var SignupForm = function (_Component) {
 }(_react.Component);
 
 exports.default = SignupForm;
+
+// <label className="form-label-phone" htmlFor="phone">Phone Number: </label>
+// 	<input
+// 		className="form-input"
+// 		type="tel"
+// 		name="phone"
+// 		placeholder="123-456-7890"
+// 		minLength="9"
+// 		maxLength="14"
+// 		value={this.state.phone}
+// 		onChange={this.handleChange}
+// 	/>
+// <label className="form-label" htmlFor="lastName">Last Name: </label>
+// 	<input
+// 		className="form-input"
+// 		type="text"
+// 		name="lastName"
+// 		placeholder="As Listed On Schedule"
+// 		value={this.state.lastName}
+// 		onChange={this.handleChange}
+// 	/>
 
 /***/ }),
 /* 257 */

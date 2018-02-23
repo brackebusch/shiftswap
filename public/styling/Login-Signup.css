@@ -1,6 +1,4 @@
-body {
-  background: #ced6e0;
-}
+
 
 .anon-greeting {
   display: flex;
@@ -13,9 +11,10 @@ body {
 .SignupForm, .LoginForm {
   display: flex;
   width: 320px;
-  height: 600px;
+  height: 400px;
   border-radius: 25px;
-  background-color: blue;
+  margin-left: -50px;
+  background-color: rgba(126, 192, 238, 0.5);
   flex-direction: column;
   z-index: 3;
 }
@@ -23,7 +22,7 @@ body {
 .session-form {
   position: fixed;
   display: flex;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.15);
   width: 110%;
   height: 100%;
 
@@ -37,7 +36,7 @@ body {
   align-items: center;
 }
 
-.SignupHeader {
+/* .SignupHeader {
   margin-top: 20px;
   font-size: 25px;
   margin-left: 35%;
@@ -49,25 +48,41 @@ body {
   font-size: 25px;
   margin-left: 38%;
   margin-right: 38%;
+} */
+
+.top {
+  margin-top: 40px;
 }
 
 .form-label {
-  margin-left: 35%;
-  margin-right: 35%;
+  margin-left: 65px;
+  font-size: 15px;
 }
 
-.form-label-confirm {
-  margin-left: 25%;
-  margin-right: 25%;
+/* .form-label-confirm {
+  margin-left: 28%;
+  margin-right: 28%;
 }
+
+.form-label-phone {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
+.form-label-email {
+  margin-left: 40%;
+  margin-right: 40%;
+} */
+
 
 .form-input, .form-button {
   display: flex;
-  width: 191px;
+  width: 190px;
   height: 30px;
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-left: 65px;
+  margin-right: 65px;
   margin-bottom: 15px;
+  margin-top: -5px;
 }
 
 .form-button {
@@ -77,15 +92,20 @@ body {
   border-radius: 25px;
   background-color: #0275d8;
   justify-content: center;
+  border: none;
+}
+
+.password {
+  margin-bottom: 25px;
 }
 
 
 .form-google {
-  margin-left: 17%;
-  margin-right: 17%;
+  margin-left: 20%;
+  margin-right: 20%;
 }
 
 .form-button:hover {
   cursor: pointer;
-  background-color: blue;
+  background-color: rgba(75, 119, 190, 1.0);
 }
