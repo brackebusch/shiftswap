@@ -1,15 +1,71 @@
-/* .main-content {
-  width: 100vw;
-  height: 100%;
-  background: url(https://res.cloudinary.com/arpannln/image/upload/v1518989062/shaking.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-} */
-
 .userAndCalendar {
   padding-top: 50px;
   display: flex;
   justify-content: space-between;
 }
+
+body {
+  padding: 0px;
+  margin: 0px;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar {
+  background-color: rgba(255,255,255,0.8);
+  width: 100%;
+  height: 65px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav {
+  justify-content: space-between;
+}
+
+.left-nav, .right-nav{
+  display: flex;
+  flex-direction: row;
+}
+
+.nav-item {
+  display: flex;
+}
+.NavBar {
+
+  display: flex;
+
+  width: 100%;
+  height: 50px;
+  z-index: 0;
+}
+
+.app-container {
+  height: 100vh;
+}
+/*
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+} */

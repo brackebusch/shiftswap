@@ -16,7 +16,6 @@ router.get("/find", (req, res, next) => {
     findOne({ 'place_id': place_id }).
     populate("employees").
     exec( function (err, workplaceMatch) {
-      console.log("====START OF IF STATEMENT====");    
       if (err) {
         console.log("====ERR====");      
         return res.json(err)
@@ -24,49 +23,41 @@ router.get("/find", (req, res, next) => {
         console.log("====FINDING WORKPLACE====");
         return res.json(workplaceMatch)
       } else {
-        console.log("====FINAL ELSE====");        
-        return null;
+        console.log("====NOTHING FOUND====");        
+        return res.json(null);
       }
   })
 })
-
-// Story.
-//   findOne({ title: 'Casino Royale' }).
-//   populate('author').
-//   exec(function (err, story) {
-//     if (err) return handleError(err);
-//     console.log('The author is %s', story.author.name);
-//     // prints "The author is Ian Fleming"
-//   });
-
-
 
 router.post('/addemployee', (req,res,next) => { 
   console.log(req.body);
   const { name, place_id, formatted_address, employee_id  } = req.body  
   
-  Workplace.findById(place_id).populate('employees').exec(function (err, result) {
-    if (result) {
-      console.log("**WORKPLACE EXISTS**");
-      console.log(result);
-      result.employees.push(employee_id)
-      result.save((err, savedWorkplace) => {
-        if (err) return res.json(err)
-        return res.json(savedWorkplace)
-      })
-    } else {
-      const newWorkplace = new Workplace({
-        name: name,
-        formatted_address: formatted_address,
-        place_id: place_id,
-        employees: [employee_id],
-        shifts: []
-      })
-      newWorkplace.save((err, savedWorkplace) => {
-        if (err) return res.json(err)
-        return res.json(savedWorkplace.populate('employees'))
-      })
-    }
+  Workplace.
+    findById(place_id).
+    populate("employees").
+    exec(function (err, result) {
+      if (result) {
+        console.log("===WORKPLACE EXISTS==");
+        console.log(result);
+        result.employees.push(employee_id)
+        result.save((err, savedWorkplace) => {
+          if (err) return res.json(err)
+          return res.json(savedWorkplace)
+        })
+      } else {
+        const newWorkplace = new Workplace({
+          name: name,
+          formatted_address: formatted_address,
+          place_id: place_id,
+          employees: [employee_id],
+          shifts: []
+        })
+        newWorkplace.save((err, savedWorkplace) => {
+          if (err) return res.json(err)
+          return res.json(savedWorkplace.populate('employees'))
+        })
+      }
  
   })
 }) 
