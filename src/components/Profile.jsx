@@ -47,6 +47,8 @@ class Profile extends React.Component {
 
   }
 
+  // ##### THIS IS WHERE PROFILE CONNECTS TO BACKEND #####
+
   recordWorkplace() {
     this.closeModal();
     axios
@@ -58,6 +60,7 @@ class Profile extends React.Component {
       })
       .then(response => {
         console.log(response);
+        console.log(this.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
           this.setState({

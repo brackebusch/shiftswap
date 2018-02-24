@@ -41008,6 +41008,9 @@ var Profile = function (_React$Component) {
         document.getElementById('confirm-modal').style.display = "flex";
       });
     }
+
+    // ##### THIS IS WHERE PROFILE CONNECTS TO BACKEND #####
+
   }, {
     key: 'recordWorkplace',
     value: function recordWorkplace() {
@@ -41021,6 +41024,7 @@ var Profile = function (_React$Component) {
         place_id: this.state.place_id
       }).then(function (response) {
         console.log(response);
+        console.log(_this2.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
           _this2.setState({
