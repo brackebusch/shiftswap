@@ -12915,6 +12915,11 @@ var Main = function (_Component) {
         _react2.default.createElement(DisplayMain, { loggedIn: this.props.loggedIn, user: this.props.user })
       );
     }
+
+    // componentDidMount() {
+    //
+    // }
+
   }]);
 
   return Main;

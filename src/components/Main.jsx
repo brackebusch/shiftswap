@@ -47,6 +47,10 @@ class Main extends Component {
       </div>
     );
   }
+
+  // componentDidMount() {
+  //
+  // }
 }
 
 export default Main;

@@ -23,8 +23,8 @@ router.post('/addworkplace', (req, res) => {
     user.workplace = savedWorkplace._id;
 
     // ##### THIS IS WHERE I TRY TO UPDATE USER ######
-    User.update({_id: user._id},
-      {workplace: savedWorkplace._id}, error => console.log(error));
+    User.findOneAndUpdate({'_id': user._id},
+      {'workplace': savedWorkplace._id});
     user.save();
     console.log(user);
     return res.json(savedWorkplace);

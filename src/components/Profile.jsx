@@ -42,6 +42,7 @@ class Profile extends React.Component {
       `;
       document.getElementById('confirm-modal-back').style.display = "flex";
       document.getElementById('confirm-modal').style.display = "flex";
+
     });
 
 
