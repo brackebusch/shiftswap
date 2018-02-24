@@ -51,7 +51,7 @@ router.post('/logout', (req, res) => {
 })
 
 router.post('/signup', (req, res) => {
-	console.log(req.body)	
+	console.log(req.body)
 	const { firstName, lastName, phone, email, password } = req.body
 	// ADD VALIDATION
 	User.findOne({ 'local.email': email }, (err, userMatch) => {
