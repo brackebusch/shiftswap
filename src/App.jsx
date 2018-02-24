@@ -9,20 +9,21 @@ class App extends Component {
 			<div className="app-container">
 				<NavBar />
 				<Main />
-				<div>
-					{emailHTML('Dylan', {
-						date: '05/10/2018',
-						start: '7:00',
-						end: '9:00'
-					}, {
-						date: '05/11/2018',
-						start: '9:00',
-						end: '11:00'
-					})}
-				</div>
 			</div>
 		);
 	}
 }
+
+// <div>
+// 	{emailHTML('Dylan', {
+// 		date: '05/10/2018',
+// 		start: '7:00',
+// 		end: '9:00'
+// 	}, {
+// 		date: '05/11/2018',
+// 		start: '9:00',
+// 		end: '11:00'
+// 	})}
+// </div>
 
 export default App;

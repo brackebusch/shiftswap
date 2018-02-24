@@ -27,7 +27,7 @@ class LoginForm extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
 		console.log('handleSubmit')
-		
+
 		this.props._login(this.state.email, this.state.password)
 		this.setState({
 			redirectTo: '/'
@@ -50,20 +50,21 @@ class LoginForm extends Component {
 			return (
 				<div className="session-form" onClick={this.closeModal}>
 					<div className="LoginForm">
-						<h1 className="LoginHeader">Login</h1>
-						<label className="form-label" htmlFor="email">Email: </label>
+						<label className="form-label top" htmlFor="email">Email: </label>
 						<input
 							className="form-input"
 							type="text"
 							name="email"
+							placeholder="coolname@gmail.com"
 							value={this.state.email}
 							onChange={this.handleChange}
 						/>
 					<label className="form-label" htmlFor="password">Password: </label>
 						<input
-							className="form-input"
+							className="form-input password"
 							type="password"
 							name="password"
+							placeholder="******"
 							value={this.state.password}
 							onChange={this.handleChange}
 						/>
