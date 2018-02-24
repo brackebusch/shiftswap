@@ -41013,6 +41013,7 @@ var Profile = function (_React$Component) {
     value: function recordWorkplace() {
       var _this2 = this;
 
+      this.closeModal();
       _axios2.default.post('user/addworkplace', {
         user: this.props.user,
         name: this.state.name,
@@ -41031,9 +41032,9 @@ var Profile = function (_React$Component) {
   }, {
     key: 'closeModal',
     value: function closeModal(event) {
-      if (event.target.id === "confirm-modal-back") {
-        document.getElementById('confirm-modal-back').style.display = "none";
-      }
+      // if (event.target.id === "confirm-modal-back") {
+      document.getElementById('confirm-modal-back').style.display = "none";
+      // }
     }
   }, {
     key: 'showSearch',

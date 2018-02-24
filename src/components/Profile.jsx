@@ -48,6 +48,7 @@ class Profile extends React.Component {
   }
 
   recordWorkplace() {
+    this.closeModal();
     axios
       .post('user/addworkplace', {
         user: this.props.user,
@@ -61,15 +62,15 @@ class Profile extends React.Component {
           console.log('you\'re good');
           this.setState({
             redirectTo: '/'
-          })
+          });
         }
-      })
+      });
   }
 
   closeModal(event) {
-		if (event.target.id === "confirm-modal-back") {
+		// if (event.target.id === "confirm-modal-back") {
 			document.getElementById('confirm-modal-back').style.display = "none";
-		}
+		// }
 	}
 
 
