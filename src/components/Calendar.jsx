@@ -35,9 +35,7 @@ class Calendar extends Component {
         $(this).css('background-color', 'red');
       },
       eventClick: function (calEvent, jsEvent, view) {
-        $(this).setState({
-    			redirectTo: '/'
-    		})
+        location.href = "/request-shift-swap";
         alert('Would you like to request shift trade for {person name and shift date here} ?');
       },
       dayClick: function(date, jsEvent, view) {

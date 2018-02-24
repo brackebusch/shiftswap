@@ -38883,7 +38883,15 @@ var App = function (_Component) {
 				_react2.default.createElement(
 					'div',
 					null,
-					_emailHTML2.default
+					(0, _emailHTML2.default)('Dylan', {
+						date: '05/10/2018',
+						start: '7:00',
+						end: '9:00'
+					}, {
+						date: '05/11/2018',
+						start: '9:00',
+						end: '11:00'
+					})
 				)
 			);
 		}
@@ -39817,9 +39825,7 @@ var Calendar = function (_Component) {
           (0, _jquery2.default)(this).css('background-color', 'red');
         },
         eventClick: function eventClick(calEvent, jsEvent, view) {
-          (0, _jquery2.default)(this).setState({
-            redirectTo: '/'
-          });
+          location.href = "/request-shift-swap";
           alert('Would you like to request shift trade for {person name and shift date here} ?');
         },
         dayClick: function dayClick(date, jsEvent, view) {
@@ -71230,7 +71236,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var textStyles = {
   fontFamily: 'helvetica',
   fontSize: 20,
-  fontWeight: 'bold',
   color: 'black'
 };
 
@@ -71241,71 +71246,118 @@ var itemStyles = {
   justifyContent: 'center'
 };
 
-// const listStyles = {
-//   listStyle: 'none'
-// };
-
-// const buttonStyles = {
-//   width: 120,
-//   height: 50,
-//   margin: 20,
-//   backgroundColor: 'lightred',
-//   color: 'white'
-// };
-
-var emailHTML = (0, _reactHtmlEmail.renderEmail)(_react2.default.createElement(
-  _reactHtmlEmail.Email,
-  { title: 'link' },
-  _react2.default.createElement(
-    _reactHtmlEmail.Box,
-    null,
+var emailHTML = function emailHTML(requesterName, shift1, shift2) {
+  return (0, _reactHtmlEmail.renderEmail)(_react2.default.createElement(
+    _reactHtmlEmail.Email,
+    { title: 'ShiftSwap Request' },
     _react2.default.createElement(
-      _reactHtmlEmail.Item,
-      itemStyles,
+      _reactHtmlEmail.Box,
+      null,
       _react2.default.createElement(
-        'div',
-        null,
+        _reactHtmlEmail.Item,
+        itemStyles,
         _react2.default.createElement(
-          _reactHtmlEmail.Span,
-          textStyles,
-          'Dylan has requested swap shifts:'
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _reactHtmlEmail.Span,
-          textStyles,
-          ' 05/10/2018 5:00-7:00 - Dylan'
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _reactHtmlEmail.Span,
-          textStyles,
-          ' 05/11/2018 7:00-9:00 - You'
-        )
-      ),
-      _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          'button',
+          'div',
           null,
-          'Accept'
+          _react2.default.createElement(
+            _reactHtmlEmail.Span,
+            textStyles,
+            requesterName,
+            ' has requested to swap shifts:'
+          )
         ),
         _react2.default.createElement(
-          'button',
+          'div',
           null,
-          'Decline'
+          _react2.default.createElement(
+            _reactHtmlEmail.Span,
+            textStyles,
+            ' ',
+            shift1.date,
+            ' ',
+            shift1.start,
+            '-',
+            shift1.end,
+            ' - ',
+            requesterName
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            _reactHtmlEmail.Span,
+            textStyles,
+            ' ',
+            shift2.date,
+            ' ',
+            shift2.start,
+            '-',
+            shift2.end,
+            ' - You'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'button',
+            null,
+            'Accept'
+          ),
+          _react2.default.createElement(
+            'button',
+            null,
+            'Decline'
+          )
         )
       )
     )
-  )
-));
+  ));
+};
+// const emailHTML = (requesterName, shift1, shift2) => {
+//   return (
+//     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+//     <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+//       <head>
+//         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+//         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+//         <title>link</title>
+//         <style type="text/css"></style>
+//       </head>
+//       <body style="width:100%;margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+//         <table width="100%" height="100%" cellpadding="0" cellspacing="0">
+//           <tbody>
+//             <tr>
+//               <td>
+//                 <table width="600" cellpadding="0" cellspacing="0">
+//                   <tbody>
+//                     <table cellpadding="0" cellspacing="0">
+//                       <tbody>
+//                         <tr>
+//                           <td>
+//                             <div>Dylan has requested swap shifts:</div>
+//                             <div>05/10/2018 7:00-9:00 - Dylan</div>
+//                             <div>05/11/2018 9:00-11:00 - You</div>
+//                             <div>
+//                               <button>Accept</button>
+//                               <button>Decline</button>
+//                             </div>
+//                           </td>
+//                         </tr>
+//                       </tbody>
+//                     </table>
+//                   </tbody>
+//                 </table>
+//               </td>
+//             </tr>
+//           </tbody>
+//         </table>
+//       </body>
+//     </html>
+//   )
+// }
+
 
 exports.default = emailHTML;
 

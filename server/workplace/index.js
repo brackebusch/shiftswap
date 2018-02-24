@@ -93,7 +93,7 @@ router.patch('/addshift', (req, res) => {
 
 // This is where we'll send emails to request shift swaps
 
-router.post('/shift-swap', (req, res) => {
+router.post('/request-shift-swap', (req, res) => {
   const { place_id, shift1, shift2, email } = req.body;
 
 });

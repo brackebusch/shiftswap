@@ -5,33 +5,33 @@ if (process.env.NODE_ENV !== 'production') {
 }
 require('dotenv').config()
 
-const mailer = require('nodemailer')
-mailer.createTestAccount((err, account) => {
-	let transporter = mailer.createTransport({
-		// host: 'smtp.ethereal.email',
-		service: 'gmail',
-		auth: {
-			user: 'shiftswap1@gmail.com',
-			pass: 'dylankylearpan'
-		}
-	});
-
-	let mailOptions = {
-		from: '"ShiftSwap" <dmccapes@gmail.com>',
-		to: 'dmccapes@mac.com',
-		subject: 'Shift change request',
-		html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>link</title></head><body style="width:100%;margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;"><table width="100%" height="100%" cellpadding="0" cellspacing="0"><tbody><tr><td><table width="600" cellpadding="0" cellspacing="0"><tbody><table cellpadding="0" cellspacing="0"><tbody><tr><td><div><span style="font-family:helvetica;font-size:20px;font-weight:bold;line-height:20px;color:black;">Dylan has requested swap shifts:</span></div><div><span style="font-family:helvetica;font-size:20px;font-weight:bold;line-height:20px;color:black;"> 05/10/2018 5:00-7:00 - Dylan</span></div><div><span style="font-family:helvetica;font-size:20px;font-weight:bold;line-height:20px;color:black;"> 05/11/2018 7:00-9:00 - You</span></div><div><button>Accept</button><button>Decline</button></div></td></tr></tbody></table></tbody></table></td></tr></tbody></table></body></html>'
-		};
-
-	transporter.sendMail(mailOptions, (error, info) => {
-		if (error) {
-			return console.log(error);
-		} else {
-			console.log('Message sent: %s', info.messageId);
-			console.log('Preview URL: %s', mailer.getTestMessageUrl(info));
-		}
-	});
-});
+// const mailer = require('nodemailer')
+// mailer.createTestAccount((err, account) => {
+// 	let transporter = mailer.createTransport({
+// 		// host: 'smtp.ethereal.email',
+// 		service: 'gmail',
+// 		auth: {
+// 			user: 'shiftswap1@gmail.com',
+// 			pass: 'dylankylearpan'
+// 		}
+// 	});
+//
+// 	let mailOptions = {
+// 		from: '"ShiftSwap" <dmccapes@gmail.com>',
+// 		to: 'dmccapes@mac.com, arpannln@ucla.edu, kyle.brackebusch@gmail.com',
+// 		subject: 'Shift change request',
+// 		html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html lang="en" xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>link</title><style type="text/css">@media only screen and (max-device-width: 480px) { display: flex; flex-direction: column; justify-content: center; alignItems: center; background: blue; }</style></head><body style="width:100%;margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;"><table width="100%" height="100%" cellpadding="0" cellspacing="0"><tbody><tr><td><table width="600" cellpadding="0" cellspacing="0"><tbody><table cellpadding="0" cellspacing="0"><tbody><tr><td><div><span style="font-family:helvetica;font-size:20px;line-height:20px;color:black;">Dylan has requested swap shifts:</span></div><div><span style="font-family:helvetica;font-size:20px;line-height:20px;color:black;"> 05/10/2018 7:00-9:00 - Dylan</span></div><div><span style="font-family:helvetica;font-size:20px;line-height:20px;color:black;"> 05/11/2018 9:00-11:00 - You</span></div><div><button>Accept</button><button>Decline</button></div></td></tr></tbody></table></tbody></table></td></tr></tbody></table></body></html>'
+// 		};
+//
+// 	transporter.sendMail(mailOptions, (error, info) => {
+// 		if (error) {
+// 			return console.log(error);
+// 		} else {
+// 			console.log('Message sent: %s', info.messageId);
+// 			console.log('Preview URL: %s', mailer.getTestMessageUrl(info));
+// 		}
+// 	});
+// });
 
 const express = require('express')
 const bodyParser = require('body-parser')

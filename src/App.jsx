@@ -10,7 +10,15 @@ class App extends Component {
 				<NavBar />
 				<Main />
 				<div>
-					{emailHTML}
+					{emailHTML('Dylan', {
+						date: '05/10/2018',
+						start: '7:00',
+						end: '9:00'
+					}, {
+						date: '05/11/2018',
+						start: '9:00',
+						end: '11:00'
+					})}
 				</div>
 			</div>
 		);
