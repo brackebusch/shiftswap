@@ -36,8 +36,10 @@ router.post('/addemployee', (req,res,next) => {
         console.log("===WORKPLACE EXISTS==");
         result.employees.push(employee_id)
         result.save((err, savedWorkplace) => {
-          if (err) return res.json(err)
-          return res.json(savedWorkplace)
+          Workplace.findOne(savedWorkplace).populate('employees').exec(function (err,savedWorkplace){
+            // User.findByIdAndUpdate(employee_id, {$push: {workplaces: savedWorkplace._id}})
+            return res.json(savedWorkplace)
+          })
         })
       } else {
         const newWorkplace = new Workplace({
@@ -47,10 +49,12 @@ router.post('/addemployee', (req,res,next) => {
           employees: [employee_id],
           shifts: []
         })
-        newWorkplace.save((err, savedWorkplace) => {
-          if (err) return res.json(err)
-          User.findByIdAndUpdate(employee_id, {$push: {workplaces: savedWorkplace._id}})
-          return res.json(savedWorkplace.populate('employees'))
+        newWorkplace.save(function(err, savedWorkplace) {
+          Workplace.findOne(savedWorkplace).populate('employees').exec(function (err,savedWorkplace){
+            // User.findByIdAndUpdate(employee_id, {$push: {workplaces: savedWorkplace._id}})
+            return res.json(savedWorkplace)
+          })
+          // if (err) return res.json(err)
         })
       }
  
