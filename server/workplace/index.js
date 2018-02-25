@@ -91,6 +91,31 @@ router.patch('/addshift', (req, res) => {
   })
 })
 
+router.post('/add', (req, res) => {
+  console.log(req.body);
+  const { name, formatted_address, place_id, user } = req.body;
+  let workplace;
+  workplace = new Workplace({
+    'name': name,
+    'formatted_address': formatted_address,
+    'place_id': place_id,
+    'employees': [user],
+    'shifts': []
+  });
+  console.log(workplace);
+  workplace.save((err, savedWorkplace) => {
+    if (err) return res.json(err);
+    console.log(`saved ${savedWorkplace}`);
+    user.workplace = savedWorkplace._id;
+
+    // ##### THIS IS WHERE I TRY TO UPDATE USER ######
+    // User.findOneAndUpdate({'_id': user._id},
+    //   {'workplace': savedWorkplace._id});
+    console.log(user);
+    return res.json(savedWorkplace);
+  });
+});
+
 // This is where we'll send emails to request shift swaps
 
 router.post('/request-shift-swap', (req, res) => {

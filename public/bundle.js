@@ -41018,7 +41018,7 @@ var Profile = function (_React$Component) {
       var _this2 = this;
 
       this.closeModal();
-      _axios2.default.post('user/addworkplace', {
+      _axios2.default.post('workplace/add', {
         user: this.props.user,
         name: this.state.name,
         formatted_address: this.state.formatted_address,
@@ -41026,6 +41026,7 @@ var Profile = function (_React$Component) {
       }).then(function (response) {
         console.log(response);
         _this2.props.user.workplace = response.data.op._id;
+        _this2.addUserWorkplace();
         console.log(_this2.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
@@ -41033,6 +41034,15 @@ var Profile = function (_React$Component) {
             redirectTo: '/'
           });
         }
+      });
+    }
+  }, {
+    key: 'addUserWorkplace',
+    value: function addUserWorkplace() {
+      _axios2.default.patch('user/addworkplace', {
+        user: this.props.user
+      }).then(function (response) {
+        return console.log(response);
       });
     }
   }, {

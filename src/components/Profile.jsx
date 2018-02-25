@@ -49,7 +49,7 @@ class Profile extends React.Component {
   recordWorkplace() {
     this.closeModal();
     axios
-      .post('user/addworkplace', {
+      .post('workplace/add', {
         user: this.props.user,
         name: this.state.name,
         formatted_address: this.state.formatted_address,
@@ -58,6 +58,7 @@ class Profile extends React.Component {
       .then(response => {
         console.log(response);
         this.props.user.workplace = response.data.op._id;
+        this.addUserWorkplace();
         console.log(this.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
@@ -66,6 +67,13 @@ class Profile extends React.Component {
           });
         }
       });
+  }
+
+  addUserWorkplace() {
+    axios
+      .patch('user/addworkplace', {
+        user: this.props.user
+      }).then(response => console.log(response));
   }
 
   closeModal(event) {
