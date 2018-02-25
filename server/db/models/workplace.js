@@ -23,7 +23,7 @@ workplaceSchema.methods = {
 }
 
 // Create reference to Workpalce & export
-const Workplace = mongoose.model('Workpalce', workplaceSchema)
+const Workplace = mongoose.model('Workplace', workplaceSchema)
 
 module.exports = Workplace
 

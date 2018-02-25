@@ -27,21 +27,28 @@ router.get("/find", (req, res, next) => {
 
 router.post('/addemployee', (req,res,next) => { 
   const { name, place_id, formatted_address, employee_id  } = req.body  
+  console.log(req.body);
   
   Workplace.
-    findById(place_id).
-    populate("employees").
-    exec(function (err, result) {
-      if (result) {
-        console.log("===WORKPLACE EXISTS==");
-        result.employees.push(employee_id)
-        result.save((err, savedWorkplace) => {
+    findOne({place_id: place_id}).
+    exec(function (err, foundWorkpalce) {
+      if (err) return res.json(err)                
+      if (foundWorkpalce) {
+        console.log(`===WORKPLACE ${name} EXISTS==`);        
+        foundWorkpalce.employees.push(employee_id)
+        
+        foundWorkpalce.save(function(err, savedWorkplace) {
+          if (err) return res.json(err)          
           Workplace.findOne(savedWorkplace).populate('employees').exec(function (err,savedWorkplace){
-            // User.findByIdAndUpdate(employee_id, {$push: {workplaces: savedWorkplace._id}})
-            return res.json(savedWorkplace)
+            if (err) return res.json(err)
+            User.findByIdAndUpdate(employee_id, {$push: {workplaces: savedWorkplace._id}}).exec(function (err2, savedUser){
+              if (err2) return res.json(err2)              
+              return res.json(savedWorkplace)
+            })
           })
         })
       } else {
+        console.log("===CREATING WORKPLACE - NONE FOUND==");        
         const newWorkplace = new Workplace({
           name: name,
           formatted_address: formatted_address,
@@ -49,15 +56,18 @@ router.post('/addemployee', (req,res,next) => {
           employees: [employee_id],
           shifts: []
         })
+        
         newWorkplace.save(function(err, savedWorkplace) {
+          if (err) return res.json(err)          
           Workplace.findOne(savedWorkplace).populate('employees').exec(function (err,savedWorkplace){
-            // User.findByIdAndUpdate(employee_id, {$push: {workplaces: savedWorkplace._id}})
-            return res.json(savedWorkplace)
+            if (err) return res.json(err)
+            User.findByIdAndUpdate(employee_id, {$push: {workplaces: savedWorkplace._id}}).exec(function (err2, savedUser){
+              if (err2) return res.json(err2)              
+              return res.json(savedWorkplace)
+            })
           })
-          // if (err) return res.json(err)
         })
       }
- 
   })
 }) 
 
