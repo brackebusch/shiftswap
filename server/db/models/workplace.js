@@ -9,8 +9,11 @@ const workplaceSchema = new Schema({
 	employees: [{type : Schema.ObjectId, ref: 'User', unique: true }],
 	shifts: [
 		{ employee_id: {type : Schema.ObjectId, ref: 'User'},
+		title: { type: String, unique: false },
 		start: { type: Date, unique: false },
-		end: { type: Date, unique: false },				
+		end: { type: Date, unique: false },
+		backgroundColor: { type: String },
+		editable: false				
 		}
 	]
 })
