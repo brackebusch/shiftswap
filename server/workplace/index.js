@@ -102,7 +102,7 @@ router.patch('/removeemployee', (req, res, next) => {
 router.post('/addshift', (req, res) => {
   const { shift, place_id } = req.body
   console.log("=============SHIFT=============");
-  console.log(shift);  
+  console.log(shift);
 
   Workplace.findOneAndUpdate( { place_id: place_id },
     { "$push": { "shifts": shift },  }, {new: true}
@@ -112,11 +112,29 @@ router.post('/addshift', (req, res) => {
   })
 })
 
+router.post('/sendnotification', (req, res, next) => {
+  const {
+    place_id,
+    from_employee_id,
+    to_employee_id,
+    from_start,
+    to_start } = req.body;
+
+  Workplace
+    .findOne({ 'place_id': place_id })
+    .exec((err, foundWorkpalce) => {
+      if (err) return res.json(err);
+      console.log(`===WORKPLACE EXISTS===`);
+      console.log(foundWorkpalce.shifts);
+    });
+});
+
+
 
 // This is where we'll send emails to request shift swaps
 router.post('/request-shift-swap', (req, res) => {
   const { place_id, shift1, shift2, email } = req.body;
-  
+
 });
 
 module.exports = router
