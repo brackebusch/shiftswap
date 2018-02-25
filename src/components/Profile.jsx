@@ -85,20 +85,14 @@ class Profile extends React.Component {
             {`${this.props.user.firstName} ${this.props.user.lastName}`}
 
             <br/>
-              {
-                this.props.user.workplace
-                ?
-                this.props.user.workplace.name
-                :
-                'add a workplace'
+              { 
+                this.props.user.workplace ?
+                this.props.user.workplace.name : 'add a workplace'
               }
             <br/>
-              {
-                this.props.user.workplace
-                ?
-                this.props.user.workplace.formatted_address
-                :
-                ''
+              { 
+                this.props.user.workplace ? 
+                this.props.user.workplace.formatted_address : ''
               }
             <br/>
         </div>

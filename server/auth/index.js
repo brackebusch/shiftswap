@@ -15,7 +15,7 @@ router.get(
 // this route is just used to get the user basic info
 router.get('/user', (req, res, next) => {
 	console.log('===== user!!======')
-
+	console.log(req.user);
 	if (req.user) {
 		return res.json({ user: req.user })
 	} else {
@@ -51,6 +51,22 @@ router.post('/logout', (req, res) => {
 	}
 })
 
+//Randomly assigns a color to user based on their email
+//Called in Signup and passed user given email
+const stringToColor = function(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  let color = '#';
+  for (let i = 0; i < 3; i++) {
+    let value = (hash >> (i * 8)) & 0xFF;
+    color += ('00' + value.toString(16)).substr(-2);
+  }
+  return color;
+}
+
+
 router.post('/signup', (req, res) => {
 
 	const { firstName, lastName, phone, email, password } = req.body
@@ -67,7 +83,8 @@ router.post('/signup', (req, res) => {
 			'local.email': email,
 			'local.password': password,
 			'phone': phone,
-			'workplaces': []
+			'workplaces': [],
+			'color': stringToColor(email)
 		})
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err)

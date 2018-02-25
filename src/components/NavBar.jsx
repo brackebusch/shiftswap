@@ -89,25 +89,6 @@ class NavBar extends Component {
 				})
 			}
 		})
-	
-		// if(use.)
-
-		// axios.get('/auth/user').then(response => {
-		// 	console.log(response.data)
-		// 	if (!!response.data.user) {
-		// 		console.log('THERE IS A USER')
-		// 		this.setState({
-		// 			loggedIn: true,
-		// 			user: response.data.user
-		// 		})
-		// 	} else {
-		// 		this.setState({
-		// 			loggedIn: false,
-		// 			user: null
-		// 		})
-		// 	}
-		// })
-
 	}
 
 	_logout(event) {
@@ -126,11 +107,7 @@ class NavBar extends Component {
 
 	_login(email, password) {
 		axios
-		.post('/auth/login', {
-				email,
-				password
-			})
-			.then(response => {
+		.post('/auth/login', { email, password }).then(response => {
 				console.log(response)
 				if (response.status === 200) {
 					// update the state
@@ -152,14 +129,8 @@ class NavBar extends Component {
 				
 				{/*  ROUTES */}
 				{/* <Route exact path="/" component={Home} /> */}
-				<Route
-					exact
-					path="/login"
-					render={() =>
-						<LoginForm
-							_login={this._login}
-							_googleSignin={this._googleSignin}
-						/>}
+				<Route exact path="/login" render={() =>
+						<LoginForm _login={this._login} _googleSignin={this._googleSignin} />}
 				/>
 				<Route exact path="/signup" component={SignupForm} />
 				{/* <LoginForm _login={this._login} /> */}
@@ -171,3 +142,22 @@ class NavBar extends Component {
 }
 
 export default NavBar
+
+	
+		// if(use.)
+
+		// axios.get('/auth/user').then(response => {
+		// 	console.log(response.data)
+		// 	if (!!response.data.user) {
+		// 		console.log('THERE IS A USER')
+		// 		this.setState({
+		// 			loggedIn: true,
+		// 			user: response.data.user
+		// 		})
+		// 	} else {
+		// 		this.setState({
+		// 			loggedIn: false,
+		// 			user: null
+		// 		})
+		// 	}
+		// })
