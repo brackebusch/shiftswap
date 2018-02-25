@@ -8,13 +8,7 @@ const User = require('../db/models/user')
 router.get("/find", (req, res, next) => {
   let place_id = req.query.place_id;
   console.log("=====REQUEST SENT====");
-<<<<<<< HEAD
 
-  console.log(req.query.place_id);
-  console.log(place_id);
-
-=======
->>>>>>> origin
   Workplace.
     findOne({ 'place_id': place_id }).
     populate("employees").
