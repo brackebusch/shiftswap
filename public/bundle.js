@@ -31207,6 +31207,7 @@ var Calendar = function (_Component) {
     value: function componentDidMount() {
       console.log("===display user===");
       console.log(this.state.user);
+      console.log('workplaces: ' + (this.workplaces.length === 0));
 
       var shiftSelector = this.selectShifts();
       var toggleRed = 0;
@@ -31246,10 +31247,10 @@ var Calendar = function (_Component) {
           button.removeClass('btn-disabled');
           button[0].textContent = 'Add Shift';
         },
-        events: this.workplaces[0].shifts
+        events: this.workplaces.length === 0 ? null : this.workplaces[0].shifts
       });
       var button = (0, _jquery2.default)('.fc-addShiftButton-button');
-      button[0].disabled = true;
+      if (button.length > 0) button[0].disabled = true;
       button.addClass('btn-disabled');
     }
   }, {
