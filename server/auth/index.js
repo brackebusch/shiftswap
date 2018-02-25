@@ -32,6 +32,7 @@ router.post(
 	(req, res) => {
 		console.log('POST to /login')
 		const user = JSON.parse(JSON.stringify(req.user)) // hack
+		console.log(user);
 		const cleanUser = Object.assign({}, user)
 		if (cleanUser.local) {
 			console.log(`Deleting ${cleanUser.local.password}`)

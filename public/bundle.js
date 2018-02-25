@@ -12883,10 +12883,7 @@ var Main = function (_Component) {
   function Main(props) {
     _classCallCheck(this, Main);
 
-    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
-
-    console.log(props);
-    return _this;
+    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
   }
 
   _createClass(Main, [{
@@ -40422,6 +40419,10 @@ var _fullcalendar = __webpack_require__(284);
 
 var _fullcalendar2 = _interopRequireDefault(_fullcalendar);
 
+var _moment = __webpack_require__(0);
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _axios = __webpack_require__(28);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -40451,7 +40452,11 @@ var Calendar = function (_Component) {
   _createClass(Calendar, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement('div', { id: 'calendar' });
+      return _react2.default.createElement(
+        'div',
+        { id: 'calendar-container' },
+        _react2.default.createElement('div', { id: 'calendar' })
+      );
     }
   }, {
     key: 'selectShifts',
@@ -40474,10 +40479,20 @@ var Calendar = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+      console.log("===display user===");
+      console.log(this.user);
+
+      console.log("===display shifts===");
+      console.log(this.user.workplaces[0].shifts);
 
       var shiftSelector = this.selectShifts();
 
       (0, _jquery2.default)('#calendar').fullCalendar({
+        header: {
+          left: 'title',
+          center: '',
+          right: 'prev,next'
+        },
         events: [{
           title: 'Joe',
           start: '2018-02-22T12:30:00',
@@ -40488,9 +40503,8 @@ var Calendar = function (_Component) {
           allDay: false // will make the time show
         }],
         defaultView: "basicWeek",
-        height: 650,
-
         // defaultView: "agendaWeek",
+        height: 650,
 
         eventMouseover: function eventMouseover(calEvent, jsEvent, view) {
           (0, _jquery2.default)(this).css('background-color', 'red');

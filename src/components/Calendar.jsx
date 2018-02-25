@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
+import moment from 'moment';
 import axios from 'axios';
 // import sendEmail from '../notification/sendEmail.jsx';
 
@@ -12,7 +13,9 @@ class Calendar extends Component {
 
   render() {
     return (
-      <div id="calendar">
+      <div id="calendar-container">
+        <div id="calendar">
+        </div>
       </div>
     );
   }
@@ -35,10 +38,20 @@ class Calendar extends Component {
   }
 
   componentDidMount() {
+    console.log("===display user===");
+    console.log(this.user);
 
+    console.log("===display shifts===");
+    console.log(this.user.workplaces[0].shifts);
+    
     let shiftSelector = this.selectShifts();
 
     $('#calendar').fullCalendar({
+      header: {
+        left:   'title',
+        center: '',
+        right:  'prev,next'
+      },
       events : [
       {
         title  : 'Joe',
@@ -52,9 +65,9 @@ class Calendar extends Component {
       },
       ],
       defaultView: "basicWeek",
+      // defaultView: "agendaWeek",
       height: 650,
 
-      // defaultView: "agendaWeek",
 
       eventMouseover: function (calEvent, jsEvent, view) {
         $(this).css('background-color', 'red');
