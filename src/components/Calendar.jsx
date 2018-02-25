@@ -18,6 +18,7 @@ class Calendar extends Component{
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addShift = this.addShift.bind(this);
     this.selectShifts = this.selectShifts.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -117,6 +118,8 @@ class Calendar extends Component{
 
   }
 
+
+
   selectShifts() {
     let numShifts = 0;
     let shifts = [];
@@ -152,17 +155,23 @@ class Calendar extends Component{
     };
   }
 
+  closeModal(event) {
+    console.log("hi");
+    if (event.target.id === "myModal") {
+      document.getElementById('myModal').style.display = "none";
+    }
+  }
+
 render() {
   if (this.workplaces.length) {
     return (
       <div id="calendar-container">
 
-        <div id="myModal" className="modal">
+        <div id="myModal" className="modal" onClick={this.closeModal}>
           {/* -- Modal content -- */}
           <form onSubmit={this.addShift}>
             <div className="modal-content">
               <div className="modal-header">
-                <span className="close">&times;</span>
                 <h3 id="dateHeader">Date Goes Here</h3>
               </div>
               <div className="modal-body">
