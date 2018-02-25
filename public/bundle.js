@@ -12667,12 +12667,10 @@ var DisplayMain = function DisplayMain(props) {
     'div',
     { className: 'userAndCalendar' },
     _react2.default.createElement(_Profile2.default, { user: props.user }),
-    _react2.default.createElement(_Calendar2.default, null)
+    _react2.default.createElement(_Calendar2.default, { user: props.user })
   ) : display = _react2.default.createElement('div', { className: 'gif' });
-
   return display;
   //probs can enter gif here
-
   //if else statement should wrap around these two return statements
   //checking to see if someone is logged in or not
   // return (
@@ -40220,6 +40218,24 @@ var NavBar = function (_Component) {
 					});
 				}
 			});
+
+			// if(use.)
+
+			// axios.get('/auth/user').then(response => {
+			// 	console.log(response.data)
+			// 	if (!!response.data.user) {
+			// 		console.log('THERE IS A USER')
+			// 		this.setState({
+			// 			loggedIn: true,
+			// 			user: response.data.user
+			// 		})
+			// 	} else {
+			// 		this.setState({
+			// 			loggedIn: false,
+			// 			user: null
+			// 		})
+			// 	}
+			// })
 		}
 	}, {
 		key: '_logout',
@@ -40351,12 +40367,8 @@ var Profile = function (_React$Component) {
           place_id: place.place_id,
           name: place.name
         });
-        // console.log(place.formatted_address);
-        // console.log(place.url);
-        // console.log(place.place_id);
-        // console.log(place.name);
         var info = document.getElementById("confirm-modal-info");
-        info.innerText = place.name + ' \n\n                        ' + place.formatted_address + '\n      ';
+        info.innerText = place.name + ' \n\n                        ' + place.formatted_address;
         document.getElementById('confirm-modal-back').style.display = "flex";
         document.getElementById('confirm-modal').style.display = "flex";
       });
@@ -40392,7 +40404,7 @@ var Profile = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'user-info' },
-          this.props.user.local.email,
+          this.props.user.firstName,
           _react2.default.createElement('br', null),
           'Work Name',
           _react2.default.createElement('br', null),
