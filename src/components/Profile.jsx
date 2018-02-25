@@ -39,8 +39,6 @@ class Profile extends React.Component {
       document.getElementById('confirm-modal').style.display = "flex";
 
     });
-
-
   }
 
   // ##### THIS IS WHERE PROFILE CONNECTS TO BACKEND #####
@@ -86,13 +84,13 @@ class Profile extends React.Component {
 
             <br/>
               { 
-                this.props.user.workplace ?
-                this.props.user.workplace.name : 'add a workplace'
+                this.props.user.workplaces.length ?
+                this.props.user.workplaces[0].name : 'add a workplace'
               }
             <br/>
               { 
-                this.props.user.workplace ? 
-                this.props.user.workplace.formatted_address : ''
+                this.props.user.workplaces.length ? 
+                this.props.user.workplaces[0].formatted_address : ''
               }
             <br/>
         </div>
@@ -113,7 +111,6 @@ class Profile extends React.Component {
         <div id="confirm-modal-back" onClick={this.closeModal}>
           <div id="confirm-modal">
             <div id="confirm-modal-info">
-
             </div>
             <button id="confirm-workplace-button" onClick={() => this.recordWorkplace()}> Confirm Workplace</button>
           </div>

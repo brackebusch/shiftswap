@@ -6,7 +6,7 @@ import Calendar from './Calendar.jsx';
 const DisplayMain = props => {
       var display = null
       props.loggedIn ? display = (
-        <div className="userAndCalendar">
+        <div className="userAndCalendar">       
           <Profile user={props.user}/>
           <Calendar user={props.user}/>
         </div> ) : display = (
@@ -19,7 +19,6 @@ const DisplayMain = props => {
 class Main extends Component {
   constructor(props) {
     super(props)
-    console.log(props);
   }
 
   render() {
