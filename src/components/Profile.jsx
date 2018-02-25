@@ -57,7 +57,6 @@ class Profile extends React.Component {
       .then(response => {
         console.log(response);
         this.props.user.workplace = response.data.op._id;
-        this.addUserWorkplace();
         console.log(this.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
@@ -66,13 +65,6 @@ class Profile extends React.Component {
           });
         }
       });
-  }
-
-  addUserWorkplace() {
-    axios
-      .patch('user/addworkplace', {
-        user: this.props.user
-      }).then(response => console.log(response));
   }
 
   closeModal(event) {
@@ -92,7 +84,7 @@ class Profile extends React.Component {
     return (
       <div className="user-content">
         <div className="user-info">
-          
+
             {`${this.props.user.firstName} ${this.props.user.lastName}`}
 
             <br/>
