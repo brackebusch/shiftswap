@@ -110,7 +110,7 @@ router.post('/addshift', (req, res) => {
     if (err) return res.json(err)
     return res.json(workplaceMatch)
   })
-})
+});
 
 router.post('/sendnotification', (req, res, next) => {
   const {
