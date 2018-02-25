@@ -6996,6 +6996,14 @@ var itemStyles = {
 };
 
 var emailHTML = function emailHTML(shift1, shift2) {
+  console.log(shift1);
+  console.log(shift2);
+  var fromName = shift1.title;
+  var toName = shift2.title;
+  var fromStart = shift1.start;
+  var toStart = shift2.start;
+  var fromEnd = shift1.end;
+  var toEnd = shift2.end;
   return (0, _reactHtmlEmail.renderEmail)(_react2.default.createElement(
     _reactHtmlEmail.Email,
     { title: 'ShiftSwap Request' },
@@ -7004,41 +7012,33 @@ var emailHTML = function emailHTML(shift1, shift2) {
       null,
       _react2.default.createElement(
         _reactHtmlEmail.Item,
-        itemStyles,
+        null,
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            _reactHtmlEmail.Span,
-            textStyles,
-            shift2.title,
-            ' has requested to swap shifts:'
-          )
+          '`$',
+          fromName,
+          ' has requested to swap shifts:`'
         ),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            _reactHtmlEmail.Span,
-            textStyles,
-            shift2.start,
-            ' - ',
-            shift2.end,
-            ' - ',
-            shift2.title
-          )
+          '`$',
+          fromStart,
+          ' - $',
+          fromEnd,
+          ' - $',
+          fromName,
+          '`'
         ),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            _reactHtmlEmail.Span,
-            textStyles,
-            shift1.start,
-            ' - ',
-            shift1.end,
-            ' - You'
-          )
+          '`$',
+          toStart,
+          ' - $',
+          toEnd,
+          ' - You`'
         ),
         _react2.default.createElement(
           'div',
@@ -31307,10 +31307,11 @@ var Calendar = function (_Component) {
       var shifts = [];
       return function (event) {
         if (numShifts > 0) {
-          shifts[1] = event.title;
+          shifts[1] = event;
           console.log(event);
           console.log('about to send!!!');
-          var email = (0, _emailHTML2.default)(shifts[0], shifts[1]);
+          // let email = emailHTML.renderEmailHTML(shifts[0], shifts[1]);
+          console.log('shifts: ' + shifts[0] + ', ' + shifts[1]);
           _axios2.default.post('workplace/sendnotification', {
             place_id: _this3.workplaces[0].place_id,
             from_employee_id: shifts[0].employee_id,
@@ -31329,7 +31330,7 @@ var Calendar = function (_Component) {
           alert('shift swap request sent to ' + shifts[1].title);
         } else {
           numShifts++;
-          shifts[0] = event.title;
+          shifts[0] = event;
           console.log(event);
         }
       };

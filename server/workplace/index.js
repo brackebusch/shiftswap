@@ -120,12 +120,29 @@ router.post('/sendnotification', (req, res, next) => {
     from_start,
     to_start } = req.body;
 
+    console.log(req.body);
   Workplace
     .findOne({ 'place_id': place_id })
     .exec((err, foundWorkpalce) => {
       if (err) return res.json(err);
       console.log(`===WORKPLACE EXISTS===`);
       console.log(foundWorkpalce.shifts);
+      console.log(`from_id: ${from_employee_id}`);
+      console.log(`to_id: ${to_employee_id}`);
+      let fromEmployeeShift, toEmployeeShift;
+      for (let i = 0; i < foundWorkpalce.shifts.length; i++) {
+        if (parseInt(foundWorkpalce.shifts[i].employee_id) === parseInt(from_employee_id)) {
+          fromEmployeeShift = foundWorkpalce.shifts[i];
+
+        }
+        if (parseInt(foundWorkpalce.shifts[i].employee_id) === parseInt(to_employee_id)) {
+          toEmployeeShift = foundWorkpalce.shifts[i];
+        }
+      }
+      console.log(`pre-swap-shifts: ${fromEmployeeShift} ## ${toEmployeeShift}`);
+      fromEmployeeShift.employee_id = parseInt(to_employee_id);
+      toEmployeeShift.employee_id = parseInt(from_employee_id);
+      console.log(`post-swap-shifts: ${fromEmployeeShift} ## ${toEmployeeShift}`);
     });
 });
 

@@ -122,10 +122,11 @@ class Calendar extends Component{
     let shifts = [];
     return event => {
       if (numShifts > 0) {
-        shifts[1] = event.title;
+        shifts[1] = event;
         console.log(event);
         console.log('about to send!!!');
-        let email = emailHTML(shifts[0], shifts[1]);
+        // let email = emailHTML.renderEmailHTML(shifts[0], shifts[1]);
+        console.log(`shifts: ${shifts[0]}, ${shifts[1]}`);
         axios
           .post('workplace/sendnotification', {
             place_id: this.workplaces[0].place_id,
@@ -146,7 +147,7 @@ class Calendar extends Component{
         alert(`shift swap request sent to ${shifts[1].title}`);
       } else {
         numShifts++;
-        shifts[0] = event.title;
+        shifts[0] = event;
         console.log(event);
       }
     };
