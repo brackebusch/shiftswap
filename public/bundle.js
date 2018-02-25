@@ -12643,6 +12643,10 @@ var _react = __webpack_require__(7);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(42);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Profile = __webpack_require__(255);
 
 var _Profile2 = _interopRequireDefault(_Profile);
@@ -12702,6 +12706,11 @@ var Main = function (_Component) {
         _react2.default.createElement(DisplayMain, { loggedIn: this.props.loggedIn, user: this.props.user })
       );
     }
+
+    // componentDidMount() {
+    //
+    // }
+
   }]);
 
   return Main;
@@ -38934,6 +38943,10 @@ var _Main = __webpack_require__(73);
 
 var _Main2 = _interopRequireDefault(_Main);
 
+var _emailHTML = __webpack_require__(389);
+
+var _emailHTML2 = _interopRequireDefault(_emailHTML);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38957,13 +38970,26 @@ var App = function (_Component) {
 			return _react2.default.createElement(
 				'div',
 				{ className: 'app-container' },
-				_react2.default.createElement(_NavBar2.default, null)
+				_react2.default.createElement(_NavBar2.default, null),
+				_react2.default.createElement(_Main2.default, null)
 			);
 		}
 	}]);
 
 	return App;
 }(_react.Component);
+
+// <div>
+// 	{emailHTML('Dylan', {
+// 		date: '05/10/2018',
+// 		start: '7:00',
+// 		end: '9:00'
+// 	}, {
+// 		date: '05/11/2018',
+// 		start: '9:00',
+// 		end: '11:00'
+// 	})}
+// </div>
 
 exports.default = App;
 
@@ -39843,6 +39869,10 @@ var _fullcalendar = __webpack_require__(273);
 
 var _fullcalendar2 = _interopRequireDefault(_fullcalendar);
 
+var _axios = __webpack_require__(42);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39851,13 +39881,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// import sendEmail from '../notification/sendEmail.jsx';
+
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
 
-  function Calendar() {
+  function Calendar(props) {
     _classCallCheck(this, Calendar);
 
-    return _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this, props));
+
+    _this.user = _this.props.user;
+    return _this;
   }
 
   _createClass(Calendar, [{
@@ -39866,8 +39901,29 @@ var Calendar = function (_Component) {
       return _react2.default.createElement('div', { id: 'calendar' });
     }
   }, {
+    key: 'selectShifts',
+    value: function selectShifts() {
+      var numShifts = 0;
+      var shifts = [];
+      return function (event) {
+        if (numShifts > 0) {
+          shifts[1] = event.title;
+          console.log(event);
+          alert(shifts[1] + ' would like to swap shifts with ' + shifts[0]);
+          // location.href = "/request-shift-swap";
+        } else {
+          numShifts++;
+          shifts[0] = event.title;
+          console.log(event);
+        }
+      };
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+
+      var shiftSelector = this.selectShifts();
+
       (0, _jquery2.default)('#calendar').fullCalendar({
         events: [{
           title: 'Joe',
@@ -39887,7 +39943,8 @@ var Calendar = function (_Component) {
           (0, _jquery2.default)(this).css('background-color', 'red');
         },
         eventClick: function eventClick(calEvent, jsEvent, view) {
-          alert('Would you like to request shift trade for {person name and shift date here} ?');
+          shiftSelector(calEvent);
+          // alert('Would you like to request shift trade for {person name and shift date here} ?');
         },
         dayClick: function dayClick(date, jsEvent, view) {
           alert('Clicked on: ' + date.format());
@@ -40346,6 +40403,13 @@ var Profile = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
 
+    _this.state = {
+      user: _this.props.user,
+      name: '',
+      formatted_address: '',
+      place_id: '',
+      redirectTo: null
+    };
     _this.showSearch = _this.showSearch.bind(_this);
     _this.recordWorkplace = _this.recordWorkplace.bind(_this);
     _this.closeModal = _this.closeModal.bind(_this);
@@ -40373,17 +40437,35 @@ var Profile = function (_React$Component) {
         document.getElementById('confirm-modal').style.display = "flex";
       });
     }
+
+    // ##### THIS IS WHERE PROFILE CONNECTS TO BACKEND #####
+
   }, {
     key: 'recordWorkplace',
     value: function recordWorkplace() {
-      //send state to backend
+      var _this2 = this;
+
+      this.closeModal();
+      _axios2.default.post('workplace/addemployee', {
+        employee_id: this.props.user._id,
+        name: this.state.name,
+        formatted_address: this.state.formatted_address,
+        place_id: this.state.place_id
+      }).then(function (response) {
+        if (!response.data.errmsg) {
+          console.log('you\'re good');
+          _this2.setState({
+            redirectTo: '/'
+          });
+        }
+      });
     }
   }, {
     key: 'closeModal',
     value: function closeModal(event) {
-      if (event.target.id === "confirm-modal-back") {
-        document.getElementById('confirm-modal-back').style.display = "none";
-      }
+      // if (event.target.id === "confirm-modal-back") {
+      document.getElementById('confirm-modal-back').style.display = "none";
+      // }
     }
   }, {
     key: 'showSearch',
@@ -40394,7 +40476,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log(this.props);
 
@@ -40404,18 +40486,18 @@ var Profile = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'user-info' },
-          this.props.user.firstName,
+          this.props.user.firstName + ' ' + this.props.user.lastName,
           _react2.default.createElement('br', null),
-          'Work Name',
+          this.props.user.workplace ? this.props.user.workplace.name : 'add a workplace',
           _react2.default.createElement('br', null),
-          'Work Address',
+          this.props.user.workplace ? this.props.user.workplace.formatted_address : '',
           _react2.default.createElement('br', null)
         ),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
           { id: 'add-workplace-button', onClick: function onClick() {
-              return _this2.showSearch();
+              _this3.showSearch();
             } },
           ' Add Workplace'
         ),
@@ -40427,7 +40509,7 @@ var Profile = function (_React$Component) {
           _react2.default.createElement(
             'label',
             null,
-            'Where Do You Work?',
+            'Where do you work?',
             _react2.default.createElement('input', { id: 'autocomplete', type: 'text' })
           )
         ),
@@ -40441,7 +40523,7 @@ var Profile = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { id: 'confirm-workplace-button', onClick: function onClick() {
-                  return _this2.recordWorkplace();
+                  return _this3.recordWorkplace();
                 } },
               ' Confirm Workplace'
             )
@@ -71022,6 +71104,153 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 389 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(7);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactHtmlEmail = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"react-html-email\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var textStyles = {
+  fontFamily: 'helvetica',
+  fontSize: 20,
+  color: 'black'
+};
+
+var itemStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center'
+};
+
+var emailHTML = function emailHTML(requesterName, shift1, shift2) {
+  return (0, _reactHtmlEmail.renderEmail)(_react2.default.createElement(
+    _reactHtmlEmail.Email,
+    { title: 'ShiftSwap Request' },
+    _react2.default.createElement(
+      _reactHtmlEmail.Box,
+      null,
+      _react2.default.createElement(
+        _reactHtmlEmail.Item,
+        itemStyles,
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            _reactHtmlEmail.Span,
+            textStyles,
+            requesterName,
+            ' has requested to swap shifts:'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            _reactHtmlEmail.Span,
+            textStyles,
+            ' ',
+            shift1.date,
+            ' ',
+            shift1.start,
+            '-',
+            shift1.end,
+            ' - ',
+            requesterName
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            _reactHtmlEmail.Span,
+            textStyles,
+            ' ',
+            shift2.date,
+            ' ',
+            shift2.start,
+            '-',
+            shift2.end,
+            ' - You'
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'button',
+            null,
+            'Accept'
+          ),
+          _react2.default.createElement(
+            'button',
+            null,
+            'Decline'
+          )
+        )
+      )
+    )
+  ));
+};
+// const emailHTML = (requesterName, shift1, shift2) => {
+//   return (
+//     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+//     <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+//       <head>
+//         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+//         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+//         <title>link</title>
+//         <style type="text/css"></style>
+//       </head>
+//       <body style="width:100%;margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;">
+//         <table width="100%" height="100%" cellpadding="0" cellspacing="0">
+//           <tbody>
+//             <tr>
+//               <td>
+//                 <table width="600" cellpadding="0" cellspacing="0">
+//                   <tbody>
+//                     <table cellpadding="0" cellspacing="0">
+//                       <tbody>
+//                         <tr>
+//                           <td>
+//                             <div>Dylan has requested swap shifts:</div>
+//                             <div>05/10/2018 7:00-9:00 - Dylan</div>
+//                             <div>05/11/2018 9:00-11:00 - You</div>
+//                             <div>
+//                               <button>Accept</button>
+//                               <button>Decline</button>
+//                             </div>
+//                           </td>
+//                         </tr>
+//                       </tbody>
+//                     </table>
+//                   </tbody>
+//                 </table>
+//               </td>
+//             </tr>
+//           </tbody>
+//         </table>
+//       </body>
+//     </html>
+//   )
+// }
+
+
+exports.default = emailHTML;
 
 /***/ })
 /******/ ]);

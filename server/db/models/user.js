@@ -25,6 +25,9 @@ userSchema.methods = {
 	},
 	hashPassword: plainTextPassword => {
 		return bcrypt.hashSync(plainTextPassword, 10)
+	},
+	addWorkplace: workplace => {
+		this.workplace = workplace
 	}
 }
 

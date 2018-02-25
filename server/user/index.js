@@ -1,6 +1,9 @@
-const User = require('../db/models/user')
-const express = require('express')
-const router = express.Router()
-const Workplace = require('../db/models/workplace')
+const express = require('express');
+const router = express.Router();
+const User = require('../db/models/user');
+const Workplace = require('../db/models/workplace');
 
-module.exports = router
+// ####### THIS IS WHERE USER CONNECTS TO PROFILE #####
+
+
+module.exports = router;
