@@ -15,7 +15,7 @@ router.get(
 // this route is just used to get the user basic info
 router.get('/user', (req, res, next) => {
 	console.log('===== user!!======')
-	
+
 	if (req.user) {
 		return res.json({ user: req.user })
 	} else {
@@ -52,6 +52,7 @@ router.post('/logout', (req, res) => {
 })
 
 router.post('/signup', (req, res) => {
+
 	const { firstName, lastName, phone, email, password } = req.body
 	// ADD VALIDATION
 	User.findOne({ 'local.email': email }, (err, userMatch) => {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Profile from './Profile.jsx';
 import Calendar from './Calendar.jsx';
 
@@ -38,6 +39,10 @@ class Main extends Component {
       </div>
     );
   }
+
+  // componentDidMount() {
+  //
+  // }
 }
 
 export default Main;

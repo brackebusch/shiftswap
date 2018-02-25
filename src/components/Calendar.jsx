@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
+import axios from 'axios';
+// import sendEmail from '../notification/sendEmail.jsx';
 
 class Calendar extends Component {
+  constructor(props) {
+    super(props);
+    this.user = this.props.user;
+  }
+
   render() {
     return (
       <div id="calendar">
@@ -10,7 +17,27 @@ class Calendar extends Component {
     );
   }
 
+  selectShifts() {
+    let numShifts = 0;
+    let shifts = [];
+    return event => {
+      if (numShifts > 0) {
+        shifts[1] = event.title;
+        console.log(event);
+        alert(`${shifts[1]} would like to swap shifts with ${shifts[0]}`);
+        // location.href = "/request-shift-swap";
+      } else {
+        numShifts++;
+        shifts[0] = event.title;
+        console.log(event);
+      }
+    };
+  }
+
   componentDidMount() {
+
+    let shiftSelector = this.selectShifts();
+
     $('#calendar').fullCalendar({
       events : [
       {
@@ -33,7 +60,8 @@ class Calendar extends Component {
         $(this).css('background-color', 'red');
       },
       eventClick: function (calEvent, jsEvent, view) {
-        alert('Would you like to request shift trade for {person name and shift date here} ?')
+        shiftSelector(calEvent);
+        // alert('Would you like to request shift trade for {person name and shift date here} ?');
       },
       dayClick: function(date, jsEvent, view) {
         alert('Clicked on: ' + date.format());

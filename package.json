@@ -12,6 +12,7 @@
 		"bcryptjs": "^2.4.3",
 		"body-parser": "~1.18.2",
 		"connect-mongo": "^1.3.2",
+		"courier-js": "^2.0.8",
 		"dotenv": "^4.0.0",
 		"express": "~4.16.2",
 		"express-session": "^1.15.4",
@@ -19,12 +20,14 @@
 		"jquery": "^3.3.1",
 		"mongoose": "^5.0.1",
 		"morgan": "~1.9.0",
+		"nodemailer": "^4.6.0",
 		"passport": "^0.3.2",
 		"passport-google-oauth": "^1.0.0",
 		"passport-google-oauth20": "^1.0.0",
 		"passport-local": "^1.0.0",
 		"react": "^15.5.4",
 		"react-dom": "^15.5.4",
+		"react-html-email": "^3.0.0",
 		"react-router-dom": "^4.1.2"
 	},
 	"devDependencies": {
@@ -36,7 +39,7 @@
 	},
 	"scripts": {
 		"start": "node server/server.js",
-		"build": "webpack -w",
+		"build": "export NODE_ENV=\"production\" && webpack -w",
 		"test": "react-scripts test --env=jsdom",
 		"eject": "react-scripts eject",
 		"dev": "concurrently \"webpack\" \"nodemon server/server.js\"",
