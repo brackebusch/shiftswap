@@ -14,13 +14,13 @@ const itemStyles = {
   justifyContent: 'center'
 };
 
-const emailHTML = (requesterName, shift1, shift2) => renderEmail (
+const emailHTML = (shift1, shift2) => renderEmail (
   <Email title='ShiftSwap Request'>
     <Box>
       <Item {...itemStyles}>
-        <div><Span {...textStyles}>{requesterName} has requested to swap shifts:</Span></div>
-        <div><Span {...textStyles}> {shift1.date} {shift1.start}-{shift1.end} - {requesterName}</Span></div>
-        <div><Span {...textStyles}> {shift2.date} {shift2.start}-{shift2.end} - You</Span></div>
+        <div><Span {...textStyles}>{shift2.title} has requested to swap shifts:</Span></div>
+        <div><Span {...textStyles}>{shift2.start} - {shift2.end} - {shift2.title}</Span></div>
+        <div><Span {...textStyles}>{shift1.start} - {shift1.end} - You</Span></div>
         <div><button>Accept</button><button>Decline</button></div>
       </Item>
     </Box>

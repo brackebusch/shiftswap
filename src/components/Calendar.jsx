@@ -25,6 +25,7 @@ class Calendar extends Component{
     console.log(this.state.user);
 
     let shiftSelector = this.selectShifts();
+    let toggleRed = 0;
 
     $('#calendar').fullCalendar({
       customButtons: {
@@ -45,8 +46,8 @@ class Calendar extends Component{
       height: "parent",
 
       eventClick: function(calEvent, jsEvent, view) {
+
         shiftSelector(calEvent);
-        // change the border color just for fun
         $(this).css('border-color', 'red');
 
       },
@@ -116,6 +117,41 @@ class Calendar extends Component{
 
   }
 
+  selectShifts() {
+    let numShifts = 0;
+    let shifts = [];
+    return event => {
+      if (numShifts > 0) {
+        shifts[1] = event.title;
+        console.log(event);
+        console.log('about to send!!!');
+        let email = emailHTML(shifts[0], shifts[1]);
+        axios
+          .post('workplace/sendnotification', {
+            place_id: this.workplaces[0].place_id,
+            from_employee_id: shifts[0].employee_id,
+            to_employee_id: shifts[1].employee_id,
+            from_start: shifts[0].start,
+            to_start: shifts[1].start,
+          })
+          .then(response => {
+            if (!response.data.errmsg) {
+              console.log('====database response====');
+              console.log(response.data);
+              this.setState({
+                redirectTo: '/'
+              });
+            }
+          });
+        alert(`shift swap request sent to ${shifts[1].title}`);
+      } else {
+        numShifts++;
+        shifts[0] = event.title;
+        console.log(event);
+      }
+    };
+  }
+
 render() {
   if (this.workplaces.length) {
     return (
@@ -174,22 +210,6 @@ render() {
     );
   }
 }
-  selectShifts() {
-    let numShifts = 0;
-    let shifts = [];
-    return event => {
-      if (numShifts > 0) {
-        shifts[1] = event.title;
-        console.log(event);
-        alert(`${shifts[1]} would like to swap shifts with ${shifts[0]}`);
-        // location.href = "/request-shift-swap";
-      } else {
-        numShifts++;
-        shifts[0] = event.title;
-        console.log(event);
-      }
-    };
-  }
 
 }
 

@@ -6995,7 +6995,7 @@ var itemStyles = {
   justifyContent: 'center'
 };
 
-var emailHTML = function emailHTML(requesterName, shift1, shift2) {
+var emailHTML = function emailHTML(shift1, shift2) {
   return (0, _reactHtmlEmail.renderEmail)(_react2.default.createElement(
     _reactHtmlEmail.Email,
     { title: 'ShiftSwap Request' },
@@ -7011,7 +7011,7 @@ var emailHTML = function emailHTML(requesterName, shift1, shift2) {
           _react2.default.createElement(
             _reactHtmlEmail.Span,
             textStyles,
-            requesterName,
+            shift2.title,
             ' has requested to swap shifts:'
           )
         ),
@@ -7021,14 +7021,11 @@ var emailHTML = function emailHTML(requesterName, shift1, shift2) {
           _react2.default.createElement(
             _reactHtmlEmail.Span,
             textStyles,
-            ' ',
-            shift1.date,
-            ' ',
-            shift1.start,
-            '-',
-            shift1.end,
+            shift2.start,
             ' - ',
-            requesterName
+            shift2.end,
+            ' - ',
+            shift2.title
           )
         ),
         _react2.default.createElement(
@@ -7037,12 +7034,9 @@ var emailHTML = function emailHTML(requesterName, shift1, shift2) {
           _react2.default.createElement(
             _reactHtmlEmail.Span,
             textStyles,
-            ' ',
-            shift2.date,
-            ' ',
-            shift2.start,
-            '-',
-            shift2.end,
+            shift1.start,
+            ' - ',
+            shift1.end,
             ' - You'
           )
         ),
@@ -31215,6 +31209,7 @@ var Calendar = function (_Component) {
       console.log(this.state.user);
 
       var shiftSelector = this.selectShifts();
+      var toggleRed = 0;
 
       (0, _jquery2.default)('#calendar').fullCalendar({
         customButtons: {
@@ -31235,8 +31230,8 @@ var Calendar = function (_Component) {
         height: "parent",
 
         eventClick: function eventClick(calEvent, jsEvent, view) {
+
           shiftSelector(calEvent);
-          // change the border color just for fun
           (0, _jquery2.default)(this).css('border-color', 'red');
         },
 
@@ -31302,6 +31297,42 @@ var Calendar = function (_Component) {
       this.setState(_defineProperty({}, name, value));
       // console.log(this.state.start);
       // console.log(this.state.end);
+    }
+  }, {
+    key: 'selectShifts',
+    value: function selectShifts() {
+      var _this3 = this;
+
+      var numShifts = 0;
+      var shifts = [];
+      return function (event) {
+        if (numShifts > 0) {
+          shifts[1] = event.title;
+          console.log(event);
+          console.log('about to send!!!');
+          var email = (0, _emailHTML2.default)(shifts[0], shifts[1]);
+          _axios2.default.post('workplace/sendnotification', {
+            place_id: _this3.workplaces[0].place_id,
+            from_employee_id: shifts[0].employee_id,
+            to_employee_id: shifts[1].employee_id,
+            from_start: shifts[0].start,
+            to_start: shifts[1].start
+          }).then(function (response) {
+            if (!response.data.errmsg) {
+              console.log('====database response====');
+              console.log(response.data);
+              _this3.setState({
+                redirectTo: '/'
+              });
+            }
+          });
+          alert('shift swap request sent to ' + shifts[1].title);
+        } else {
+          numShifts++;
+          shifts[0] = event.title;
+          console.log(event);
+        }
+      };
     }
   }, {
     key: 'render',
@@ -31403,24 +31434,6 @@ var Calendar = function (_Component) {
           )
         );
       }
-    }
-  }, {
-    key: 'selectShifts',
-    value: function selectShifts() {
-      var numShifts = 0;
-      var shifts = [];
-      return function (event) {
-        if (numShifts > 0) {
-          shifts[1] = event.title;
-          console.log(event);
-          alert(shifts[1] + ' would like to swap shifts with ' + shifts[0]);
-          // location.href = "/request-shift-swap";
-        } else {
-          numShifts++;
-          shifts[0] = event.title;
-          console.log(event);
-        }
-      };
     }
   }]);
 
