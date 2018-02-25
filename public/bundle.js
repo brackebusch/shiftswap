@@ -12866,8 +12866,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-//this needs to be set up to render gif unless user is signed in
-//and if they are signed in to render the calendar + user info
 var DisplayMain = function DisplayMain(props) {
   var display = null;
   props.loggedIn ? display = _react2.default.createElement(
@@ -12877,15 +12875,6 @@ var DisplayMain = function DisplayMain(props) {
     _react2.default.createElement(_Calendar2.default, { user: props.user })
   ) : display = _react2.default.createElement('div', { className: 'gif' });
   return display;
-  //probs can enter gif here
-  //if else statement should wrap around these two return statements
-  //checking to see if someone is logged in or not
-  // return (
-  //   <div className="gif">
-  //     <h2>**Jif of a Gif showing the Dif**</h2>
-  //     <h4>Not logged in</h4>
-  //   </div>
-  // )
 };
 
 var Main = function (_Component) {
@@ -12909,11 +12898,6 @@ var Main = function (_Component) {
         _react2.default.createElement(DisplayMain, { loggedIn: this.props.loggedIn, user: this.props.user })
       );
     }
-
-    // componentDidMount() {
-    //
-    // }
-
   }]);
 
   return Main;
@@ -40844,24 +40828,6 @@ var NavBar = function (_Component) {
 					});
 				}
 			});
-
-			// if(use.)
-
-			// axios.get('/auth/user').then(response => {
-			// 	console.log(response.data)
-			// 	if (!!response.data.user) {
-			// 		console.log('THERE IS A USER')
-			// 		this.setState({
-			// 			loggedIn: true,
-			// 			user: response.data.user
-			// 		})
-			// 	} else {
-			// 		this.setState({
-			// 			loggedIn: false,
-			// 			user: null
-			// 		})
-			// 	}
-			// })
 		}
 	}, {
 		key: '_logout',
@@ -40885,10 +40851,7 @@ var NavBar = function (_Component) {
 		value: function _login(email, password) {
 			var _this4 = this;
 
-			_axios2.default.post('/auth/login', {
-				email: email,
-				password: password
-			}).then(function (response) {
+			_axios2.default.post('/auth/login', { email: email, password: password }).then(function (response) {
 				console.log(response);
 				if (response.status === 200) {
 					// update the state
@@ -40911,14 +40874,8 @@ var NavBar = function (_Component) {
 					'div',
 					{ className: 'NavBar' },
 					_react2.default.createElement(DisplayLinks, { _logout: this._logout, loggedIn: this.state.loggedIn }),
-					_react2.default.createElement(_reactRouterDom.Route, {
-						exact: true,
-						path: '/login',
-						render: function render() {
-							return _react2.default.createElement(_LoginForm2.default, {
-								_login: _this5._login,
-								_googleSignin: _this5._googleSignin
-							});
+					_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/login', render: function render() {
+							return _react2.default.createElement(_LoginForm2.default, { _login: _this5._login, _googleSignin: _this5._googleSignin });
 						}
 					}),
 					_react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/signup', component: _SignupForm2.default })
@@ -40932,6 +40889,24 @@ var NavBar = function (_Component) {
 }(_react.Component);
 
 exports.default = NavBar;
+
+// if(use.)
+
+// axios.get('/auth/user').then(response => {
+// 	console.log(response.data)
+// 	if (!!response.data.user) {
+// 		console.log('THERE IS A USER')
+// 		this.setState({
+// 			loggedIn: true,
+// 			user: response.data.user
+// 		})
+// 	} else {
+// 		this.setState({
+// 			loggedIn: false,
+// 			user: null
+// 		})
+// 	}
+// })
 
 /***/ }),
 /* 265 */
@@ -41021,9 +40996,6 @@ var Profile = function (_React$Component) {
         formatted_address: this.state.formatted_address,
         place_id: this.state.place_id
       }).then(function (response) {
-        console.log(response);
-        _this2.props.user.workplace = response.data.op._id;
-        console.log(_this2.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
           _this2.setState({

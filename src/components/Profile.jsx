@@ -55,9 +55,6 @@ class Profile extends React.Component {
         place_id: this.state.place_id,
       })
       .then(response => {
-        console.log(response);
-        this.props.user.workplace = response.data.op._id;
-        console.log(this.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
           this.setState({
@@ -88,20 +85,14 @@ class Profile extends React.Component {
             {`${this.props.user.firstName} ${this.props.user.lastName}`}
 
             <br/>
-              {
-                this.props.user.workplace
-                ?
-                this.props.user.workplace.name
-                :
-                'add a workplace'
+              { 
+                this.props.user.workplace ?
+                this.props.user.workplace.name : 'add a workplace'
               }
             <br/>
-              {
-                this.props.user.workplace
-                ?
-                this.props.user.workplace.formatted_address
-                :
-                ''
+              { 
+                this.props.user.workplace ? 
+                this.props.user.workplace.formatted_address : ''
               }
             <br/>
         </div>
