@@ -5,8 +5,9 @@ import axios from 'axios';
 // import sendEmail from '../notification/sendEmail.jsx';
 
 class Calendar extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.user = this.props.user;
   }
 
   render() {
@@ -34,21 +35,6 @@ class Calendar extends Component {
   }
 
   componentDidMount() {
-    axios.get('/auth/user').then(response => {
-			console.log(response.data);
-			if (!!response.data.user) {
-				console.log('THERE IS A USER');
-				this.setState({
-					loggedIn: true,
-					user: response.data.user
-				});
-			} else {
-				this.setState({
-					loggedIn: false,
-					user: null
-				});
-			}
-		});
 
     let shiftSelector = this.selectShifts();
 

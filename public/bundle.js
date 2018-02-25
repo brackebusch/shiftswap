@@ -40455,10 +40455,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
 
-  function Calendar() {
+  function Calendar(props) {
     _classCallCheck(this, Calendar);
 
-    return _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this));
+    var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this, props));
+
+    _this.user = _this.props.user;
+    return _this;
   }
 
   _createClass(Calendar, [{
@@ -40487,23 +40490,6 @@ var Calendar = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this2 = this;
-
-      _axios2.default.get('/auth/user').then(function (response) {
-        console.log(response.data);
-        if (!!response.data.user) {
-          console.log('THERE IS A USER');
-          _this2.setState({
-            loggedIn: true,
-            user: response.data.user
-          });
-        } else {
-          _this2.setState({
-            loggedIn: false,
-            user: null
-          });
-        }
-      });
 
       var shiftSelector = this.selectShifts();
 
