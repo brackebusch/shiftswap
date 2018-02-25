@@ -41018,8 +41018,8 @@ var Profile = function (_React$Component) {
       var _this2 = this;
 
       this.closeModal();
-      _axios2.default.post('workplace/add', {
-        user: this.props.user,
+      _axios2.default.post('workplace/addemployee', {
+        employee_id: this.props.user._id,
         name: this.state.name,
         formatted_address: this.state.formatted_address,
         place_id: this.state.place_id

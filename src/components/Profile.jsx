@@ -49,8 +49,8 @@ class Profile extends React.Component {
   recordWorkplace() {
     this.closeModal();
     axios
-      .post('workplace/add', {
-        user: this.props.user,
+      .post('workplace/addemployee', {
+        employee_id: this.props.user._id,
         name: this.state.name,
         formatted_address: this.state.formatted_address,
         place_id: this.state.place_id,
