@@ -12870,20 +12870,14 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 //and if they are signed in to render the calendar + user info
 var DisplayMain = function DisplayMain(props) {
   var display = null;
-  if (props.loggedIn) {
-    var workplace = display = _react2.default.createElement(
-      'div',
-      { className: 'userAndCalendar' },
-      _react2.default.createElement(_Profile2.default, { user: props.user }),
-      _react2.default.createElement(_Calendar2.default, { user: props.user })
-    );
-  } else {
-    display = _react2.default.createElement('div', { className: 'gif' });
-  }
-
+  props.loggedIn ? display = _react2.default.createElement(
+    'div',
+    { className: 'userAndCalendar' },
+    _react2.default.createElement(_Profile2.default, { user: props.user }),
+    _react2.default.createElement(_Calendar2.default, { user: props.user })
+  ) : display = _react2.default.createElement('div', { className: 'gif' });
   return display;
   //probs can enter gif here
-
   //if else statement should wrap around these two return statements
   //checking to see if someone is logged in or not
   // return (
@@ -40458,7 +40452,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // import sendEmail from '../notification/sendEmail.jsx';
 
-
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
 
@@ -40865,6 +40858,24 @@ var NavBar = function (_Component) {
 					});
 				}
 			});
+
+			// if(use.)
+
+			// axios.get('/auth/user').then(response => {
+			// 	console.log(response.data)
+			// 	if (!!response.data.user) {
+			// 		console.log('THERE IS A USER')
+			// 		this.setState({
+			// 			loggedIn: true,
+			// 			user: response.data.user
+			// 		})
+			// 	} else {
+			// 		this.setState({
+			// 			loggedIn: false,
+			// 			user: null
+			// 		})
+			// 	}
+			// })
 		}
 	}, {
 		key: '_logout',
@@ -41004,7 +41015,7 @@ var Profile = function (_React$Component) {
           name: place.name
         });
         var info = document.getElementById("confirm-modal-info");
-        info.innerText = place.name + ' \n\n                        ' + place.formatted_address + '\n      ';
+        info.innerText = place.name + ' \n\n                        ' + place.formatted_address;
         document.getElementById('confirm-modal-back').style.display = "flex";
         document.getElementById('confirm-modal').style.display = "flex";
       });

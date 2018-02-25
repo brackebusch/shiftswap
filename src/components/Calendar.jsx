@@ -4,7 +4,6 @@ import fullCalendar from 'fullcalendar';
 import axios from 'axios';
 // import sendEmail from '../notification/sendEmail.jsx';
 
-
 class Calendar extends Component {
   constructor() {
     super();
