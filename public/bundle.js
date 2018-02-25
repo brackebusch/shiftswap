@@ -31308,6 +31308,7 @@ var Calendar = function (_Component) {
       var shifts = [];
       return function (event) {
         if (numShifts > 0) {
+          numShifts = 0;
           shifts[1] = event;
           console.log(event);
           console.log('about to send!!!');

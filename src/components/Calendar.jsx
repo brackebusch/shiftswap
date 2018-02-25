@@ -123,6 +123,7 @@ class Calendar extends Component{
     let shifts = [];
     return event => {
       if (numShifts > 0) {
+        numShifts = 0;
         shifts[1] = event;
         console.log(event);
         console.log('about to send!!!');
