@@ -13,10 +13,10 @@ class Profile extends React.Component {
       formatted_address: '',
       place_id: '',
       redirectTo: null
-    }
+    };
     this.showSearch = this.showSearch.bind(this);
     this.recordWorkplace = this.recordWorkplace.bind(this);
-    this.closeModal = this.closeModal.bind(this)
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount() {
@@ -63,9 +63,9 @@ class Profile extends React.Component {
   }
 
   closeModal(event) {
-		// if (event.target.id === "confirm-modal-back") {
+		if (event.target.id === "confirm-modal-back") {
 			document.getElementById('confirm-modal-back').style.display = "none";
-		// }
+		}
 	}
 
   showSearch() {
@@ -83,13 +83,13 @@ class Profile extends React.Component {
             {`${this.props.user.firstName} ${this.props.user.lastName}`}
 
             <br/>
-              { 
+              {
                 this.props.user.workplaces.length ?
                 this.props.user.workplaces[0].name : 'add a workplace'
               }
             <br/>
-              { 
-                this.props.user.workplaces.length ? 
+              {
+                this.props.user.workplaces.length ?
                 this.props.user.workplaces[0].formatted_address : ''
               }
             <br/>
