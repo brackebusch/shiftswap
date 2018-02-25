@@ -12,7 +12,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
 	console.log('Deserialize ... called')
-	User.findOne({ _id: id }, 'firstName lastName local.email phone workplaces color').populate('workplaces')
+	User.findOne({ _id: id }, 'firstName lastName local.email phone workplaces backgroundColor textColor').populate('workplaces')
 	.exec((err, user) => {
 			console.log('======= DESERILAIZE USER CALLED ======')
 			console.log(user)

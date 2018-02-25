@@ -99,12 +99,16 @@ router.patch('/removeemployee', (req, res, next) => {
 })
 
 
-router.patch('/addshift', (req, res) => {
-	const { shift, place_id } = req.body
-  Workplace.findOneAndUpdate( { 'place_id': place_id },
-    { "$push": { "shifts": shift } }
+router.post('/addshift', (req, res) => {
+  const { shift, place_id } = req.body
+  console.log("=============SHIFT=============");
+  console.log(shift);  
+
+  Workplace.findOneAndUpdate( { place_id: place_id },
+    { "$push": { "shifts": shift },  }, {new: true}
   ).exec( function(err, workplaceMatch) {
-  return res.json(workplaceMatch)
+    if (err) return res.json(err)
+    return res.json(workplaceMatch)
   })
 })
 

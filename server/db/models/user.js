@@ -15,7 +15,8 @@ const userSchema = new Schema({
 		googleId: { type: String, required: false }
 	},
 	workplaces: [{ type : Schema.ObjectId, ref: 'Workplace' }],
-	color: { type: String, required: false }
+	backgroundColor: { type: String, required: false },
+	textColor: { type: String, required: false }	
 })
 
 // Define schema methods

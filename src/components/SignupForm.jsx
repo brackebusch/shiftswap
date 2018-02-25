@@ -71,7 +71,7 @@ class SignupForm extends Component {
 						className="form-input"
 						type="text"
 						name="name"
-						placeholder="first last"
+						placeholder="First Last"
 						value={this.state.name}
 						onChange={this.handleChange}
 					/>
@@ -80,7 +80,7 @@ class SignupForm extends Component {
 						className="form-input"
 						type="text"
 						name="email"
-						placeholder="coolname@gmail.com"
+						placeholder="example@gmail.com"
 						value={this.state.email}
 						onChange={this.handleChange}
 					/>
