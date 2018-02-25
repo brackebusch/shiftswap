@@ -40429,6 +40429,8 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -40436,6 +40438,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 // import sendEmail from '../notification/sendEmail.jsx';
+var selectDate = '';
 
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
@@ -40445,81 +40448,202 @@ var Calendar = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this, props));
 
-    _this.user = _this.props.user;
+    _this.user = _this.props.user, _this.workplaces = _this.props.user.workplaces, _this.state = {
+      start: '08:00',
+      end: '17:00'
+    };
+    _this.handleInputChange = _this.handleInputChange.bind(_this);
+    _this.addShift = _this.addShift.bind(_this);
     return _this;
   }
 
   _createClass(Calendar, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { id: 'calendar-container' },
-        _react2.default.createElement('div', { id: 'calendar' })
-      );
-    }
-  }, {
-    key: 'selectShifts',
-    value: function selectShifts() {
-      var numShifts = 0;
-      var shifts = [];
-      return function (event) {
-        if (numShifts > 0) {
-          shifts[1] = event.title;
-          console.log(event);
-          alert(shifts[1] + ' would like to swap shifts with ' + shifts[0]);
-          // location.href = "/request-shift-swap";
-        } else {
-          numShifts++;
-          shifts[0] = event.title;
-          console.log(event);
-        }
-      };
-    }
-  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       console.log("===display user===");
-      console.log(this.user);
-
-      console.log("===display shifts===");
-      console.log(this.user.workplaces[0].shifts);
-
-      var shiftSelector = this.selectShifts();
+      console.log(this.state.user);
 
       (0, _jquery2.default)('#calendar').fullCalendar({
+        customButtons: {
+          addShiftButton: {
+            text: 'Select Day To Add Shift',
+            click: function click() {
+              var modal = document.getElementById('myModal');
+              modal.style.display = "block";
+            }
+          }
+        },
         header: {
           left: 'title',
-          center: '',
+          center: 'addShiftButton',
           right: 'prev,next'
         },
-        events: [{
-          title: 'Joe',
-          start: '2018-02-22T12:30:00',
-          allDay: false // will make the time show
-        }, {
-          title: 'Jake',
-          start: '2018-02-23T12:30:00',
-          allDay: false // will make the time show
-        }],
-        defaultView: "basicWeek",
-        // defaultView: "agendaWeek",
-        height: 650,
-
-        eventMouseover: function eventMouseover(calEvent, jsEvent, view) {
-          (0, _jquery2.default)(this).css('background-color', 'red');
-        },
-        eventClick: function eventClick(calEvent, jsEvent, view) {
-          shiftSelector(calEvent);
-          // alert('Would you like to request shift trade for {person name and shift date here} ?');
-        },
+        defaultView: "agendaWeek",
+        height: "parent",
         dayClick: function dayClick(date, jsEvent, view) {
-          alert('Clicked on: ' + date.format());
-          // change the day's background color just for fun
-          (0, _jquery2.default)(this).css('background-color', 'orange');
-        }
+          selectDate = date;
 
+          var moment = date.format("dddd, MMMM Do");
+          (0, _jquery2.default)('#dateHeader').text(moment);
+
+          var button = (0, _jquery2.default)('.fc-addShiftButton-button');
+          button[0].disabled = false;
+          button.removeClass('btn-disabled');
+          button[0].textContent = 'Add Shift';
+        },
+        events: this.workplaces[0].shifts
       });
+      var button = (0, _jquery2.default)('.fc-addShiftButton-button');
+      button[0].disabled = true;
+      button.addClass('btn-disabled');
+    }
+  }, {
+    key: 'addShift',
+    value: function addShift(event) {
+      var _this2 = this;
+
+      console.log(this.user);
+      document.getElementById('myModal').style.display = "none";
+      event.preventDefault();
+      console.log(selectDate.format("MMMM D YYYY") + this.state.start);
+
+      var shiftStart = new Date(selectDate.format("MMMM D YYYY") + " " + this.state.start + " " + "PST");
+      var shiftEnd = new Date(selectDate.format("MMMM D YYYY") + " " + this.state.end + " " + "PST");
+      console.log(this.state.start);
+      console.log(shiftStart);
+
+      _axios2.default.post('workplace/addshift', {
+        place_id: this.workplaces[0].place_id,
+        shift: {
+          employee_id: this.user._id,
+          title: this.user.firstName + this.user.lastName,
+          start: shiftStart,
+          end: shiftEnd,
+          backgroundColor: this.user.backgroundColor,
+          textColor: this.user.textColor
+        }
+      }).then(function (response) {
+        if (!response.data.errmsg) {
+          console.log('====database response====');
+          console.log(response.data);
+          _this2.setState({
+            redirectTo: '/'
+          });
+        }
+      });
+    }
+  }, {
+    key: 'handleInputChange',
+    value: function handleInputChange(event) {
+      var target = event.target;
+      var value = target.value;
+      var name = target.name;
+      // console.log(value);
+
+      this.setState(_defineProperty({}, name, value));
+      console.log(this.state.start);
+      console.log(this.state.end);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      if (this.workplaces.length) {
+        return _react2.default.createElement(
+          'div',
+          { id: 'calendar-container' },
+          _react2.default.createElement(
+            'div',
+            { id: 'myModal', className: 'modal' },
+            _react2.default.createElement(
+              'form',
+              { onSubmit: this.addShift },
+              _react2.default.createElement(
+                'div',
+                { className: 'modal-content' },
+                _react2.default.createElement(
+                  'div',
+                  { className: 'modal-header' },
+                  _react2.default.createElement(
+                    'span',
+                    { className: 'close' },
+                    '\xD7'
+                  ),
+                  _react2.default.createElement(
+                    'h3',
+                    { id: 'dateHeader' },
+                    'Date Goes Here'
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'modal-body' },
+                  _react2.default.createElement(
+                    'h4',
+                    null,
+                    'Shift Hours'
+                  ),
+                  _react2.default.createElement(
+                    'table',
+                    { className: 'shift-hours' },
+                    _react2.default.createElement(
+                      'tbody',
+                      null,
+                      _react2.default.createElement(
+                        'tr',
+                        null,
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          'Start Time'
+                        ),
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          _react2.default.createElement('input', { name: 'start', type: 'time', value: this.state.start, onChange: this.handleInputChange })
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'tr',
+                        null,
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          'End Time'
+                        ),
+                        _react2.default.createElement(
+                          'td',
+                          null,
+                          _react2.default.createElement('input', { name: 'end', type: 'time', value: this.state.end, onChange: this.handleInputChange })
+                        )
+                      )
+                    )
+                  )
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'modal-footer' },
+                  _react2.default.createElement(
+                    'button',
+                    { id: 'submitShift' },
+                    'Add Shift'
+                  )
+                )
+              )
+            )
+          ),
+          _react2.default.createElement('div', { id: 'calendar' })
+        );
+      } else {
+        return _react2.default.createElement(
+          'div',
+          { id: 'calendar-container' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            'Add a workplace to see shifts!'
+          )
+        );
+      }
     }
   }]);
 
@@ -40527,6 +40651,50 @@ var Calendar = function (_Component) {
 }(_react.Component);
 
 exports.default = Calendar;
+
+// Get the modal
+// const modal = document.getElementById('myModal');
+
+// Get the <span> element that closes the modal
+// const span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+// span.onclick = function() {
+//     modal.style.display = "none";
+// }
+
+// When the user clicks anywhere outside of the modal, close it
+// window.onclick = function(event) {
+//     if (event.target == modal) {
+//         const modal = document.getElementById('myModal');        
+//         modal.style.display = "none";
+//     }
+// }
+
+// let shiftSelector = this.selectShifts();
+
+
+// eventClick: function (calEvent, jsEvent, view) {
+//   shiftSelector(calEvent);
+//   alert('Would you like to request shift trade for {person name and shift date here} ?');
+// },
+
+// selectShifts() {
+//   let numShifts = 0;
+//   let shifts = [];
+//   return event => {
+//     if (numShifts > 0) {
+//       shifts[1] = event.title;
+//       console.log(event);
+//       alert(`${shifts[1]} would like to swap shifts with ${shifts[0]}`);
+//       // location.href = "/request-shift-swap";
+//     } else {
+//       numShifts++;
+//       shifts[0] = event.title;
+//       console.log(event);
+//     }
+//   };
+// }
 
 /***/ }),
 /* 263 */
@@ -41046,9 +41214,9 @@ var Profile = function (_React$Component) {
           { className: 'user-info' },
           this.props.user.firstName + ' ' + this.props.user.lastName,
           _react2.default.createElement('br', null),
-          this.props.user.workplace ? this.props.user.workplace.name : 'add a workplace',
+          this.props.user.workplaces.length ? this.props.user.workplaces[0].name : 'add a workplace',
           _react2.default.createElement('br', null),
-          this.props.user.workplace ? this.props.user.workplace.formatted_address : '',
+          this.props.user.workplaces.length ? this.props.user.workplaces[0].formatted_address : '',
           _react2.default.createElement('br', null)
         ),
         _react2.default.createElement('br', null),
@@ -41215,7 +41383,7 @@ var SignupForm = function (_Component) {
 						className: 'form-input',
 						type: 'text',
 						name: 'name',
-						placeholder: 'first last',
+						placeholder: 'First Last',
 						value: this.state.name,
 						onChange: this.handleChange
 					}),
@@ -41228,7 +41396,7 @@ var SignupForm = function (_Component) {
 						className: 'form-input',
 						type: 'text',
 						name: 'email',
-						placeholder: 'coolname@gmail.com',
+						placeholder: 'example@gmail.com',
 						value: this.state.email,
 						onChange: this.handleChange
 					}),

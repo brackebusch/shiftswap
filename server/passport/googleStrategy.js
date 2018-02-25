@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const User = require('../db/models/user')
+const invert = require('invert-color');
 
 
 //Randomly assigns a color to user based on their email
@@ -52,9 +53,10 @@ const strategy = new GoogleStrategy(
 					'google.googleId': id,
 					firstName: name.givenName,
 					lastName: name.familyName,
-					'local.email': emails.value,
+					'local.email': emails[0].value,
 					workplaces: [],
-					'color': stringToColor(email.emails[0].value) 
+					'backgroundColor': stringToColor(email.emails[0].value),
+					'textColor': invert(stringToColor(email.emails[0].value), true)
 				})
 				// save this user
 				newGoogleUser.save((err, savedUser) => {

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../db/models/user')
 const passport = require('../passport')
+const invert = require('invert-color');
 
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }))
 router.get(
@@ -85,7 +86,8 @@ router.post('/signup', (req, res) => {
 			'local.password': password,
 			'phone': phone,
 			'workplaces': [],
-			'color': stringToColor(email)
+			'backgroundColor': stringToColor(email),
+			'textColor': invert(stringToColor(email), true)
 		})
 		newUser.save((err, savedUser) => {
 			if (err) return res.json(err)
