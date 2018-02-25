@@ -3,8 +3,10 @@ const router = express.Router()
 const Workplace = require('../db/models/workplace')
 const User = require('../db/models/user')
 
-// this route is used to return a workplace if none is found it is added
-// then a new workplace is added
+//this is possibly unnessary because we can simply call
+//populate on an employee when sending them up which will include
+//the workplace information. Only possible use-case is in calendar after
+//shift is added so I will leave it for now == possible delete later
 router.get("/find", (req, res, next) => {
   let place_id = req.query.place_id;
   console.log("=====REQUEST SENT====");
@@ -26,6 +28,9 @@ router.get("/find", (req, res, next) => {
   })
 })
 
+//This will search the databse for a business, if it doesn't exist it will create one
+//then upon finding/createing the business it will add the user as an employee and update
+//the users accound to include that workplace
 router.post('/addemployee', (req,res,next) => {
   const { name, place_id, formatted_address, employee_id  } = req.body
   console.log(req.body);
@@ -72,6 +77,7 @@ router.post('/addemployee', (req,res,next) => {
   })
 })
 
+//This needs to update an employee/User so that their workplace array is modified
 router.patch('/removeemployee', (req, res, next) => {
   const { place_id, employee_id  } = req.body
   Workplace.findOne({ 'place_id': place_id }).exec( function(err, workplaceMatch) {
@@ -92,23 +98,49 @@ router.patch('/removeemployee', (req, res, next) => {
     })
 })
 
-router.patch('/addshift', (req, res) => {
-	const { shift, place_id } = req.body
-  Workplace.findOneAndUpdate( { 'place_id': place_id },
-    { "$push": { "shifts": shift } }
+
+router.post('/addshift', (req, res) => {
+  const { shift, place_id } = req.body
+  console.log("=============SHIFT=============");
+  console.log(shift);
+
+  Workplace.findOneAndUpdate( { place_id: place_id },
+    { "$push": { "shifts": shift },  }, {new: true}
   ).exec( function(err, workplaceMatch) {
-  return res.json(workplaceMatch)
+    if (err) return res.json(err)
+    return res.json(workplaceMatch)
   })
 })
 
-// This is where we'll send emails to request shift swaps
+router.post('/sendnotification', (req, res, next) => {
+  const {
+    place_id,
+    from_employee_id,
+    to_employee_id,
+    from_start,
+    to_start } = req.body;
 
+  Workplace
+    .findOne({ 'place_id': place_id })
+    .exec((err, foundWorkpalce) => {
+      if (err) return res.json(err);
+      console.log(`===WORKPLACE EXISTS===`);
+      console.log(foundWorkpalce.shifts);
+    });
+});
+
+
+
+// This is where we'll send emails to request shift swaps
 router.post('/request-shift-swap', (req, res) => {
   const { place_id, shift1, shift2, email } = req.body;
-  
+
 });
 
 module.exports = router
+
+
+//====I would like to delete this as I dont' think it is necessary (Kyle) =====
 
 // router.post('/add', (req, res) => {
 //   console.log(req.body);
@@ -139,55 +171,3 @@ module.exports = router
 //   })
 //   console.log(workplace);
 // });
-
-
-// else {
-//   const newWorkplace = new Workplace({
-//     name: name,
-//     formatted_address: formatted_address,
-//     place_id: place_id,
-//   })
-//   newWorkplace.employees.push(employee_id)
-//   newWorkplace.save((err, savedWorkplace) => {
-//     if (err) return res.json(err)
-//     return res.json(savedWorkplace.populate("employees"))
-//   })
-// }
-
-
-// router.post('/new', (req, res, next) => {
-//   const { name, place_id, formatted_address, employee_id  } = req.body
-//   const newWorkplace = new Workplace({
-//     name: name,
-//     formatted_address: formatted_address,
-//     place_id: place_id,
-//   })
-
-//   newWorkplace.employees.push(employee_id)
-//   newWorkplace.save((err, savedWorkplace) => {
-//     debugger
-//     if (err) return res.json(err)
-//     return res.json(savedWorkplace.populate('employees'))
-//   })
-
-// })
-
-
-// router.post('/addemployee', (req, res, next) => {
-//   const { place_id, employee_id  } = req.body
-//   Workplace.findOne({ 'place_id': place_id }).exec( function(err, workplaceMatch) {
-//     if (err) {
-//       return res.json(err)
-//     } else if(workplaceMatch)
-//       workplaceMatch.employees.push(employee_id)
-
-//       workplaceMatch.save(function (err, response) {
-//         if (err) return handleError(err);
-//         res.send(response.populate("employees"));
-//       });
-
-//       // workplaceMatch.save
-//       // workplaceMatch.populate("employees")
-//       // return res.json(workplaceMatch)
-//     })
-// })
