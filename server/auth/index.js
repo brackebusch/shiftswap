@@ -51,7 +51,8 @@ router.post('/logout', (req, res) => {
 	}
 })
 
-
+//Randomly assigns a color to user based on their email
+//Called in Signup and passed user given email
 const stringToColor = function(str) {
   let hash = 0;
   for (let i = 0; i < str.length; i++) {

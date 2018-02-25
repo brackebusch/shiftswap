@@ -1,6 +1,9 @@
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const User = require('../db/models/user')
 
+
+//Randomly assigns a color to user based on their email
+//Called during Save and passed google given email
 const stringToColor = function(str) {
 	console.log("===COLOR CREATOR====");
 	console.log(str);
