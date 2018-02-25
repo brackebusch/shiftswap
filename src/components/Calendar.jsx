@@ -17,18 +17,14 @@ class Calendar extends Component{
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addShift = this.addShift.bind(this);
-  }
-
-  selectShifts(event) {
-    let numShifts = 0;
-    let shifts = [];
-
-    console.log(event);
+    this.selectShifts = this.selectShifts.bind(this);
   }
 
   componentDidMount() {
     console.log("===display user===");
     console.log(this.state.user);
+
+    let shiftSelector = this.selectShifts();
 
     $('#calendar').fullCalendar({
       customButtons: {
@@ -47,6 +43,14 @@ class Calendar extends Component{
       },
       defaultView: "agendaWeek",
       height: "parent",
+
+      eventClick: function(calEvent, jsEvent, view) {
+        shiftSelector(calEvent);
+        // change the border color just for fun
+        $(this).css('border-color', 'red');
+
+      },
+
       dayClick: function(date, jsEvent, view) {
         selectDate = date ;
 
@@ -170,6 +174,22 @@ render() {
     );
   }
 }
+  selectShifts() {
+    let numShifts = 0;
+    let shifts = [];
+    return event => {
+      if (numShifts > 0) {
+        shifts[1] = event.title;
+        console.log(event);
+        alert(`${shifts[1]} would like to swap shifts with ${shifts[0]}`);
+        // location.href = "/request-shift-swap";
+      } else {
+        numShifts++;
+        shifts[0] = event.title;
+        console.log(event);
+      }
+    };
+  }
 
 }
 
@@ -201,20 +221,3 @@ export default Calendar;
       //   shiftSelector(calEvent);
       //   alert('Would you like to request shift trade for {person name and shift date here} ?');
       // },
-
-// selectShifts() {
-//   let numShifts = 0;
-//   let shifts = [];
-//   return event => {
-//     if (numShifts > 0) {
-//       shifts[1] = event.title;
-//       console.log(event);
-//       alert(`${shifts[1]} would like to swap shifts with ${shifts[0]}`);
-//       // location.href = "/request-shift-swap";
-//     } else {
-//       numShifts++;
-//       shifts[0] = event.title;
-//       console.log(event);
-//     }
-//   };
-// }

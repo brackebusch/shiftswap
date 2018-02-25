@@ -31204,22 +31204,17 @@ var Calendar = function (_Component) {
     };
     _this.handleInputChange = _this.handleInputChange.bind(_this);
     _this.addShift = _this.addShift.bind(_this);
+    _this.selectShifts = _this.selectShifts.bind(_this);
     return _this;
   }
 
   _createClass(Calendar, [{
-    key: 'selectShifts',
-    value: function selectShifts(event) {
-      var numShifts = 0;
-      var shifts = [];
-
-      console.log(event);
-    }
-  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       console.log("===display user===");
       console.log(this.state.user);
+
+      var shiftSelector = this.selectShifts();
 
       (0, _jquery2.default)('#calendar').fullCalendar({
         customButtons: {
@@ -31238,6 +31233,13 @@ var Calendar = function (_Component) {
         },
         defaultView: "agendaWeek",
         height: "parent",
+
+        eventClick: function eventClick(calEvent, jsEvent, view) {
+          shiftSelector(calEvent);
+          // change the border color just for fun
+          (0, _jquery2.default)(this).css('border-color', 'red');
+        },
+
         dayClick: function dayClick(date, jsEvent, view) {
           selectDate = date;
 
@@ -31402,6 +31404,24 @@ var Calendar = function (_Component) {
         );
       }
     }
+  }, {
+    key: 'selectShifts',
+    value: function selectShifts() {
+      var numShifts = 0;
+      var shifts = [];
+      return function (event) {
+        if (numShifts > 0) {
+          shifts[1] = event.title;
+          console.log(event);
+          alert(shifts[1] + ' would like to swap shifts with ' + shifts[0]);
+          // location.href = "/request-shift-swap";
+        } else {
+          numShifts++;
+          shifts[0] = event.title;
+          console.log(event);
+        }
+      };
+    }
   }]);
 
   return Calendar;
@@ -31435,23 +31455,6 @@ exports.default = Calendar;
 //   shiftSelector(calEvent);
 //   alert('Would you like to request shift trade for {person name and shift date here} ?');
 // },
-
-// selectShifts() {
-//   let numShifts = 0;
-//   let shifts = [];
-//   return event => {
-//     if (numShifts > 0) {
-//       shifts[1] = event.title;
-//       console.log(event);
-//       alert(`${shifts[1]} would like to swap shifts with ${shifts[0]}`);
-//       // location.href = "/request-shift-swap";
-//     } else {
-//       numShifts++;
-//       shifts[0] = event.title;
-//       console.log(event);
-//     }
-//   };
-// }
 
 /***/ }),
 /* 193 */
