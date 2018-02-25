@@ -101,44 +101,44 @@ router.patch('/addshift', (req, res) => {
   })
 })
 
-router.post('/add', (req, res) => {
-  console.log(req.body);
-  const { name, formatted_address, place_id, user } = req.body;
-  let workplace;
-  // ###### ADDING CONDITIONAL TO SEND TO addemployee #####
-  Workplace.findOne({'place_id': place_id}, (err, workplaceMatch) => {
-    if (workplaceMatch) {
-      workplace = workplaceMatch;
-      console.log('match');
-      return res.json()
-    } else {
-      workplace = new Workplace({
-        'name': name,
-        'formatted_address': formatted_address,
-        'place_id': place_id,
-        'employees': [user],
-        'shifts': []
-      });
-      workplace.save((error, savedWorkplace) => {
-        if (error) return res.json(error);
-        console.log(`saved ${savedWorkplace}`);
-        user.workplace = savedWorkplace._id;
-        console.log(user);
-        return res.json(savedWorkplace);
-      });
-    }
-  })
-  console.log(workplace);
-});
-
 // This is where we'll send emails to request shift swaps
 
 router.post('/request-shift-swap', (req, res) => {
   const { place_id, shift1, shift2, email } = req.body;
-
+  
 });
 
 module.exports = router
+
+// router.post('/add', (req, res) => {
+//   console.log(req.body);
+//   const { name, formatted_address, place_id, user } = req.body;
+//   let workplace;
+//   // ###### ADDING CONDITIONAL TO SEND TO addemployee #####
+//   Workplace.findOne({'place_id': place_id}, (err, workplaceMatch) => {
+//     if (workplaceMatch) {
+//       workplace = workplaceMatch;
+//       console.log('match');
+//       return res.json()
+//     } else {
+//       workplace = new Workplace({
+//         'name': name,
+//         'formatted_address': formatted_address,
+//         'place_id': place_id,
+//         'employees': [user],
+//         'shifts': []
+//       });
+//       workplace.save((error, savedWorkplace) => {
+//         if (error) return res.json(error);
+//         console.log(`saved ${savedWorkplace}`);
+//         user.workplace = savedWorkplace._id;
+//         console.log(user);
+//         return res.json(savedWorkplace);
+//       });
+//     }
+//   })
+//   console.log(workplace);
+// });
 
 
 // else {
