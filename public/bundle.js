@@ -41003,10 +41003,6 @@ var Profile = function (_React$Component) {
           place_id: place.place_id,
           name: place.name
         });
-        // console.log(place.formatted_address);
-        // console.log(place.url);
-        // console.log(place.place_id);
-        // console.log(place.name);
         var info = document.getElementById("confirm-modal-info");
         info.innerText = place.name + ' \n\n                        ' + place.formatted_address + '\n      ';
         document.getElementById('confirm-modal-back').style.display = "flex";
@@ -41029,6 +41025,7 @@ var Profile = function (_React$Component) {
         place_id: this.state.place_id
       }).then(function (response) {
         console.log(response);
+        _this2.props.user.workplace = response.data.op._id;
         console.log(_this2.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');

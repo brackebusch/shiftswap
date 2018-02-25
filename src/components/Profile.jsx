@@ -32,10 +32,6 @@ class Profile extends React.Component {
         place_id: place.place_id,
         name: place.name
       });
-      // console.log(place.formatted_address);
-      // console.log(place.url);
-      // console.log(place.place_id);
-      // console.log(place.name);
       var info = document.getElementById("confirm-modal-info");
       info.innerText = `${place.name} \n
                         ${place.formatted_address}
@@ -61,6 +57,7 @@ class Profile extends React.Component {
       })
       .then(response => {
         console.log(response);
+        this.props.user.workplace = response.data.op._id;
         console.log(this.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
