@@ -14,18 +14,28 @@ const itemStyles = {
   justifyContent: 'center'
 };
 
-const emailHTML = (shift1, shift2) => renderEmail (
-  <Email title='ShiftSwap Request'>
-    <Box>
-      <Item {...itemStyles}>
-        <div><Span {...textStyles}>{shift2.title} has requested to swap shifts:</Span></div>
-        <div><Span {...textStyles}>{shift2.start} - {shift2.end} - {shift2.title}</Span></div>
-        <div><Span {...textStyles}>{shift1.start} - {shift1.end} - You</Span></div>
-        <div><button>Accept</button><button>Decline</button></div>
-      </Item>
-    </Box>
-  </Email>
-);
+const emailHTML = (shift1, shift2) => {
+  console.log(shift1);
+  console.log(shift2);
+  let fromName = shift1.title;
+  let toName = shift2.title;
+  let fromStart = shift1.start;
+  let toStart = shift2.start;
+  let fromEnd = shift1.end;
+  let toEnd = shift2.end;
+  return renderEmail (
+    <Email title='ShiftSwap Request'>
+      <Box>
+        <Item>
+          <div>`${fromName} has requested to swap shifts:`</div>
+          <div>`${fromStart} - ${fromEnd} - ${fromName}`</div>
+          <div>`${toStart} - ${toEnd} - You`</div>
+          <div><button>Accept</button><button>Decline</button></div>
+        </Item>
+      </Box>
+    </Email>
+  );
+}
 // const emailHTML = (requesterName, shift1, shift2) => {
 //   return (
 //     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
