@@ -55,9 +55,6 @@ class Profile extends React.Component {
         place_id: this.state.place_id,
       })
       .then(response => {
-        console.log(response);
-        this.props.user.workplace = response.data.op._id;
-        console.log(this.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
           this.setState({

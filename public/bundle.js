@@ -40452,9 +40452,6 @@ var Profile = function (_React$Component) {
         formatted_address: this.state.formatted_address,
         place_id: this.state.place_id
       }).then(function (response) {
-        console.log(response);
-        _this2.props.user.workplace = response.data.op._id;
-        console.log(_this2.props.user);
         if (!response.data.errmsg) {
           console.log('you\'re good');
           _this2.setState({
