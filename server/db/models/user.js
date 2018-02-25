@@ -8,14 +8,13 @@ const userSchema = new Schema({
 	firstName: { type: String, unique: false },
 	lastName: { type: String, unique: false },
 	local: {
-		email: { type: String, unique: false, required: false, required: true },
-		password: { type: String, unique: false, required: false, required: true }
+		email: { type: String, unique: false, required: false},
+		password: { type: String, unique: false, required: false}
 	},
 	google: {
 		googleId: { type: String, required: false }
 	},
-	phone: Number,
-	workplace: { type : Schema.ObjectId, ref: 'Workplace' },
+	workplaces: [{ type : Schema.ObjectId, ref: 'Workplace' }],
 })
 
 // Define schema methods
@@ -25,6 +24,9 @@ userSchema.methods = {
 	},
 	hashPassword: plainTextPassword => {
 		return bcrypt.hashSync(plainTextPassword, 10)
+	},
+	addWorkplace: workplace => {
+		this.workplace = workplace
 	}
 }
 

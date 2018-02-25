@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Profile from './Profile.jsx';
 import Calendar from './Calendar.jsx';
 
@@ -7,17 +8,14 @@ import Calendar from './Calendar.jsx';
 const DisplayMain = props => {
       var display = null
       props.loggedIn ? display = (
-                                  <div className="userAndCalendar">
-                                    <Profile user={props.user}/>
-                                    <Calendar />
-                                  </div> ) :
-                       display = (
-                                  <div className="gif">
-                                  </div> )
-
+        <div className="userAndCalendar">
+          <Profile user={props.user}/>
+          <Calendar user={props.user}/>
+        </div> ) : display = (
+        <div className="gif">
+        </div> )
       return display
                     //probs can enter gif here
-
     //if else statement should wrap around these two return statements
     //checking to see if someone is logged in or not
     // return (
@@ -41,6 +39,10 @@ class Main extends Component {
       </div>
     );
   }
+
+  // componentDidMount() {
+  //
+  // }
 }
 
 export default Main;

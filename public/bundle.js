@@ -12846,6 +12846,10 @@ var _react = __webpack_require__(5);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _axios = __webpack_require__(44);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 var _Profile = __webpack_require__(265);
 
 var _Profile2 = _interopRequireDefault(_Profile);
@@ -12870,12 +12874,10 @@ var DisplayMain = function DisplayMain(props) {
     'div',
     { className: 'userAndCalendar' },
     _react2.default.createElement(_Profile2.default, { user: props.user }),
-    _react2.default.createElement(_Calendar2.default, null)
+    _react2.default.createElement(_Calendar2.default, { user: props.user })
   ) : display = _react2.default.createElement('div', { className: 'gif' });
-
   return display;
   //probs can enter gif here
-
   //if else statement should wrap around these two return statements
   //checking to see if someone is logged in or not
   // return (
@@ -12907,6 +12909,11 @@ var Main = function (_Component) {
         _react2.default.createElement(DisplayMain, { loggedIn: this.props.loggedIn, user: this.props.user })
       );
     }
+
+    // componentDidMount() {
+    //
+    // }
+
   }]);
 
   return Main;
@@ -40431,6 +40438,10 @@ var _fullcalendar = __webpack_require__(284);
 
 var _fullcalendar2 = _interopRequireDefault(_fullcalendar);
 
+var _axios = __webpack_require__(44);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -40441,14 +40452,16 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 // import sendEmail from '../notification/sendEmail.jsx';
 
-
 var Calendar = function (_Component) {
   _inherits(Calendar, _Component);
 
-  function Calendar() {
+  function Calendar(props) {
     _classCallCheck(this, Calendar);
 
-    return _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Calendar.__proto__ || Object.getPrototypeOf(Calendar)).call(this, props));
+
+    _this.user = _this.props.user;
+    return _this;
   }
 
   _createClass(Calendar, [{
@@ -40477,6 +40490,7 @@ var Calendar = function (_Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
+
       var shiftSelector = this.selectShifts();
 
       (0, _jquery2.default)('#calendar').fullCalendar({
@@ -40830,6 +40844,24 @@ var NavBar = function (_Component) {
 					});
 				}
 			});
+
+			// if(use.)
+
+			// axios.get('/auth/user').then(response => {
+			// 	console.log(response.data)
+			// 	if (!!response.data.user) {
+			// 		console.log('THERE IS A USER')
+			// 		this.setState({
+			// 			loggedIn: true,
+			// 			user: response.data.user
+			// 		})
+			// 	} else {
+			// 		this.setState({
+			// 			loggedIn: false,
+			// 			user: null
+			// 		})
+			// 	}
+			// })
 		}
 	}, {
 		key: '_logout',
@@ -40940,6 +40972,13 @@ var Profile = function (_React$Component) {
 
     var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
 
+    _this.state = {
+      user: _this.props.user,
+      name: '',
+      formatted_address: '',
+      place_id: '',
+      redirectTo: null
+    };
     _this.showSearch = _this.showSearch.bind(_this);
     _this.recordWorkplace = _this.recordWorkplace.bind(_this);
     _this.closeModal = _this.closeModal.bind(_this);
@@ -40961,27 +41000,44 @@ var Profile = function (_React$Component) {
           place_id: place.place_id,
           name: place.name
         });
-        // console.log(place.formatted_address);
-        // console.log(place.url);
-        // console.log(place.place_id);
-        // console.log(place.name);
         var info = document.getElementById("confirm-modal-info");
-        info.innerText = place.name + ' \n\n                        ' + place.formatted_address + '\n      ';
+        info.innerText = place.name + ' \n\n                        ' + place.formatted_address;
         document.getElementById('confirm-modal-back').style.display = "flex";
         document.getElementById('confirm-modal').style.display = "flex";
       });
     }
+
+    // ##### THIS IS WHERE PROFILE CONNECTS TO BACKEND #####
+
   }, {
     key: 'recordWorkplace',
     value: function recordWorkplace() {
-      //send state to backend
+      var _this2 = this;
+
+      this.closeModal();
+      _axios2.default.post('workplace/addemployee', {
+        employee_id: this.props.user._id,
+        name: this.state.name,
+        formatted_address: this.state.formatted_address,
+        place_id: this.state.place_id
+      }).then(function (response) {
+        console.log(response);
+        _this2.props.user.workplace = response.data.op._id;
+        console.log(_this2.props.user);
+        if (!response.data.errmsg) {
+          console.log('you\'re good');
+          _this2.setState({
+            redirectTo: '/'
+          });
+        }
+      });
     }
   }, {
     key: 'closeModal',
     value: function closeModal(event) {
-      if (event.target.id === "confirm-modal-back") {
-        document.getElementById('confirm-modal-back').style.display = "none";
-      }
+      // if (event.target.id === "confirm-modal-back") {
+      document.getElementById('confirm-modal-back').style.display = "none";
+      // }
     }
   }, {
     key: 'showSearch',
@@ -40992,7 +41048,7 @@ var Profile = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
+      var _this3 = this;
 
       console.log(this.props);
 
@@ -41002,18 +41058,18 @@ var Profile = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'user-info' },
-          this.props.user.local.email,
+          this.props.user.firstName + ' ' + this.props.user.lastName,
           _react2.default.createElement('br', null),
-          'Work Name',
+          this.props.user.workplace ? this.props.user.workplace.name : 'add a workplace',
           _react2.default.createElement('br', null),
-          'Work Address',
+          this.props.user.workplace ? this.props.user.workplace.formatted_address : '',
           _react2.default.createElement('br', null)
         ),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'button',
           { id: 'add-workplace-button', onClick: function onClick() {
-              return _this2.showSearch();
+              _this3.showSearch();
             } },
           ' Add Workplace'
         ),
@@ -41025,7 +41081,7 @@ var Profile = function (_React$Component) {
           _react2.default.createElement(
             'label',
             null,
-            'Where Do You Work?',
+            'Where do you work?',
             _react2.default.createElement('input', { id: 'autocomplete', type: 'text' })
           )
         ),
@@ -41039,7 +41095,7 @@ var Profile = function (_React$Component) {
             _react2.default.createElement(
               'button',
               { id: 'confirm-workplace-button', onClick: function onClick() {
-                  return _this2.recordWorkplace();
+                  return _this3.recordWorkplace();
                 } },
               ' Confirm Workplace'
             )

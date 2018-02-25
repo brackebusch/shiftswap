@@ -7,6 +7,13 @@ class Profile extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      user: this.props.user,
+      name: '',
+      formatted_address: '',
+      place_id: '',
+      redirectTo: null
+    }
     this.showSearch = this.showSearch.bind(this);
     this.recordWorkplace = this.recordWorkplace.bind(this);
     this.closeModal = this.closeModal.bind(this)
@@ -25,32 +32,46 @@ class Profile extends React.Component {
         place_id: place.place_id,
         name: place.name
       });
-      // console.log(place.formatted_address);
-      // console.log(place.url);
-      // console.log(place.place_id);
-      // console.log(place.name);
       var info = document.getElementById("confirm-modal-info");
       info.innerText = `${place.name} \n
-                        ${place.formatted_address}
-      `;
+                        ${place.formatted_address}`;
       document.getElementById('confirm-modal-back').style.display = "flex";
       document.getElementById('confirm-modal').style.display = "flex";
+
     });
 
 
   }
 
+  // ##### THIS IS WHERE PROFILE CONNECTS TO BACKEND #####
+
   recordWorkplace() {
-    //send state to backend
+    this.closeModal();
+    axios
+      .post('workplace/addemployee', {
+        employee_id: this.props.user._id,
+        name: this.state.name,
+        formatted_address: this.state.formatted_address,
+        place_id: this.state.place_id,
+      })
+      .then(response => {
+        console.log(response);
+        this.props.user.workplace = response.data.op._id;
+        console.log(this.props.user);
+        if (!response.data.errmsg) {
+          console.log('you\'re good');
+          this.setState({
+            redirectTo: '/'
+          });
+        }
+      });
   }
 
   closeModal(event) {
-		if (event.target.id === "confirm-modal-back") {
+		// if (event.target.id === "confirm-modal-back") {
 			document.getElementById('confirm-modal-back').style.display = "none";
-		}
+		// }
 	}
-
-
 
   showSearch() {
     document.getElementById('find-workplace').style.display = "flex";
@@ -63,22 +84,38 @@ class Profile extends React.Component {
     return (
       <div className="user-content">
         <div className="user-info">
-            {this.props.user.local.email}
+
+            {`${this.props.user.firstName} ${this.props.user.lastName}`}
+
             <br/>
-            Work Name
+              {
+                this.props.user.workplace
+                ?
+                this.props.user.workplace.name
+                :
+                'add a workplace'
+              }
             <br/>
-            Work Address
+              {
+                this.props.user.workplace
+                ?
+                this.props.user.workplace.formatted_address
+                :
+                ''
+              }
             <br/>
         </div>
 
           <br/>
-            <button id="add-workplace-button" onClick={() => this.showSearch()}> Add Workplace</button>
+            <button id="add-workplace-button" onClick={() => {
+              this.showSearch();
+            }}> Add Workplace</button>
           <br/>
 
           <br/>
         <div id="find-workplace">
           <label>
-            Where Do You Work?
+            Where do you work?
             <input id="autocomplete" type="text" />
           </label>
         </div>

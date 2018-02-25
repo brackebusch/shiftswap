@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
+import axios from 'axios';
 // import sendEmail from '../notification/sendEmail.jsx';
 
-
 class Calendar extends Component {
+  constructor(props) {
+    super(props);
+    this.user = this.props.user;
+  }
+
   render() {
     return (
       <div id="calendar">
@@ -30,6 +35,7 @@ class Calendar extends Component {
   }
 
   componentDidMount() {
+
     let shiftSelector = this.selectShifts();
 
     $('#calendar').fullCalendar({
