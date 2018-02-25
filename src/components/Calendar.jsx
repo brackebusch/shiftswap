@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
-import moment from 'moment';
+// import moment from 'moment';
 import axios from 'axios';
-// import sendEmail from '../notification/sendEmail.jsx';
-var selectDate = ''
+import emailHTML from '../notification/emailHTML.jsx';
+let selectDate = '';
 
-class Calendar extends Component{ 
+class Calendar extends Component{
   constructor(props) {
     super(props);
     this.user = this.props.user,
@@ -14,21 +14,28 @@ class Calendar extends Component{
     this.state = {
       start: '08:00',
       end: '17:00',
-    }
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.addShift = this.addShift.bind(this);
+  }
+
+  selectShifts(event) {
+    let numShifts = 0;
+    let shifts = [];
+
+    console.log(event);
   }
 
   componentDidMount() {
     console.log("===display user===");
     console.log(this.state.user);
 
-    $('#calendar').fullCalendar({      
+    $('#calendar').fullCalendar({
       customButtons: {
         addShiftButton:{
           text: 'Select Day To Add Shift',
           click: function() {
-            const modal = document.getElementById('myModal');  
+            const modal = document.getElementById('myModal');
             modal.style.display = "block";
           }
         }
@@ -39,36 +46,35 @@ class Calendar extends Component{
         right:  'prev,next'
       },
       defaultView: "agendaWeek",
-      height: "parent", 
+      height: "parent",
       dayClick: function(date, jsEvent, view) {
-        selectDate = date        
+        selectDate = date ;
 
         let moment = date.format("dddd, MMMM Do");
         $('#dateHeader').text(moment);
 
-        let button = $('.fc-addShiftButton-button')
-        button[0].disabled = false
+        let button = $('.fc-addShiftButton-button');
+        button[0].disabled = false;
         button.removeClass('btn-disabled');
-        button[0].textContent = 'Add Shift';  
+        button[0].textContent = 'Add Shift';
       },
       events : this.workplaces[0].shifts
     });
-    let button = $('.fc-addShiftButton-button')
-    button[0].disabled = true
-    button.addClass('btn-disabled');    
+    let button = $('.fc-addShiftButton-button');
+    button[0].disabled = true;
+    button.addClass('btn-disabled');
   }
 
   addShift(event) {
-    console.log(this.user);    
     document.getElementById('myModal').style.display = "none";
     event.preventDefault();
-    console.log(selectDate.format("MMMM D YYYY")+this.state.start);
+    // console.log(selectDate.format("MMMM D YYYY")+this.state.start);
 
-    let shiftStart = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.start + " " + "PST"))
-    let shiftEnd = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.end + " " + "PST"))
-    console.log(this.state.start);
-    console.log(shiftStart);
-    
+    let shiftStart = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.start + " " + "PST"));
+    let shiftEnd = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.end + " " + "PST"));
+    // console.log(this.state.start);
+    // console.log(shiftStart);
+
     axios
       .post('workplace/addshift', {
         place_id: this.workplaces[0].place_id,
@@ -97,13 +103,13 @@ class Calendar extends Component{
     const value = target.value;
     const name = target.name;
     // console.log(value);
-    
+
     this.setState({
       [name]: value
     });
-    console.log(this.state.start);
-    console.log(this.state.end);    
-    
+    // console.log(this.state.start);
+    // console.log(this.state.end);
+
   }
 
 render() {
@@ -148,7 +154,7 @@ render() {
                 <button id="submitShift">Add Shift</button>
               </div>
             </div>
-          </form>          
+          </form>
         </div>
 
         <div id="calendar">
@@ -161,7 +167,7 @@ render() {
       <div id="calendar-container">
         <h4>Add a workplace to see shifts!</h4>
       </div>
-    ); 
+    );
   }
 }
 
@@ -183,7 +189,7 @@ export default Calendar;
   // When the user clicks anywhere outside of the modal, close it
   // window.onclick = function(event) {
   //     if (event.target == modal) {
-  //         const modal = document.getElementById('myModal');        
+  //         const modal = document.getElementById('myModal');
   //         modal.style.display = "none";
   //     }
   // }
