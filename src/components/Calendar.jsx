@@ -168,7 +168,6 @@ class Calendar extends Component{
   }
 
 render() {
-  this.setState({closed: true});
   if (this.workplaces.length) {
     return (
       <div id="calendar-container">
