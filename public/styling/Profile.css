@@ -12,7 +12,7 @@ body {
 .user-content {
   font-family: 'Open Sans', sans-serif;
   width: 30%;
-  height: 50vh;
+  height: 30vh;
   margin-left: 20px;
   background-color: rgba(126, 192, 238, 1.0);
   border-radius: 25px;
@@ -24,11 +24,15 @@ body {
   width: 100%;
 }
 
-
 .user-info {
   margin-left: 40px;
   margin-top: 40px;
   margin-right: 20px;
+}
+
+.user-info span {
+  font-weight: 600;
+  font-size: 1.10rem;
 }
 
 #add-workplace-button {
