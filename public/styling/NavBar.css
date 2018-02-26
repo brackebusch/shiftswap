@@ -2,7 +2,7 @@
   background-color: rgba(126, 192, 238, 1.0);
   /* background-color: rgba(1, 50, 67, 1.0); */
   width: 100vw;
-  height: 50px;
+  height: 65px;
   margin-top: 10px;
   text-align: center;
   display: flex;
@@ -20,13 +20,13 @@
 
 .nav-item {
   display: flex;
-  margin-top: 0px;
+  margin-top: 8px;
   text-decoration: none;
   color: white;
 }
 
 .nav-item-logout {
-  margin-top: 6.5px;
+  margin-top: 15px;
   display: flex;
   text-decoration: none;
   color: white;

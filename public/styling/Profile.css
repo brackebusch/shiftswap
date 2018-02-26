@@ -23,6 +23,7 @@
 .user-info {
   margin-left: 40px;
   margin-top: 40px;
+  margin-right: 20px;
 }
 
 #add-workplace-button {
@@ -41,6 +42,11 @@
 #find-workplace {
   display: none;
   margin-left: 40px;
+  margin-right: 20px;
+}
+
+#autocomplete {
+  width: 90%;
 }
 
 #confirm-modal-back {
