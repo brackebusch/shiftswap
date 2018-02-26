@@ -24,11 +24,15 @@ body {
   width: 100%;
 }
 
-
 .user-info {
   margin-left: 40px;
   margin-top: 40px;
   margin-right: 20px;
+}
+
+.user-info span {
+  font-weight: 600;
+  font-size: 1.10rem;
 }
 
 #add-workplace-button {

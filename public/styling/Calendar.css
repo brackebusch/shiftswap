@@ -9,27 +9,42 @@
   margin-left: 25px;
 }
 
+/* This controls background of current day */
+/* .fc-today {
+  background: #ABD8F8 !important;
+  background: #E5E6FE !important;  
+}  */
+
 .btn-disabled{
   cursor: not-allowed;
   pointer-events: none;
   background: rgb(180, 178, 178);
 }
 
-.fc-left h2 {
-  font-size: 1.5em;
+.fc-view-container {
+  background: #E2F3FE;
+  border-radius: 20px;
+  border: none;
 }
 
-#calendar button {
-  font-size: .75em;
+.fc-left h2 {
+  font-size: 1.5em;
+  font-weight: 600;
 }
 
 #calendar {
   padding-bottom: 20px;
 }
 
-.fc-view-container {
-  background: #E2F3FE;
+#calendar button {
+  font-size: .75em;
+  font-weight: 600;
 }
+
+#calendar td:last-of-type {
+  border: none;
+}
+
 
 /* The Modal (background) */
 .modal {

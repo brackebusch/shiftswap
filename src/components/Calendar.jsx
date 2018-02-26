@@ -43,6 +43,7 @@ class Calendar extends Component{
         center: 'addShiftButton',
         right:  'prev,next'
       },
+      timeFormat: 'h:mma',
       timezone: 'local',
       height: "auto",
       defaultView: "agendaWeek",
@@ -50,6 +51,23 @@ class Calendar extends Component{
       slotDuration: '01:00:00',
       slotLabelInterval: '01:00:00',
       selectable: true,
+      selectHelper: true,
+
+      // ADD SHIFT VIA SELECTION
+      select: function(start, end) {
+        // selectDate = date ;
+          let moment = start.format("dddd, MMMM Do");
+          $('#dateHeader').text(moment);
+          console.log(start.format('HH:mm'));
+          console.log(end.format('HH:mm'));          
+          
+          // this.state.start = start.format('h:mm:ss');
+          // this.state.end = end.format('h:mm:ss');          
+          let button = $('.fc-addShiftButton-button');
+          button[0].disabled = false;
+          button.removeClass('btn-disabled');
+          button[0].textContent =  ('Add Shift On ' + start.format("dddd"));
+      },
 
       eventClick: function(calEvent, jsEvent, view) {
         shiftSelector(calEvent);
@@ -57,16 +75,14 @@ class Calendar extends Component{
       },
 
       dayClick: function(date, jsEvent, view) {
-        $('#calendar').fullCalendar('unselect');        
         selectDate = date ;
-        $(this).backgroundColor = "red";
         let moment = date.format("dddd, MMMM Do");
         $('#dateHeader').text(moment);
 
         let button = $('.fc-addShiftButton-button');
         button[0].disabled = false;
         button.removeClass('btn-disabled');
-        button[0].textContent = 'Add Shift';
+        button[0].textContent = ('Add Shift On ' + date.format("dddd"));
       },
       events : this.workplaces.length === 0 ? null : this.workplaces[0].shifts
     });
@@ -81,13 +97,10 @@ class Calendar extends Component{
 
     let shiftStart = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.start + " " + "PST"));
     let shiftEnd = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.end + " " + "PST"));
-    console.log("=====Shift Start=====");
-    console.log(shiftStart);
-    console.log(moment(shiftStart).utc().toDate());
 
     let shiftInfo = {
       employee_id: this.user._id,
-      title: (this.user.firstName + this.user.lastName),
+      title: (this.user.firstName + " " + this.user.lastName),
       start: shiftStart,
       end: shiftEnd,
       backgroundColor: this.user.backgroundColor,
@@ -121,8 +134,6 @@ class Calendar extends Component{
       [name]: value
     });
   }
-
-
 
   selectShifts() {
     let numShifts = 0;
@@ -234,21 +245,7 @@ render() {
 export default Calendar;
 
 
-      // ADD SHIFT VIA SELECTION
-      // select: function(start, end) {
-      //   // selectDate = date ;
-      //     let moment = start.format("dddd, MMMM Do");
-      //     $('#dateHeader').text(moment);
-      //     this.state.start = start.format('h:mm:ss');
-      //     this.state.end = end.format('h:mm:ss');          
-      //     let button = $('.fc-addShiftButton-button');
-      //     button[0].disabled = false;
-      //     button.removeClass('btn-disabled');
-      //     button[0].textContent = 'Add Shift';
-      // },
 
-      // selectHelper: true,
-      // snapDuration: '24:00:00',
 
 
 

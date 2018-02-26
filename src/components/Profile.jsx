@@ -84,8 +84,9 @@ class Profile extends React.Component {
       <div className="user-content">
         <div className="user-info">
 
-            {`${this.props.user.firstName} ${this.props.user.lastName}`}
+           <span>{`${this.props.user.firstName} ${this.props.user.lastName}`}</span> 
 
+            <br/>
             <br/>
               {
                 this.props.user.workplaces.length ?
