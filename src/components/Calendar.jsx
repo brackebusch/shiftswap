@@ -160,19 +160,22 @@ class Calendar extends Component{
 
   closeModal(event) {
     console.log("hi");
-    if (event.target.id === "myModal") {
+    console.log(event.target);
+    if (event.target.id === "myModal" || event.target.id === "form") {
       document.getElementById('myModal').style.display = "none";
     }
+    this.setState({closed: false});
   }
 
 render() {
+  this.setState({closed: true});
   if (this.workplaces.length) {
     return (
       <div id="calendar-container">
 
         <div id="myModal" className="modal" onClick={this.closeModal}>
           {/* -- Modal content -- */}
-          <form onSubmit={this.addShift}>
+          <form onSubmit={this.addShift} id="form">
             <div className="modal-content">
               <div className="modal-header">
                 <h3 id="dateHeader">Date Goes Here</h3>
