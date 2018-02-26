@@ -63,6 +63,10 @@ class Profile extends React.Component {
   }
 
   closeModal(event) {
+    if (!event) {
+      document.getElementById('confirm-modal-back').style.display = "none";
+      return;
+    }
 		if (event.target.id === "confirm-modal-back") {
 			document.getElementById('confirm-modal-back').style.display = "none";
 		}
@@ -96,9 +100,11 @@ class Profile extends React.Component {
         </div>
 
           <br/>
+            {this.props.user.workplaces.length ? <div></div> :
             <button id="add-workplace-button" onClick={() => {
               this.showSearch();
             }}> Add Workplace</button>
+              }
           <br/>
 
           <br/>
