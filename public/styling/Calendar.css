@@ -106,3 +106,8 @@
   background-color: rgba(126, 192, 238, 1.0);
 
 }
+
+.fc-day:hover {
+  cursor: pointer;
+  background-color: rgba(1, 50, 67, 1.0);
+}
