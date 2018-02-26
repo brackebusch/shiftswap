@@ -107,6 +107,7 @@ class Calendar extends Component{
           this.setState({
             redirectTo: '/'
           });
+          $('#calendar').fullCalendar('renderEvent', shift);
         }
       });
   }
@@ -149,6 +150,7 @@ class Calendar extends Component{
               this.setState({
                 redirectTo: '/'
               });
+
             }
           });
         alert(`shift swap request sent to ${shifts[1].title}`);
@@ -166,6 +168,7 @@ class Calendar extends Component{
       document.getElementById('myModal').style.display = "none";
     }
     this.setState({closed: false});
+
   }
 
 render() {
