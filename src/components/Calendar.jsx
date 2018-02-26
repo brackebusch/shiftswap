@@ -81,18 +81,18 @@ class Calendar extends Component{
     let shiftEnd = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.end + " " + "PST"));
     // console.log(this.state.start);
     // console.log(shiftStart);
-
+    let shift = {
+      employee_id: this.user._id,
+      title: (this.user.firstName + this.user.lastName),
+      start: shiftStart,
+      end: shiftEnd,
+      backgroundColor: this.user.backgroundColor,
+      textColor: this.user.textColor,
+    };
     axios
       .post('workplace/addshift', {
         place_id: this.workplaces[0].place_id,
-        shift: {
-          employee_id: this.user._id,
-          title: (this.user.firstName + this.user.lastName),
-          start: shiftStart,
-          end: shiftEnd,
-          backgroundColor: this.user.backgroundColor,
-          textColor: this.user.textColor,
-        }
+        shift: shift
       })
       .then(response => {
         if (!response.data.errmsg) {
@@ -101,6 +101,7 @@ class Calendar extends Component{
           this.setState({
             redirectTo: '/'
           });
+          $('#calendar').fullCalendar('renderEvent', shift);
         }
       });
   }
@@ -147,6 +148,7 @@ class Calendar extends Component{
               this.setState({
                 redirectTo: '/'
               });
+
             }
           });
         alert(`shift swap request sent to ${shifts[1].title}`);
@@ -165,6 +167,7 @@ class Calendar extends Component{
       document.getElementById('myModal').style.display = "none";
     }
     this.setState({closed: false});
+
   }
 
 render() {
