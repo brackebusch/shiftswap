@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
-// import moment from 'moment';
+import moment from 'moment';
 import axios from 'axios';
 import emailHTML from '../notification/emailHTML.jsx';
 let selectDate = '';
@@ -22,8 +22,6 @@ class Calendar extends Component{
   }
 
   componentDidMount() {
-    console.log("===display user===");
-    console.log(this.state.user);
     console.log(`workplaces: ${this.workplaces.length === 0}`);
 
     let shiftSelector = this.selectShifts();
@@ -34,6 +32,7 @@ class Calendar extends Component{
         addShiftButton:{
           text: 'Select Day To Add Shift',
           click: function() {
+            console.log(selectDate);
             const modal = document.getElementById('myModal');
             modal.style.display = "block";
           }
@@ -44,19 +43,23 @@ class Calendar extends Component{
         center: 'addShiftButton',
         right:  'prev,next'
       },
+      timezone: 'local',
+      height: "auto",
       defaultView: "agendaWeek",
-      height: "parent",
+      allDaySlot: false,
+      slotDuration: '01:00:00',
+      slotLabelInterval: '01:00:00',
+      selectable: true,
 
       eventClick: function(calEvent, jsEvent, view) {
-
         shiftSelector(calEvent);
         $(this).css('border-color', 'red');
-
       },
 
       dayClick: function(date, jsEvent, view) {
+        $('#calendar').fullCalendar('unselect');        
         selectDate = date ;
-
+        $(this).backgroundColor = "red";
         let moment = date.format("dddd, MMMM Do");
         $('#dateHeader').text(moment);
 
@@ -75,27 +78,30 @@ class Calendar extends Component{
   addShift(event) {
     document.getElementById('myModal').style.display = "none";
     event.preventDefault();
-    // console.log(selectDate.format("MMMM D YYYY")+this.state.start);
 
     let shiftStart = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.start + " " + "PST"));
     let shiftEnd = new Date((selectDate.format("MMMM D YYYY") + " " + this.state.end + " " + "PST"));
-    // console.log(this.state.start);
-    // console.log(shiftStart);
+    console.log("=====Shift Start=====");
+    console.log(shiftStart);
+    console.log(moment(shiftStart).utc().toDate());
+
+    let shiftInfo = {
+      employee_id: this.user._id,
+      title: (this.user.firstName + this.user.lastName),
+      start: shiftStart,
+      end: shiftEnd,
+      backgroundColor: this.user.backgroundColor,
+      textColor: this.user.textColor,
+    }
 
     axios
       .post('workplace/addshift', {
         place_id: this.workplaces[0].place_id,
-        shift: {
-          employee_id: this.user._id,
-          title: (this.user.firstName + this.user.lastName),
-          start: shiftStart,
-          end: shiftEnd,
-          backgroundColor: this.user.backgroundColor,
-          textColor: this.user.textColor,
-        }
+        shift: shiftInfo
       })
       .then(response => {
         if (!response.data.errmsg) {
+          $('#calendar').fullCalendar('renderEvent', shiftInfo, true);  
           console.log('====database response====');
           console.log(response.data);
           this.setState({
@@ -109,14 +115,10 @@ class Calendar extends Component{
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    // console.log(value);
 
     this.setState({
       [name]: value
     });
-    // console.log(this.state.start);
-    // console.log(this.state.end);
-
   }
 
 
@@ -159,7 +161,6 @@ class Calendar extends Component{
   }
 
   closeModal(event) {
-    console.log("hi");
     console.log(event.target);
     if (event.target.id === "myModal" || event.target.id === "form") {
       document.getElementById('myModal').style.display = "none";
@@ -228,6 +229,25 @@ render() {
 }
 
 export default Calendar;
+
+
+      // ADD SHIFT VIA SELECTION
+      // select: function(start, end) {
+      //   // selectDate = date ;
+      //     let moment = start.format("dddd, MMMM Do");
+      //     $('#dateHeader').text(moment);
+      //     this.state.start = start.format('h:mm:ss');
+      //     this.state.end = end.format('h:mm:ss');          
+      //     let button = $('.fc-addShiftButton-button');
+      //     button[0].disabled = false;
+      //     button.removeClass('btn-disabled');
+      //     button[0].textContent = 'Add Shift';
+      // },
+
+      // selectHelper: true,
+      // snapDuration: '24:00:00',
+
+
 
       // Get the modal
       // const modal = document.getElementById('myModal');

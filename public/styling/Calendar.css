@@ -1,6 +1,5 @@
 #calendar-container {
   width: 66%;
-  height: 400px;
   padding-top: 20px;
   padding-right: 20px;
   padding-left: 20px;
@@ -22,6 +21,14 @@
 
 #calendar button {
   font-size: .75em;
+}
+
+#calendar {
+  padding-bottom: 20px;
+}
+
+.fc-view-container {
+  background: #E2F3FE;
 }
 
 /* The Modal (background) */
