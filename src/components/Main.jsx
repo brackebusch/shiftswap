@@ -6,13 +6,10 @@ import Calendar from './Calendar.jsx';
 const DisplayMain = props => {
       var display = null
       props.loggedIn ? display = (
-        <div className="userAndCalendar">       
+        <div className="userAndCalendar">
           <Profile user={props.user}/>
           <Calendar user={props.user}/>
-        </div> ) : display = (
-        <div className="gif">
-        {/* we need to include something for splash page here */}
-        </div> )
+        </div> ) : display = null
       return display
 }
 

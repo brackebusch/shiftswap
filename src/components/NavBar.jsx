@@ -32,6 +32,7 @@ const DisplayLinks = props => {
 		)
 	} else {
 		return (
+		<div className="logged-out">
 			<nav className="navbar">
 				<ul className="nav">
 					<div className="left-nav">
@@ -59,6 +60,12 @@ const DisplayLinks = props => {
 					</div>
 				</ul>
 			</nav>
+			<div className="gif">
+				<h1> Need a break? </h1>
+				<h1> Swap shifts with anyone, anytime, anywhere</h1>
+				<img src="https://res.cloudinary.com/arpannln/image/upload/v1519662464/giphy.gif"/>
+			</div>
+		</div>
 		)
 	}
 }
@@ -126,7 +133,7 @@ class NavBar extends Component {
 
 				{/* LINKS to our different 'pages' */}
 				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
-				
+
 				{/*  ROUTES */}
 				{/* <Route exact path="/" component={Home} /> */}
 				<Route exact path="/login" render={() =>
@@ -143,7 +150,7 @@ class NavBar extends Component {
 
 export default NavBar
 
-	
+
 		// if(use.)
 
 		// axios.get('/auth/user').then(response => {

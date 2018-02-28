@@ -24,6 +24,18 @@
 .app-container {
   height: 100vh;
 }
+.gif {
+  margin-top: 100px;
+  margin-left: 200px;
+}
+.gif h1{
+  color: white;
+}
+
+.gif img {
+  width: 700px;
+  height: 400px;
+}
 /*
 
 .App-logo {
