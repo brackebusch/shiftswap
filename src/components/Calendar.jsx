@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import fullCalendar from 'fullcalendar';
+import emailHTML from '../notification/emailHTML.jsx';
 // import sendEmail from '../notification/sendEmail.jsx';
 
 
@@ -17,14 +18,12 @@ class Calendar extends Component {
     let shifts = [];
     return event => {
       if (numShifts > 0) {
-        shifts[1] = event.title;
-        console.log(event);
-        alert(`${shifts[1]} would like to swap shifts with ${shifts[0]}`);
-        // location.href = "/request-shift-swap";
+        shifts[1] = event;
+        numShifts = 0;
+
       } else {
         numShifts++;
-        shifts[0] = event.title;
-        console.log(event);
+        shifts[0] = event;
       }
     };
   }
