@@ -15,8 +15,6 @@ const itemStyles = {
 };
 
 const emailHTML = (shift1, shift2) => {
-  console.log(shift1);
-  console.log(shift2);
   let fromName = shift1.title;
   let toName = shift2.title;
   let fromStart = shift1.start;
@@ -30,12 +28,13 @@ const emailHTML = (shift1, shift2) => {
           <div>`${fromName} has requested to swap shifts:`</div>
           <div>`${fromStart} - ${fromEnd} - ${fromName}`</div>
           <div>`${toStart} - ${toEnd} - You`</div>
-          <div><button>Accept</button><button>Decline</button></div>
+          <div><Span>Follow this link to accept or deny the request:</Span></div>
+          <div><A href="https://shift-swap.herokuapp.com">Go to ShiftSwap!</A></div>
         </Item>
       </Box>
     </Email>
   );
-}
+};
 // const emailHTML = (requesterName, shift1, shift2) => {
 //   return (
 //     <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

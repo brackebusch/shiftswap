@@ -143,7 +143,7 @@ router.post('/sendnotification', (req, res, next) => {
       fromEmployeeShift.employee_id = parseInt(to_employee_id);
       toEmployeeShift.employee_id = parseInt(from_employee_id);
       console.log(`post-swap-shifts: ${fromEmployeeShift} ## ${toEmployeeShift}`);
-      foundWorkpalce.save;
+      foundWorkpalce.save();
     });
 });
 
