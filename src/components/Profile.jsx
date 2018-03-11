@@ -44,7 +44,7 @@ class Profile extends React.Component {
   // ##### THIS IS WHERE PROFILE CONNECTS TO BACKEND #####
 
   recordWorkplace() {
-    this.closeModal();
+    // this.closeModal();
     axios
       .post('workplace/addemployee', {
         employee_id: this.props.user._id,
@@ -54,7 +54,6 @@ class Profile extends React.Component {
       })
       .then(response => {
         if (!response.data.errmsg) {
-          console.log('you\'re good');
           this.setState({
             redirectTo: '/'
           });
@@ -78,13 +77,12 @@ class Profile extends React.Component {
   }
 
   render() {
-    console.log(this.props);
 
     return (
       <div className="user-content">
         <div className="user-info">
 
-           <span>{`${this.props.user.firstName} ${this.props.user.lastName}`}</span> 
+           <span>{`${this.props.user.firstName} ${this.props.user.lastName}`}</span>
 
             <br/>
             <br/>

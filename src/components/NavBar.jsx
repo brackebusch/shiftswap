@@ -44,6 +44,13 @@ const DisplayLinks = props => {
 					</div>
 					<div className="right-nav">
 						<li className="nav-item">
+							<Link to="#" onClick={props.demoLogin} className="nav-link">
+								<h1 className="link">
+									demo
+								</h1>
+							</Link>
+						</li>
+						<li className="nav-item">
 							<Link to="/login" className="nav-link">
 								<h1 className="link">
 									login
@@ -57,6 +64,7 @@ const DisplayLinks = props => {
 								</h1>
 							</Link>
 						</li>
+
 					</div>
 				</ul>
 			</nav>
@@ -79,6 +87,7 @@ class NavBar extends Component {
 		}
 		this._logout = this._logout.bind(this)
 		this._login = this._login.bind(this)
+		this.demoLogin = this.demoLogin.bind(this)
 	}
 	componentDidMount() {
 		axios.get('/auth/user').then(response => {
@@ -96,6 +105,10 @@ class NavBar extends Component {
 				})
 			}
 		})
+	}
+
+	demoLogin() {
+		this._login('dmccapes@mac.com', '1');
 	}
 
 	_logout(event) {
@@ -132,7 +145,7 @@ class NavBar extends Component {
 			<div className="NavBar">
 
 				{/* LINKS to our different 'pages' */}
-				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} />
+				<DisplayLinks _logout={this._logout} loggedIn={this.state.loggedIn} demoLogin={this.demoLogin}  />
 
 				{/*  ROUTES */}
 				{/* <Route exact path="/" component={Home} /> */}
